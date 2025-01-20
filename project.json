@@ -1,11 +1,15 @@
 {
-  "name": "RoboticEnterpriseFramework-Windows",
+  "name": "ArvoderadeUppdrag",
+  "projectId": "9d7369ef-0652-466b-92f3-c12ad80fc10b",
   "description": "Robotic Enterprise Framework (Windows)",
   "main": "Main.xaml",
   "dependencies": {
-    "UiPath.Excel.Activities": "[2.22.4]",
+    "BlankLibrary": "[1.0.7-alpha.12]",
+    "OpenEplatform.API": "[1.0.10]",
+    "Procapita_Plus_Legacy": "[1.0.2]",
+    "UiPath.Excel.Activities": "[2.20.2]",
     "UiPath.System.Activities": "[24.3.1]",
-    "UiPath.Testing.Activities": "[23.10.1]",
+    "UiPath.Testing.Activities": "[23.4.1]",
     "UiPath.UIAutomation.Activities": "[23.10.13]"
   },
   "webServices": [],
@@ -85,7 +89,8 @@
         "fileName": "Tests\\WorkflowTestCaseTemplate.xaml"
       }
     ],
-    "modernBehavior": false
+    "modernBehavior": false,
+    "saveToCloud": false
   },
   "expressionLanguage": "VisualBasic",
   "entryPoints": [
@@ -99,5 +104,5 @@
   "isTemplate": false,
   "templateProjectData": {},
   "publishData": {},
-  "targetFramework": "Windows"
+  "targetFramework": "Legacy"
 }
