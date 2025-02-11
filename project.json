@@ -4,13 +4,16 @@
   "description": "Robotic Enterprise Framework (Windows)",
   "main": "Main.xaml",
   "dependencies": {
-    "OpenEplatform.API": "[1.0.11]",
+    "OpenEplatform.API": "[1.0.14]",
+    "OpenEplatform.External": "[3.0.0]",
     "Procapita_Plus_Legacy": "[1.0.3-alpha.4]",
     "Roboyo.Fuzzy_Logic.Activities": "[1.0.15]",
     "UiPath.Excel.Activities": "[2.20.2]",
+    "UiPath.PDF.Activities": "[3.16.0]",
     "UiPath.System.Activities": "[24.3.1]",
     "UiPath.Testing.Activities": "[23.4.1]",
-    "UiPath.UIAutomation.Activities": "[23.10.13]"
+    "UiPath.UIAutomation.Activities": "[23.10.13]",
+    "UiPathTeam.NextWorkingDay.Activities.Design": "[1.0.1]"
   },
   "webServices": [],
   "entitiesStores": [],
@@ -87,6 +90,20 @@
         "testCaseType": "TestCase",
         "executionTemplateType": "Local",
         "fileName": "Tests\\WorkflowTestCaseTemplate.xaml"
+      },
+      {
+        "editingStatus": "InProgress",
+        "testCaseId": "f46a3dcb-7989-446f-a1fe-f851e4d496a7",
+        "testCaseType": "TestCase",
+        "executionTemplateInvokeIsolated": false,
+        "fileName": "Tests\\Utanodrningslista TestCase.xaml"
+      },
+      {
+        "editingStatus": "InProgress",
+        "testCaseId": "118f0c10-56e1-4ca4-a6b9-2442e65c1b8a",
+        "testCaseType": "TestCase",
+        "executionTemplateInvokeIsolated": false,
+        "fileName": "Tests\\TestCase CheckExcel.xaml"
       }
     ],
     "modernBehavior": false,
