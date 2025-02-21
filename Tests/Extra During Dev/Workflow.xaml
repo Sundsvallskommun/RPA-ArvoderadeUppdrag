@@ -1,4 +1,4 @@
-<Activity mc:Ignorable="sap sap2010" x:Class="Workflow" mva:VisualBasic.Settings="{x:Null}" sap:VirtualizedContainerService.HintSize="1011,929" sap2010:WorkflowViewState.IdRef="Workflow_1" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=mscorlib" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+<Activity mc:Ignorable="sap sap2010" x:Class="Workflow" mva:VisualBasic.Settings="{x:Null}" sap:VirtualizedContainerService.HintSize="2140,1232" sap2010:WorkflowViewState.IdRef="Workflow_1" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:rfa="clr-namespace:Roboyo.Fuzzy_Logic.Activities;assembly=Roboyo_Fuzzy_Logic" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=mscorlib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data" xmlns:ss="clr-namespace:System.Security;assembly=mscorlib" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <TextExpression.NamespacesForImplementation>
     <sco:Collection x:TypeArguments="x:String">
       <x:String>Microsoft.VisualBasic</x:String>
@@ -38,6 +38,7 @@
       <x:String>OpenEplatform_External.Case</x:String>
       <x:String>UiPath.Platform.ObjectLibrary</x:String>
       <x:String>Microsoft.VisualBasic.CompilerServices</x:String>
+      <x:String>Roboyo.Fuzzy_Logic.Activities</x:String>
     </sco:Collection>
   </TextExpression.NamespacesForImplementation>
   <TextExpression.ReferencesForImplementation>
@@ -77,34 +78,101 @@
       <AssemblyReference>UiPath.UIAutomationCore</AssemblyReference>
       <AssemblyReference>Nager.Date</AssemblyReference>
       <AssemblyReference>UiPathTeam.NextWorkingDay.Activities</AssemblyReference>
-      <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
       <AssemblyReference>UiPath.Platform</AssemblyReference>
+      <AssemblyReference>Roboyo_Fuzzy_Logic</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
-  <Sequence sap:VirtualizedContainerService.HintSize="450,103" sap2010:WorkflowViewState.IdRef="Sequence_4">
+  <Sequence sap:VirtualizedContainerService.HintSize="541,1167" sap2010:WorkflowViewState.IdRef="Sequence_4">
     <Sequence.Variables>
       <Variable x:TypeArguments="s:DateTime" Default="[new DateTime]" Name="ToDate" />
       <Variable x:TypeArguments="s:DateTime" Name="DateToCheck" />
-      <Variable x:TypeArguments="x:String" Name="RPAApproval">
-        <Variable.Default>
-          <Literal x:TypeArguments="x:String">nej</Literal>
-        </Variable.Default>
-      </Variable>
-      <Variable x:TypeArguments="x:Boolean" Name="ReceiptSent">
-        <Variable.Default>
-          <Literal x:TypeArguments="x:Boolean" Value="True" />
-        </Variable.Default>
-      </Variable>
-      <Variable x:TypeArguments="x:Boolean" Name="OtherExpences">
-        <Variable.Default>
-          <Literal x:TypeArguments="x:Boolean" Value="True" />
-        </Variable.Default>
-      </Variable>
+      <Variable x:TypeArguments="x:String" Default="nej" Name="RPAApproval" />
+      <Variable x:TypeArguments="x:Boolean" Default="True" Name="ReceiptSent" />
+      <Variable x:TypeArguments="x:Boolean" Default="True" Name="OtherExpences" />
+      <Variable x:TypeArguments="x:String" Name="OePUsername" />
+      <Variable x:TypeArguments="ss:SecureString" Name="OePPassword" />
+      <Variable x:TypeArguments="x:Int32" Name="statuscode" />
+      <Variable x:TypeArguments="x:Boolean" Name="success" />
+      <Variable x:TypeArguments="x:String" Name="str1" />
+      <Variable x:TypeArguments="x:String" Name="str2" />
+      <Variable x:TypeArguments="x:Double" Name="winkler" />
+      <Variable x:TypeArguments="x:Double" Name="levenshtein" />
+      <Variable x:TypeArguments="x:Double" Name="gram" />
+      <Variable x:TypeArguments="sd:DataTable" Name="Lucene" />
     </Sequence.Variables>
     <sap:WorkflowViewStateService.ViewState>
       <scg:Dictionary x:TypeArguments="x:String, x:Object">
         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
+    <ui:CommentOut DisplayName="Comment Out" sap:VirtualizedContainerService.HintSize="479,52" sap2010:WorkflowViewState.IdRef="CommentOut_1">
+      <ui:CommentOut.Body>
+        <Sequence DisplayName="Ignored Activities" sap:VirtualizedContainerService.HintSize="450,163" sap2010:WorkflowViewState.IdRef="Sequence_5">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <ui:GetRobotCredential AssetName="Cred_NA_OeP" CacheStrategy="None" DisplayName="Private: Get Credential OeP" sap:VirtualizedContainerService.HintSize="388,52" sap2010:WorkflowViewState.IdRef="GetRobotCredential_1" Password="[OePPassword]" TimeoutMS="5000" Username="[OePUsername]">
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                <x:Boolean x:Key="IsPinned">False</x:Boolean>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+          </ui:GetRobotCredential>
+        </Sequence>
+      </ui:CommentOut.Body>
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+          <x:Boolean x:Key="IsPinned">False</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+    </ui:CommentOut>
+    <ui:MultipleAssign DisplayName="Multiple Assign" sap:VirtualizedContainerService.HintSize="479,147" sap2010:WorkflowViewState.IdRef="MultipleAssign_1">
+      <ui:MultipleAssign.AssignOperations>
+        <scg:List x:TypeArguments="ui:AssignOperation" Capacity="4">
+          <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_1">
+            <ui:AssignOperation.To>
+              <OutArgument x:TypeArguments="x:String">[str1]</OutArgument>
+            </ui:AssignOperation.To>
+            <ui:AssignOperation.Value>
+              <InArgument x:TypeArguments="x:String">anneliee</InArgument>
+            </ui:AssignOperation.Value>
+          </ui:AssignOperation>
+          <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_2">
+            <ui:AssignOperation.To>
+              <OutArgument x:TypeArguments="x:String">[str2]</OutArgument>
+            </ui:AssignOperation.To>
+            <ui:AssignOperation.Value>
+              <InArgument x:TypeArguments="x:String">anne-lie</InArgument>
+            </ui:AssignOperation.Value>
+          </ui:AssignOperation>
+        </scg:List>
+      </ui:MultipleAssign.AssignOperations>
+    </ui:MultipleAssign>
+    <rfa:GetJaroWinklerDistance DisplayName="Get jaro winkler distance" sap:VirtualizedContainerService.HintSize="479,146" sap2010:WorkflowViewState.IdRef="GetJaroWinklerDistance_1" JaroWinklerDistanceResult="[winkler]" String1="[str1]" String2="[str2]" />
+    <rfa:GetLevenshteinDistance DisplayName="Get levenshtein distance" sap:VirtualizedContainerService.HintSize="479,146" sap2010:WorkflowViewState.IdRef="GetLevenshteinDistance_1" LevenshteinDistanceResult="[levenshtein]" String1="[str1]" String2="[str2]" />
+    <rfa:GetNGramDistance NGramSize="{x:Null}" DisplayName="Get n gram distance" sap:VirtualizedContainerService.HintSize="479,181" sap2010:WorkflowViewState.IdRef="GetNGramDistance_1" NGramDistanceResult="[gram]" String1="[str1]" String2="[str2]" />
+    <ui:CommentOut DisplayName="Comment Out" sap:VirtualizedContainerService.HintSize="479,52" sap2010:WorkflowViewState.IdRef="CommentOut_2">
+      <ui:CommentOut.Body>
+        <Sequence DisplayName="Ignored Activities" sap:VirtualizedContainerService.HintSize="450,254" sap2010:WorkflowViewState.IdRef="Sequence_6">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <rfa:LuceneSearchStrings Query="{x:Null}" Strings="{x:Null}" DisplayName="Lucene search strings" sap:VirtualizedContainerService.HintSize="388,143" Hits="[Lucene]" sap2010:WorkflowViewState.IdRef="LuceneSearchStrings_1" />
+        </Sequence>
+      </ui:CommentOut.Body>
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+          <x:Boolean x:Key="IsPinned">False</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+    </ui:CommentOut>
+    <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="479,92" sap2010:WorkflowViewState.IdRef="LogMessage_1" Message="[&quot;stop&quot;]" />
   </Sequence>
 </Activity>
