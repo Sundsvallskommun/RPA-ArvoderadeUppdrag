@@ -4,7 +4,7 @@
     <x:Property sap2010:Annotation.AnnotationText="Allows the Orchestrator folder name where the queue is created to be passed as an argument, instead of only being defined in the configuration file." Name="in_OrchestratorQueueFolder" Type="InArgument(x:String)" />
     <x:Property sap2010:Annotation.AnnotationText="Used to set maximum items to process. Set 0 to disable." Name="in_MaxItemsToProcess" Type="InArgument(x:Int32)" />
   </x:Members>
-  <sap:VirtualizedContainerService.HintSize>1450,1212</sap:VirtualizedContainerService.HintSize>
+  <sap:VirtualizedContainerService.HintSize>1156,1212</sap:VirtualizedContainerService.HintSize>
   <sap2010:WorkflowViewState.IdRef>Main2_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
     <sco:Collection x:TypeArguments="x:String">
@@ -100,8 +100,8 @@
       <AssemblyReference>UiPath.Workflow</AssemblyReference>
       <AssemblyReference>WindowsBase</AssemblyReference>
       <AssemblyReference>WindowsFormsIntegration</AssemblyReference>
-      <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
       <AssemblyReference>OpenEplatform.API</AssemblyReference>
+      <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
     </scg:List>
   </TextExpression.ReferencesForImplementation>
   <StateMachine InitialState="{x:Reference __ReferenceID3}" sap2010:Annotation.AnnotationText="[Process title]&#xA;[Process description]&#xA;[Additional information (e.g., author, contact information and applications involved and required external setup)]" DisplayName="General Business Process" sap:VirtualizedContainerService.HintSize="703,799" sap2010:WorkflowViewState.IdRef="StateMachine_1">
@@ -263,17 +263,8 @@
                           <InArgument x:TypeArguments="x:Int32" x:Key="in_TransactionNumber">
                             <mva:VisualBasicValue x:TypeArguments="x:Int32" ExpressionText="TransactionNumber" />
                           </InArgument>
-                          <InOutArgument x:TypeArguments="sd:DataTable" x:Key="io_Ledsagarservice_Procapita_Table">
-                            <mva:VisualBasicReference x:TypeArguments="sd:DataTable" ExpressionText="Ledsagarservice_Procapita_Table" />
-                          </InOutArgument>
-                          <InOutArgument x:TypeArguments="sd:DataTable" x:Key="io_Kontaktperson_Procapita_Table">
-                            <mva:VisualBasicReference x:TypeArguments="sd:DataTable" ExpressionText="Kontaktperson_Procapita_Table" />
-                          </InOutArgument>
-                          <InOutArgument x:TypeArguments="sd:DataTable" x:Key="io_Avlösare_Procapita_Table">
-                            <mva:VisualBasicReference x:TypeArguments="sd:DataTable" ExpressionText="Avlösare_Procapita_Table" />
-                          </InOutArgument>
-                          <InOutArgument x:TypeArguments="sd:DataTable" x:Key="io_Stodfamilj_Procapita_Table">
-                            <mva:VisualBasicReference x:TypeArguments="sd:DataTable" ExpressionText="Stodfamilj_Procapita_Table" />
+                          <InOutArgument x:TypeArguments="scg:Dictionary(x:String, sd:DataTable)" x:Key="io_DictProcapitaTables">
+                            <mva:VisualBasicReference x:TypeArguments="scg:Dictionary(x:String, sd:DataTable)" ExpressionText="DictProcapitaTables" />
                           </InOutArgument>
                         </ui:InvokeWorkflowFile.Arguments>
                       </ui:InvokeWorkflowFile>
@@ -960,10 +951,7 @@
       <Variable x:TypeArguments="x:String" sap2010:Annotation.AnnotationText="Transaction ID used for information and logging purposes. Ideally, the ID should be unique for each transaction. " Name="TransactionID" />
       <Variable x:TypeArguments="sd:DataTable" sap2010:Annotation.AnnotationText="Used in case transactions are stored in a DataTable, for example, after being retrieved from a spreadsheet." Name="dt_TransactionData" />
       <Variable x:TypeArguments="x:Int32" sap2010:Annotation.AnnotationText="Used to control the number of consecutive system exceptions." Default="0" Name="ConsecutiveSystemExceptions" />
-      <Variable x:TypeArguments="sd:DataTable" Name="Ledsagarservice_Procapita_Table" />
-      <Variable x:TypeArguments="sd:DataTable" Name="Kontaktperson_Procapita_Table" />
-      <Variable x:TypeArguments="sd:DataTable" Name="Avlösare_Procapita_Table" />
-      <Variable x:TypeArguments="sd:DataTable" Name="Stodfamilj_Procapita_Table" />
+      <Variable x:TypeArguments="scg:Dictionary(x:String, sd:DataTable)" Name="DictProcapitaTables" />
     </StateMachine.Variables>
   </StateMachine>
 </Activity>
