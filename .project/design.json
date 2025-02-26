@@ -1,5 +1,12 @@
 {
-  "Tags": [],
+  "Tags": [
+    {
+      "Key": "Procapita Plus"
+    },
+    {
+      "Key": "Open ePlatform"
+    }
+  ],
   "SeparateRuntimeDependencies": true,
   "IncludeSources": true
 }
