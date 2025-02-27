@@ -6,7 +6,7 @@
   "dependencies": {
     "OpenEplatform.API": "[1.0.15-alpha]",
     "OpenEplatform.External": "[3.0.0]",
-    "Procapita_Plus_Legacy": "[1.0.3-alpha.8]",
+    "Procapita_Plus_Legacy": "[1.0.3-alpha.9]",
     "Roboyo.Fuzzy_Logic.Activities": "[1.0.15]",
     "UiPath.Excel.Activities": "[2.20.2]",
     "UiPath.PDF.Activities": "[3.2.2]",
@@ -19,7 +19,7 @@
   "entitiesStores": [],
   "schemaVersion": "4.0",
   "studioVersion": "23.4.5.0",
-  "projectVersion": "1.0.2-alpha.5",
+  "projectVersion": "1.0.2-alpha.6",
   "runtimeOptions": {
     "autoDispose": false,
     "netFrameworkLazyLoading": false,
