@@ -1,11 +1,11 @@
-<Activity mc:Ignorable="sap sap2010" x:Class="Process" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:av="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:o="clr-namespace:OpenEplatform_API;assembly=OpenEplatform.API" xmlns:oc="clr-namespace:OpenEplatform_API.Callback_Integration;assembly=OpenEplatform.API" xmlns:occ="clr-namespace:OpenEplatform_External.Case.Case_Content;assembly=OpenEplatform.External" xmlns:oe="clr-namespace:OpenEplatform_API.Extra_Functions;assembly=OpenEplatform.API" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data" xmlns:ss="clr-namespace:System.Security;assembly=mscorlib" xmlns:sxl="clr-namespace:System.Xml.Linq;assembly=System.Xml.Linq" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:unaa="clr-namespace:UiPathTeam.NextWorkingDay.Activities.Activities;assembly=UiPathTeam.NextWorkingDay.Activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+<Activity mc:Ignorable="sap sap2010" x:Class="Process" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:av="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:o="clr-namespace:OpenEplatform_API;assembly=OpenEplatform.API" xmlns:oc="clr-namespace:OpenEplatform_API.Callback_Integration;assembly=OpenEplatform.API" xmlns:occ="clr-namespace:OpenEplatform_External.Case.Case_Content;assembly=OpenEplatform.External" xmlns:oe="clr-namespace:OpenEplatform_API.Extra_Functions;assembly=OpenEplatform.API" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data" xmlns:ss="clr-namespace:System.Security;assembly=mscorlib" xmlns:sxl="clr-namespace:System.Xml.Linq;assembly=System.Xml.Linq" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:unaa="clr-namespace:UiPathTeam.NextWorkingDay.Activities.Activities;assembly=UiPathTeam.NextWorkingDay.Activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <x:Members>
     <x:Property sap2010:Annotation.AnnotationText="Transaction item to be processed." Name="in_TransactionItem" Type="InArgument(ui:QueueItem)" />
     <x:Property sap2010:Annotation.AnnotationText="Dictionary structure to store configuration data of the process (settings, constants and assets)." Name="in_Config" Type="InArgument(scg:Dictionary(x:String, x:Object))" />
     <x:Property Name="in_TransactionNumber" Type="InArgument(x:Int32)" />
     <x:Property Name="io_DictProcapitaTables" Type="InOutArgument(scg:Dictionary(x:String, sd:DataTable))" />
   </x:Members>
-  <sap:VirtualizedContainerService.HintSize>2609,3292</sap:VirtualizedContainerService.HintSize>
+  <sap:VirtualizedContainerService.HintSize>1226,4274</sap:VirtualizedContainerService.HintSize>
   <sap2010:WorkflowViewState.IdRef>ProcessTransaction_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
     <scg:List x:TypeArguments="x:String" Capacity="100">
@@ -172,10 +172,9 @@
       <AssemblyReference>System.Text.Encoding.CodePages</AssemblyReference>
       <AssemblyReference>UiPath.Cryptography.Activities</AssemblyReference>
       <AssemblyReference>Newtonsoft.Json</AssemblyReference>
-      <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
     </scg:List>
   </TextExpression.ReferencesForImplementation>
-  <Sequence sap:VirtualizedContainerService.HintSize="1236,3227" sap2010:WorkflowViewState.IdRef="Sequence_326">
+  <Sequence sap:VirtualizedContainerService.HintSize="1236,4209" sap2010:WorkflowViewState.IdRef="Sequence_326">
     <Sequence.Variables>
       <Variable x:TypeArguments="ss:SecureString" Name="OePPassword" />
       <Variable x:TypeArguments="x:String" Name="OePUsername" />
@@ -187,12 +186,12 @@
         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
-    <TryCatch DisplayName="Try Catch" sap:VirtualizedContainerService.HintSize="1174,3116" sap2010:WorkflowViewState.IdRef="TryCatch_1">
+    <TryCatch DisplayName="Try Catch" sap:VirtualizedContainerService.HintSize="1174,4098" sap2010:WorkflowViewState.IdRef="TryCatch_1">
       <TryCatch.Variables>
         <Variable x:TypeArguments="x:String" Name="InternalMessage" />
       </TryCatch.Variables>
       <TryCatch.Try>
-        <Sequence sap2010:Annotation.AnnotationText="Invoke major steps of the business process, which are usually implemented by multiple subworkflows.&#xA;&#xA;If a BusinessRuleException is thrown, the transaction is skipped. &#xA;If another kind of exception occurs, the current transaction can be retried. " DisplayName="Process" sap:VirtualizedContainerService.HintSize="1136,2888" sap2010:WorkflowViewState.IdRef="Sequence_1">
+        <Sequence sap2010:Annotation.AnnotationText="Invoke major steps of the business process, which are usually implemented by multiple subworkflows.&#xA;&#xA;If a BusinessRuleException is thrown, the transaction is skipped. &#xA;If another kind of exception occurs, the current transaction can be retried. " DisplayName="Process" sap:VirtualizedContainerService.HintSize="1136,3870" sap2010:WorkflowViewState.IdRef="Sequence_1">
           <Sequence.Variables>
             <Variable x:TypeArguments="sxl:XNamespace" Default="[&quot;http://www.oeplatform.org/version/2.0/schemas/flowinstance&quot;]" Name="FlowInstance" />
             <Variable x:TypeArguments="x:String" Name="FilePathToApplication" />
@@ -346,16 +345,16 @@
               </Assign.Value>
             </Assign>
           </Sequence>
-          <If sap2010:Annotation.AnnotationText="Not Environment.ToUpper.Equals(&quot;TEST&quot;)" Condition="[Not Environment.ToUpper.Equals(&quot;TEST&quot;)]" DisplayName="Get XML" sap:VirtualizedContainerService.HintSize="1074,109" sap2010:WorkflowViewState.IdRef="If_2">
+          <If sap2010:Annotation.AnnotationText="Not Environment.ToUpper.Equals(&quot;TEST&quot;)" Condition="[Not Environment.ToUpper.Equals(&quot;TEST&quot;)]" DisplayName="Get XML" sap:VirtualizedContainerService.HintSize="1074,1091" sap2010:WorkflowViewState.IdRef="If_2">
             <sap:WorkflowViewStateService.ViewState>
               <scg:Dictionary x:TypeArguments="x:String, x:Object">
                 <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
-                <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                 <x:Boolean x:Key="IsPinned">False</x:Boolean>
               </scg:Dictionary>
             </sap:WorkflowViewStateService.ViewState>
             <If.Then>
-              <Sequence DisplayName="Get from OeP" sap:VirtualizedContainerService.HintSize="496,690" sap2010:WorkflowViewState.IdRef="Sequence_4">
+              <Sequence DisplayName="Get from OeP" sap:VirtualizedContainerService.HintSize="496,506" sap2010:WorkflowViewState.IdRef="Sequence_4">
                 <sap:WorkflowViewStateService.ViewState>
                   <scg:Dictionary x:TypeArguments="x:String, x:Object">
                     <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -375,24 +374,6 @@
                     </scg:Dictionary>
                   </sap:WorkflowViewStateService.ViewState>
                 </Assign>
-                <ui:CommentOut DisplayName="Comment Out" sap:VirtualizedContainerService.HintSize="434,52" sap2010:WorkflowViewState.IdRef="CommentOut_1">
-                  <ui:CommentOut.Body>
-                    <Sequence DisplayName="Ignored Activities" sap:VirtualizedContainerService.HintSize="450,292" sap2010:WorkflowViewState.IdRef="Sequence_7">
-                      <sap:WorkflowViewStateService.ViewState>
-                        <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-                        </scg:Dictionary>
-                      </sap:WorkflowViewStateService.ViewState>
-                      <ui:GetRobotCredential AssetName="[in_Config(&quot;Cred_NA_OeP&quot;).ToString]" CacheStrategy="None" DisplayName="Private: Get Credential" sap:VirtualizedContainerService.HintSize="388,181" sap2010:WorkflowViewState.IdRef="GetRobotCredential_3" Password="[OePPassword]" TimeoutMS="5000" Username="[OePUsername]" />
-                    </Sequence>
-                  </ui:CommentOut.Body>
-                  <sap:WorkflowViewStateService.ViewState>
-                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                      <x:Boolean x:Key="IsExpanded">False</x:Boolean>
-                      <x:Boolean x:Key="IsPinned">False</x:Boolean>
-                    </scg:Dictionary>
-                  </sap:WorkflowViewStateService.ViewState>
-                </ui:CommentOut>
                 <ui:GetRobotCredential AssetName="[Cred_NA_OeP]" CacheStrategy="None" DisplayName="Private: Get Credential" sap:VirtualizedContainerService.HintSize="434,181" sap2010:WorkflowViewState.IdRef="GetRobotCredential_4" Password="[OePPassword]" TimeoutMS="5000" Username="[OePUsername]" />
                 <ui:RetryScope DisplayName="Retry Scope" sap:VirtualizedContainerService.HintSize="434,52" sap2010:WorkflowViewState.IdRef="RetryScope_1">
                   <ui:RetryScope.ActivityBody>
@@ -418,43 +399,6 @@
                     </scg:Dictionary>
                   </sap:WorkflowViewStateService.ViewState>
                 </ui:RetryScope>
-                <ui:CommentOut DisplayName="Comment Out" sap:VirtualizedContainerService.HintSize="434,52" sap2010:WorkflowViewState.IdRef="CommentOut_3">
-                  <ui:CommentOut.Body>
-                    <Sequence DisplayName="Ignored Activities" sap:VirtualizedContainerService.HintSize="541,227" sap2010:WorkflowViewState.IdRef="Sequence_10">
-                      <sap:WorkflowViewStateService.ViewState>
-                        <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-                        </scg:Dictionary>
-                      </sap:WorkflowViewStateService.ViewState>
-                      <ui:MultipleAssign DisplayName="Multiple Assign" sap:VirtualizedContainerService.HintSize="479,116" sap2010:WorkflowViewState.IdRef="MultipleAssign_1">
-                        <ui:MultipleAssign.AssignOperations>
-                          <scg:List x:TypeArguments="ui:AssignOperation" Capacity="4">
-                            <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_1">
-                              <ui:AssignOperation.To>
-                                <OutArgument x:TypeArguments="x:Int32">[CaseID]</OutArgument>
-                              </ui:AssignOperation.To>
-                              <ui:AssignOperation.Value>
-                                <InArgument x:TypeArguments="x:Int32">1</InArgument>
-                              </ui:AssignOperation.Value>
-                            </ui:AssignOperation>
-                          </scg:List>
-                        </ui:MultipleAssign.AssignOperations>
-                        <sap:WorkflowViewStateService.ViewState>
-                          <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-                            <x:Boolean x:Key="IsPinned">False</x:Boolean>
-                          </scg:Dictionary>
-                        </sap:WorkflowViewStateService.ViewState>
-                      </ui:MultipleAssign>
-                    </Sequence>
-                  </ui:CommentOut.Body>
-                  <sap:WorkflowViewStateService.ViewState>
-                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                      <x:Boolean x:Key="IsExpanded">False</x:Boolean>
-                      <x:Boolean x:Key="IsPinned">False</x:Boolean>
-                    </scg:Dictionary>
-                  </sap:WorkflowViewStateService.ViewState>
-                </ui:CommentOut>
               </Sequence>
             </If.Then>
             <If.Else>
@@ -469,7 +413,7 @@
                   </scg:Dictionary>
                 </sap:WorkflowViewStateService.ViewState>
                 <ui:LogMessage DisplayName="Log Message Process Start" sap:VirtualizedContainerService.HintSize="434,92" sap2010:WorkflowViewState.IdRef="LogMessage_4" Level="Info" Message="[&quot;Started Process&quot;]" />
-                <ui:ReadTextFile File="{x:Null}" Content="[XMLAsString]" DisplayName="Read XML Text File" Encoding="ISO-8859-1" FileName="C:\Users\the12lun\Downloads\Månadsrapport för uppdragstagare LSS - RPA - 4960 (1).xml" sap:VirtualizedContainerService.HintSize="434,80" sap2010:WorkflowViewState.IdRef="ReadTextFile_1" />
+                <ui:ReadTextFile File="{x:Null}" Content="[XMLAsString]" DisplayName="Read XML Text File" Encoding="ISO-8859-1" FileName="C:\Users\the12lun\Desktop\Månadsrapport för uppdragstagare LSS - 220760.xml" sap:VirtualizedContainerService.HintSize="434,80" sap2010:WorkflowViewState.IdRef="ReadTextFile_1" />
                 <ui:DeserializeXml DisplayName="Deserialize XML" sap:VirtualizedContainerService.HintSize="434,62" sap2010:WorkflowViewState.IdRef="DeserializeXml_1" XMLDocument="[CaseXMLData]" XMLString="[XMLAsString]" />
                 <ui:LogMessage DisplayName="Log Message Test Data" sap:VirtualizedContainerService.HintSize="434,92" sap2010:WorkflowViewState.IdRef="LogMessage_9" Level="Info" Message="[&quot;Gotten test XML data&quot;]" />
                 <Assign DisplayName="Assign CaseID" sap:VirtualizedContainerService.HintSize="434,82" sap2010:WorkflowViewState.IdRef="Assign_45">
@@ -650,39 +594,17 @@
           </Sequence>
           <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="SetDates.xaml - Invoke Workflow File" sap:VirtualizedContainerService.HintSize="1074,113" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_3" UnSafe="False" WorkflowFileName="Procapita\SetDates.xaml">
             <ui:InvokeWorkflowFile.Arguments>
-              <InArgument x:TypeArguments="x:String" x:Key="in_FolderPathToCopies">
-                <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="FolderPathToCopies" />
-              </InArgument>
-              <OutArgument x:TypeArguments="x:String" x:Key="out_FilePathToExcelFile">
-                <mva:VisualBasicReference x:TypeArguments="x:String" ExpressionText="FilePathToExcelFile" />
-              </OutArgument>
-              <InArgument x:TypeArguments="x:String" x:Key="in_ReportType">
-                <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="ReportType" />
-              </InArgument>
-              <OutArgument x:TypeArguments="sd:DataTable" x:Key="out_ExcelOrginalHours">
-                <mva:VisualBasicReference x:TypeArguments="sd:DataTable" ExpressionText="ExcelOrginalHours" />
-              </OutArgument>
-              <OutArgument x:TypeArguments="x:String" x:Key="out_DateTo">
-                <mva:VisualBasicReference x:TypeArguments="x:String" ExpressionText="DateTo" />
-              </OutArgument>
-              <OutArgument x:TypeArguments="x:String" x:Key="out_DateFrom">
-                <mva:VisualBasicReference x:TypeArguments="x:String" ExpressionText="DateFrom" />
-              </OutArgument>
-              <InArgument x:TypeArguments="x:String" x:Key="in_FolderPathToReportedHours">
-                <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="FolderPathToReportedHours" />
-              </InArgument>
-              <InOutArgument x:TypeArguments="x:String" x:Key="io_MonthName">
-                <mva:VisualBasicReference x:TypeArguments="x:String" ExpressionText="MonthName" />
-              </InOutArgument>
-              <OutArgument x:TypeArguments="x:String" x:Key="out_YearToUse">
-                <mva:VisualBasicReference x:TypeArguments="x:String" ExpressionText="Year" />
-              </OutArgument>
-              <InArgument x:TypeArguments="x:String" x:Key="in_Environment">
-                <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="Environment" />
-              </InArgument>
-              <InArgument x:TypeArguments="x:Int32" x:Key="in_TransactionNumber">
-                <mva:VisualBasicValue x:TypeArguments="x:Int32" ExpressionText="in_TransactionNumber" />
-              </InArgument>
+              <InArgument x:TypeArguments="x:String" x:Key="in_FolderPathToCopies">[FolderPathToCopies]</InArgument>
+              <OutArgument x:TypeArguments="x:String" x:Key="out_FilePathToExcelFile">[FilePathToExcelFile]</OutArgument>
+              <InArgument x:TypeArguments="x:String" x:Key="in_ReportType">[ReportType]</InArgument>
+              <OutArgument x:TypeArguments="sd:DataTable" x:Key="out_ExcelOrginalHours">[ExcelOrginalHours]</OutArgument>
+              <OutArgument x:TypeArguments="x:String" x:Key="out_DateTo">[DateTo]</OutArgument>
+              <OutArgument x:TypeArguments="x:String" x:Key="out_DateFrom">[DateFrom]</OutArgument>
+              <InArgument x:TypeArguments="x:String" x:Key="in_FolderPathToReportedHours">[FolderPathToReportedHours]</InArgument>
+              <InOutArgument x:TypeArguments="x:String" x:Key="io_MonthName">[MonthName]</InOutArgument>
+              <OutArgument x:TypeArguments="x:String" x:Key="out_YearToUse">[Year]</OutArgument>
+              <InArgument x:TypeArguments="x:String" x:Key="in_Environment">[Environment]</InArgument>
+              <InArgument x:TypeArguments="x:Int32" x:Key="in_TransactionNumber">[in_TransactionNumber]</InArgument>
             </ui:InvokeWorkflowFile.Arguments>
           </ui:InvokeWorkflowFile>
           <If Condition="[ReceiptSent]" DisplayName="Save Receipt" sap:VirtualizedContainerService.HintSize="1074,52" sap2010:WorkflowViewState.IdRef="If_118">
