@@ -5,7 +5,7 @@
     <x:Property Name="in_TransactionNumber" Type="InArgument(x:Int32)" />
     <x:Property Name="io_DictProcapitaTables" Type="InOutArgument(scg:Dictionary(x:String, sd:DataTable))" />
   </x:Members>
-  <sap:VirtualizedContainerService.HintSize>2029,5490</sap:VirtualizedContainerService.HintSize>
+  <sap:VirtualizedContainerService.HintSize>2187,4514</sap:VirtualizedContainerService.HintSize>
   <sap2010:WorkflowViewState.IdRef>ProcessTransaction_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
     <scg:List x:TypeArguments="x:String" Capacity="100">
@@ -175,7 +175,7 @@
       <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
     </scg:List>
   </TextExpression.ReferencesForImplementation>
-  <Sequence sap:VirtualizedContainerService.HintSize="1236,5425" sap2010:WorkflowViewState.IdRef="Sequence_326">
+  <Sequence sap:VirtualizedContainerService.HintSize="1236,4449" sap2010:WorkflowViewState.IdRef="Sequence_326">
     <Sequence.Variables>
       <Variable x:TypeArguments="ss:SecureString" Name="OePPassword" />
       <Variable x:TypeArguments="x:String" Name="OePUsername" />
@@ -187,12 +187,12 @@
         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
-    <TryCatch DisplayName="Try Catch" sap:VirtualizedContainerService.HintSize="1174,5314" sap2010:WorkflowViewState.IdRef="TryCatch_1">
+    <TryCatch DisplayName="Try Catch" sap:VirtualizedContainerService.HintSize="1174,4338" sap2010:WorkflowViewState.IdRef="TryCatch_1">
       <TryCatch.Variables>
         <Variable x:TypeArguments="x:String" Name="InternalMessage" />
       </TryCatch.Variables>
       <TryCatch.Try>
-        <Sequence sap2010:Annotation.AnnotationText="Invoke major steps of the business process, which are usually implemented by multiple subworkflows.&#xA;&#xA;If a BusinessRuleException is thrown, the transaction is skipped. &#xA;If another kind of exception occurs, the current transaction can be retried. " DisplayName="Process" sap:VirtualizedContainerService.HintSize="1136,5086" sap2010:WorkflowViewState.IdRef="Sequence_1">
+        <Sequence sap2010:Annotation.AnnotationText="Invoke major steps of the business process, which are usually implemented by multiple subworkflows.&#xA;&#xA;If a BusinessRuleException is thrown, the transaction is skipped. &#xA;If another kind of exception occurs, the current transaction can be retried. " DisplayName="Process" sap:VirtualizedContainerService.HintSize="1136,4110" sap2010:WorkflowViewState.IdRef="Sequence_1">
           <Sequence.Variables>
             <Variable x:TypeArguments="sxl:XNamespace" Default="[&quot;http://www.oeplatform.org/version/2.0/schemas/flowinstance&quot;]" Name="FlowInstance" />
             <Variable x:TypeArguments="x:String" Name="FilePathToApplication" />
@@ -346,11 +346,11 @@
               </Assign.Value>
             </Assign>
           </Sequence>
-          <If sap2010:Annotation.AnnotationText="Not Environment.ToUpper.Equals(&quot;TEST&quot;)" Condition="[Not Environment.ToUpper.Equals(&quot;TEST&quot;)]" DisplayName="Get XML" sap:VirtualizedContainerService.HintSize="1074,1091" sap2010:WorkflowViewState.IdRef="If_2">
+          <If sap2010:Annotation.AnnotationText="Not Environment.ToUpper.Equals(&quot;TEST&quot;)" Condition="[Not Environment.ToUpper.Equals(&quot;TEST&quot;)]" DisplayName="Get XML" sap:VirtualizedContainerService.HintSize="1074,109" sap2010:WorkflowViewState.IdRef="If_2">
             <sap:WorkflowViewStateService.ViewState>
               <scg:Dictionary x:TypeArguments="x:String, x:Object">
                 <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
-                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                <x:Boolean x:Key="IsExpanded">False</x:Boolean>
                 <x:Boolean x:Key="IsPinned">False</x:Boolean>
               </scg:Dictionary>
             </sap:WorkflowViewStateService.ViewState>
@@ -393,8 +393,8 @@
                     </scg:Dictionary>
                   </sap:WorkflowViewStateService.ViewState>
                 </ui:CommentOut>
-                <ui:GetRobotCredential AssetName="[Cred_NA_OeP]" CacheStrategy="None" DisplayName="Private: Get Credential" FolderPath="{x:Null}" sap:VirtualizedContainerService.HintSize="434,181" sap2010:WorkflowViewState.IdRef="GetRobotCredential_4" Password="[OePPassword]" TimeoutMS="5000" Username="[OePUsername]" />
-                <ui:RetryScope ContinueOnError="{x:Null}" DisplayName="Retry Scope" sap:VirtualizedContainerService.HintSize="434,52" sap2010:WorkflowViewState.IdRef="RetryScope_1" NumberOfRetries="{x:Null}" RetryInterval="{x:Null}">
+                <ui:GetRobotCredential AssetName="[Cred_NA_OeP]" CacheStrategy="None" DisplayName="Private: Get Credential" sap:VirtualizedContainerService.HintSize="434,181" sap2010:WorkflowViewState.IdRef="GetRobotCredential_4" Password="[OePPassword]" TimeoutMS="5000" Username="[OePUsername]" />
+                <ui:RetryScope DisplayName="Retry Scope" sap:VirtualizedContainerService.HintSize="434,52" sap2010:WorkflowViewState.IdRef="RetryScope_1">
                   <ui:RetryScope.ActivityBody>
                     <ActivityAction>
                       <Sequence DisplayName="Action" sap:VirtualizedContainerService.HintSize="450,535" sap2010:WorkflowViewState.IdRef="Sequence_6">
@@ -403,7 +403,7 @@
                             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                           </scg:Dictionary>
                         </sap:WorkflowViewStateService.ViewState>
-                        <o:Get_Case_XML_or_PDF CaseDataAsXMLDocument="[CaseXMLData]" CaseID="[CaseID]" DisplayName="Get Case XML or PDF" DomainURL="[OePUrl]" FilenameWithoutExtension="{x:Null}" FoundCase="{x:Null}" GetAsPDF="{x:Null}" sap:VirtualizedContainerService.HintSize="388,292" sap2010:WorkflowViewState.IdRef="Get_Case_XML_or_PDF_1" NumberOfTries="1" PDFFilePath="{x:Null}" Password="[OePPassword]" RequestTimeout="15000" TempFolder="{x:Null}" Username="[OePUsername]" />
+                        <o:Get_Case_XML_or_PDF FilenameWithoutExtension="{x:Null}" FoundCase="{x:Null}" GetAsPDF="{x:Null}" PDFFilePath="{x:Null}" TempFolder="{x:Null}" CaseDataAsXMLDocument="[CaseXMLData]" CaseID="[CaseID]" DisplayName="Get Case XML or PDF" DomainURL="[OePUrl]" sap:VirtualizedContainerService.HintSize="388,292" sap2010:WorkflowViewState.IdRef="Get_Case_XML_or_PDF_1" NumberOfTries="1" Password="[OePPassword]" RequestTimeout="15000" Username="[OePUsername]" />
                         <ui:LogMessage DisplayName="Log Message Process Start" sap:VirtualizedContainerService.HintSize="388,92" sap2010:WorkflowViewState.IdRef="LogMessage_3" Level="Info" Message="[&quot;Started Process&quot;]" />
                       </Sequence>
                     </ActivityAction>
@@ -469,7 +469,7 @@
                   </scg:Dictionary>
                 </sap:WorkflowViewStateService.ViewState>
                 <ui:LogMessage DisplayName="Log Message Process Start" sap:VirtualizedContainerService.HintSize="434,92" sap2010:WorkflowViewState.IdRef="LogMessage_4" Level="Info" Message="[&quot;Started Process&quot;]" />
-                <ui:ReadTextFile Content="[XMLAsString]" ContinueOnError="{x:Null}" DisplayName="Read XML Text File" Encoding="ISO-8859-1" File="{x:Null}" FileName="C:\Users\the12lun\Downloads\Månadsrapport för uppdragstagare LSS - RPA - 4960 (1).xml" sap:VirtualizedContainerService.HintSize="434,80" sap2010:WorkflowViewState.IdRef="ReadTextFile_1" Result="{x:Null}" />
+                <ui:ReadTextFile File="{x:Null}" Content="[XMLAsString]" DisplayName="Read XML Text File" Encoding="ISO-8859-1" FileName="C:\Users\the12lun\Downloads\Månadsrapport för uppdragstagare LSS - RPA - 4960 (1).xml" sap:VirtualizedContainerService.HintSize="434,80" sap2010:WorkflowViewState.IdRef="ReadTextFile_1" />
                 <ui:DeserializeXml DisplayName="Deserialize XML" sap:VirtualizedContainerService.HintSize="434,62" sap2010:WorkflowViewState.IdRef="DeserializeXml_1" XMLDocument="[CaseXMLData]" XMLString="[XMLAsString]" />
                 <ui:LogMessage DisplayName="Log Message Test Data" sap:VirtualizedContainerService.HintSize="434,92" sap2010:WorkflowViewState.IdRef="LogMessage_9" Level="Info" Message="[&quot;Gotten test XML data&quot;]" />
                 <Assign DisplayName="Assign CaseID" sap:VirtualizedContainerService.HintSize="434,82" sap2010:WorkflowViewState.IdRef="Assign_45">
@@ -486,7 +486,7 @@
                     </scg:Dictionary>
                   </sap:WorkflowViewStateService.ViewState>
                 </Assign>
-                <ui:GetRobotCredential AssetName="Cred_NA_OeP" CacheStrategy="None" DisplayName="Private: Get Credential" FolderPath="{x:Null}" sap:VirtualizedContainerService.HintSize="434,181" sap2010:WorkflowViewState.IdRef="GetRobotCredential_5" Password="[OePPassword]" TimeoutMS="5000" Username="[OePUsername]" />
+                <ui:GetRobotCredential AssetName="Cred_NA_OeP" CacheStrategy="None" DisplayName="Private: Get Credential" sap:VirtualizedContainerService.HintSize="434,181" sap2010:WorkflowViewState.IdRef="GetRobotCredential_5" Password="[OePPassword]" TimeoutMS="5000" Username="[OePUsername]" />
               </Sequence>
             </If.Else>
           </If>
@@ -648,7 +648,7 @@
               </sap:WorkflowViewStateService.ViewState>
             </ui:MultipleAssign>
           </Sequence>
-          <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="SetDates.xaml - Invoke Workflow File" sap:VirtualizedContainerService.HintSize="1074,113" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_3" Level="{x:Null}" LogEntry="{x:Null}" LogExit="{x:Null}" Timeout="{x:Null}" UnSafe="False" WorkflowFileName="Procapita\SetDates.xaml">
+          <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="SetDates.xaml - Invoke Workflow File" sap:VirtualizedContainerService.HintSize="1074,113" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_3" UnSafe="False" WorkflowFileName="Procapita\SetDates.xaml">
             <ui:InvokeWorkflowFile.Arguments>
               <InArgument x:TypeArguments="x:String" x:Key="in_FolderPathToCopies">[FolderPathToCopies]</InArgument>
               <OutArgument x:TypeArguments="x:String" x:Key="out_FilePathToExcelFile">[FilePathToExcelFile]</OutArgument>
@@ -662,7 +662,7 @@
               <InArgument x:TypeArguments="x:String" x:Key="in_Environment">[Environment]</InArgument>
             </ui:InvokeWorkflowFile.Arguments>
           </ui:InvokeWorkflowFile>
-          <If Condition="[ReceiptSent]" DisplayName="Save Receipt" sap:VirtualizedContainerService.HintSize="1074,1656" sap2010:WorkflowViewState.IdRef="If_118">
+          <If Condition="[ReceiptSent]" DisplayName="Save Receipt" sap:VirtualizedContainerService.HintSize="1074,1661" sap2010:WorkflowViewState.IdRef="If_118">
             <sap:WorkflowViewStateService.ViewState>
               <scg:Dictionary x:TypeArguments="x:String, x:Object">
                 <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -670,7 +670,7 @@
               </scg:Dictionary>
             </sap:WorkflowViewStateService.ViewState>
             <If.Then>
-              <Sequence sap:VirtualizedContainerService.HintSize="594,1468" sap2010:WorkflowViewState.IdRef="Sequence_417">
+              <Sequence sap:VirtualizedContainerService.HintSize="594,1472" sap2010:WorkflowViewState.IdRef="Sequence_417">
                 <Sequence.Variables>
                   <Variable x:TypeArguments="x:Int32" Name="Index" />
                   <Variable x:TypeArguments="x:Boolean" Name="Result" />
@@ -681,7 +681,7 @@
                     <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                   </scg:Dictionary>
                 </sap:WorkflowViewStateService.ViewState>
-                <Assign DisplayName="Assign FullFolderPathToReceipt" sap:VirtualizedContainerService.HintSize="532,81" sap2010:WorkflowViewState.IdRef="Assign_320">
+                <Assign DisplayName="Assign FullFolderPathToReceipt" sap:VirtualizedContainerService.HintSize="532,82" sap2010:WorkflowViewState.IdRef="Assign_320">
                   <Assign.To>
                     <OutArgument x:TypeArguments="x:String">[FullFolderPathToReceipt]</OutArgument>
                   </Assign.To>
@@ -697,7 +697,7 @@
                     </scg:Dictionary>
                   </sap:WorkflowViewStateService.ViewState>
                 </ui:FolderExistsX>
-                <If Condition="[Not Result]" DisplayName="If Folder does not exist" sap:VirtualizedContainerService.HintSize="532,379" sap2010:WorkflowViewState.IdRef="If_117">
+                <If Condition="[Not Result]" DisplayName="If Folder does not exist" sap:VirtualizedContainerService.HintSize="532,380" sap2010:WorkflowViewState.IdRef="If_117">
                   <sap:WorkflowViewStateService.ViewState>
                     <scg:Dictionary x:TypeArguments="x:String, x:Object">
                       <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -724,13 +724,13 @@
                     </Sequence>
                   </If.Else>
                 </If>
-                <ui:ForEach x:TypeArguments="sxl:XElement" CurrentIndex="[Index]" DisplayName="For Each File from XML" sap:VirtualizedContainerService.HintSize="532,644" sap2010:WorkflowViewState.IdRef="ForEach`1_8" Values="[CaseXMLData.Elements(FlowInstance + &quot;FlowInstance&quot;).Elements(FlowInstance + &quot;Values&quot;).Elements(FlowInstance + &quot;reciept&quot;).Descendants(FlowInstance + &quot;File&quot;)]">
+                <ui:ForEach x:TypeArguments="sxl:XElement" CurrentIndex="[Index]" DisplayName="For Each File from XML" sap:VirtualizedContainerService.HintSize="532,646" sap2010:WorkflowViewState.IdRef="ForEach`1_8" Values="[CaseXMLData.Elements(FlowInstance + &quot;FlowInstance&quot;).Elements(FlowInstance + &quot;Values&quot;).Elements(FlowInstance + &quot;reciept&quot;).Descendants(FlowInstance + &quot;File&quot;)]">
                   <ui:ForEach.Body>
                     <ActivityAction x:TypeArguments="sxl:XElement">
                       <ActivityAction.Argument>
                         <DelegateInArgument x:TypeArguments="sxl:XElement" Name="currentItem" />
                       </ActivityAction.Argument>
-                      <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="496,519" sap2010:WorkflowViewState.IdRef="Sequence_418">
+                      <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="496,520" sap2010:WorkflowViewState.IdRef="Sequence_418">
                         <Sequence.Variables>
                           <Variable x:TypeArguments="x:String" Name="EncodedString" />
                           <Variable x:TypeArguments="s:Byte[]" Name="FileBytes" />
@@ -741,7 +741,7 @@
                             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                           </scg:Dictionary>
                         </sap:WorkflowViewStateService.ViewState>
-                        <Assign DisplayName="Assign EncodedString" sap:VirtualizedContainerService.HintSize="434,81" sap2010:WorkflowViewState.IdRef="Assign_321">
+                        <Assign DisplayName="Assign EncodedString" sap:VirtualizedContainerService.HintSize="434,82" sap2010:WorkflowViewState.IdRef="Assign_321">
                           <Assign.To>
                             <OutArgument x:TypeArguments="x:String">[EncodedString]</OutArgument>
                           </Assign.To>
@@ -754,7 +754,7 @@
                             <OutArgument x:TypeArguments="x:String">[FilePath]</OutArgument>
                           </Assign.To>
                           <Assign.Value>
-                            <InArgument x:TypeArguments="x:String">[FullFolderPathToReceipt + "\" + CaseID.ToString + " " + DateTime.Now.ToString(" MM", New System.Globalization.CultureInfo("sv-SE")) + if(Index=0,"", " " + Index.ToString) + ".png"]</InArgument>
+                            <InArgument x:TypeArguments="x:String" xml:space="preserve">[FullFolderPathToReceipt + "\" + FirstNameUppdragstagare + " " + LastNameUppdragstagare + " - CaseID "+  CaseID.ToString + " " + (Index + 1).ToString + ".png"]</InArgument>
                           </Assign.Value>
                           <sap:WorkflowViewStateService.ViewState>
                             <scg:Dictionary x:TypeArguments="x:String, x:Object">
@@ -791,7 +791,7 @@
               </Sequence>
             </If.Else>
           </If>
-          <Assign DisplayName="Assign SSN" sap:VirtualizedContainerService.HintSize="1074,81" sap2010:WorkflowViewState.IdRef="Assign_27">
+          <Assign DisplayName="Assign SSN" sap:VirtualizedContainerService.HintSize="1074,82" sap2010:WorkflowViewState.IdRef="Assign_27">
             <Assign.To>
               <OutArgument x:TypeArguments="x:String">[SSN]</OutArgument>
             </Assign.To>
@@ -822,7 +822,7 @@
                 <InArgument x:TypeArguments="scg:Dictionary(x:String, sd:DataTable)">[If(io_DictProcapitaTables IsNot Nothing, io_DictProcapitaTables, New Dictionary(Of String, DataTable))]</InArgument>
               </Assign.Value>
             </Assign>
-            <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="GetDataFromProcapita.xaml - Invoke Workflow File" sap:VirtualizedContainerService.HintSize="434,113" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_4" Level="{x:Null}" LogEntry="{x:Null}" LogExit="{x:Null}" Timeout="{x:Null}" UnSafe="False" WorkflowFileName="Procapita\GetDataFromProcapita.xaml">
+            <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="GetDataFromProcapita.xaml - Invoke Workflow File" sap:VirtualizedContainerService.HintSize="434,113" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_4" UnSafe="False" WorkflowFileName="Procapita\GetDataFromProcapita.xaml">
               <ui:InvokeWorkflowFile.Arguments>
                 <InArgument x:TypeArguments="x:String" x:Key="DictionaryKey">[DictionaryKey]</InArgument>
                 <InOutArgument x:TypeArguments="scg:Dictionary(x:String, sd:DataTable)" x:Key="io_DictProcapitaTables">[io_DictProcapitaTables]</InOutArgument>
@@ -844,7 +844,7 @@
                 <x:Boolean x:Key="IsPinned">False</x:Boolean>
               </scg:Dictionary>
             </sap:WorkflowViewStateService.ViewState>
-            <oc:Add_Managers CaseID="[CaseID]" DisplayName="Add Robot As Manager" DomainURL="[in_Config(&quot;OeP_URL&quot;).ToString.Trim.Replace(&quot;login2&quot;,&quot;api/callback&quot;)]" ExternalID="{x:Null}" ExternalIDSystem="{x:Null}" Headers="{x:Null}" sap:VirtualizedContainerService.HintSize="388,52" sap2010:WorkflowViewState.IdRef="Add_Managers_3" ManagersAsUserID="[new list(of String) from {OePUsername}]" ManagersGroupNames="{x:Null}" NumberOfTries="1" Password="[OePPassword]" RequestTimeout="15000" StatusCode="[ResultCode]" Success="{x:Null}" Username="[OePUsername]" setManagersReturn="{x:Null}">
+            <oc:Add_Managers ExternalID="{x:Null}" ExternalIDSystem="{x:Null}" Headers="{x:Null}" ManagersGroupNames="{x:Null}" Success="{x:Null}" setManagersReturn="{x:Null}" CaseID="[CaseID]" DisplayName="Add Robot As Manager" DomainURL="[in_Config(&quot;OeP_URL&quot;).ToString.Trim.Replace(&quot;login2&quot;,&quot;api/callback&quot;)]" sap:VirtualizedContainerService.HintSize="388,52" sap2010:WorkflowViewState.IdRef="Add_Managers_3" ManagersAsUserID="[new list(of String) from {OePUsername}]" NumberOfTries="1" Password="[OePPassword]" RequestTimeout="15000" StatusCode="[ResultCode]" Username="[OePUsername]">
               <sap:WorkflowViewStateService.ViewState>
                 <scg:Dictionary x:TypeArguments="x:String, x:Object">
                   <x:Boolean x:Key="IsExpanded">False</x:Boolean>
@@ -983,15 +983,15 @@
                       <occ:Check_or_Uncheck_Content_Checkbox_or_Radiobutton DisplayName="Check or Uncheck Content Checkbox or Radiobutton" sap:VirtualizedContainerService.HintSize="388,25" sap2010:WorkflowViewState.IdRef="Check_or_Uncheck_Content_Checkbox_or_Radiobutton_7" in_CaseID="[CaseID]" in_Check="True" in_CheckboxOrRadiobuttonHeader="     Uppdragssamordnare godkänner*" in_CheckboxOrRadiobuttonLabel="Ja" />
                       <occ:Click_Preview DisplayName="Click Preview" sap:VirtualizedContainerService.HintSize="388,25" sap2010:WorkflowViewState.IdRef="Click_Preview_6" in_CaseID="[CaseID]" />
                       <occ:Save_Changes_and_Close_Case DisplayName="Save Changes and Close Case" sap:VirtualizedContainerService.HintSize="388,25" sap2010:WorkflowViewState.IdRef="Save_Changes_and_Close_Case_6" in_CaseID="[CaseID]" />
-                      <ui:RetryScope ContinueOnError="{x:Null}" DisplayName="Retry Scope Remove Managers" sap:VirtualizedContainerService.HintSize="388,53" sap2010:WorkflowViewState.IdRef="RetryScope_17" NumberOfRetries="3" RetryInterval="{x:Null}">
+                      <ui:RetryScope DisplayName="Retry Scope Remove Managers" sap:VirtualizedContainerService.HintSize="388,53" sap2010:WorkflowViewState.IdRef="RetryScope_17" NumberOfRetries="3">
                         <ui:RetryScope.ActivityBody>
                           <ActivityAction>
-                            <oc:Remove_Managers CaseID="[CaseID]" DisplayName="Remove Robot User as Manager" DomainURL="[OePUrl]" ExternalID="{x:Null}" ExternalIDSystem="{x:Null}" Headers="{x:Null}" sap:VirtualizedContainerService.HintSize="284,243" sap2010:WorkflowViewState.IdRef="Remove_Managers_9" ManagerGroupNames="[New List(Of String)]" ManagersAsUserID="[new list(of String) from {OePUsername}]" NumberOfTries="1" Password="[OePPassword]" RequestTimeout="15000" StatusCode="{x:Null}" Success="[Success]" Username="[OePUsername]" setManagersReturn="{x:Null}" />
+                            <oc:Remove_Managers ExternalID="{x:Null}" ExternalIDSystem="{x:Null}" Headers="{x:Null}" StatusCode="{x:Null}" setManagersReturn="{x:Null}" CaseID="[CaseID]" DisplayName="Remove Robot User as Manager" DomainURL="[OePUrl]" sap:VirtualizedContainerService.HintSize="284,243" sap2010:WorkflowViewState.IdRef="Remove_Managers_9" ManagerGroupNames="[New List(Of String)]" ManagersAsUserID="[new list(of String) from {OePUsername}]" NumberOfTries="1" Password="[OePPassword]" RequestTimeout="15000" Success="[Success]" Username="[OePUsername]" />
                           </ActivityAction>
                         </ui:RetryScope.ActivityBody>
                         <ui:RetryScope.Condition>
                           <ActivityFunc x:TypeArguments="x:Boolean">
-                            <ui:IsMatch BuilderPattern="^true$" DisplayName="Is Success" sap:VirtualizedContainerService.HintSize="334,60" sap2010:WorkflowViewState.IdRef="IsMatch_9" Input="[Success.ToString.ToLower]" IsBuilderTabModified="True" Model="[{&quot;Index&quot;:0,&quot;OperationID&quot;:&quot;ST&quot;,&quot;OperationName&quot;:&quot;Starts with&quot;,&quot;OperationValue&quot;:&quot;^&quot;,&quot;QuantifierFirstValue&quot;:&quot;1&quot;,&quot;QuantifierID&quot;:&quot;EXT&quot;,&quot;QuantifierName&quot;:&quot;Exactly&quot;,&quot;QuantifierSecondValue&quot;:null},{&quot;Index&quot;:1,&quot;OperationID&quot;:&quot;ADV&quot;,&quot;OperationName&quot;:&quot;Advanced&quot;,&quot;OperationValue&quot;:&quot;true&quot;,&quot;QuantifierFirstValue&quot;:&quot;1&quot;,&quot;QuantifierID&quot;:&quot;EXT&quot;,&quot;QuantifierName&quot;:&quot;Exactly&quot;,&quot;QuantifierSecondValue&quot;:null},{&quot;Index&quot;:2,&quot;OperationID&quot;:&quot;END&quot;,&quot;OperationName&quot;:&quot;Ends with&quot;,&quot;OperationValue&quot;:&quot;$&quot;,&quot;QuantifierFirstValue&quot;:&quot;1&quot;,&quot;QuantifierID&quot;:&quot;EXT&quot;,&quot;QuantifierName&quot;:&quot;Exactly&quot;,&quot;QuantifierSecondValue&quot;:null}]" Pattern="^true$" RegexOption="IgnoreCase" Result="{x:Null}" />
+                            <ui:IsMatch BuilderPattern="^true$" DisplayName="Is Success" sap:VirtualizedContainerService.HintSize="334,60" sap2010:WorkflowViewState.IdRef="IsMatch_9" Input="[Success.ToString.ToLower]" IsBuilderTabModified="True" Model="[{&quot;Index&quot;:0,&quot;OperationID&quot;:&quot;ST&quot;,&quot;OperationName&quot;:&quot;Starts with&quot;,&quot;OperationValue&quot;:&quot;^&quot;,&quot;QuantifierFirstValue&quot;:&quot;1&quot;,&quot;QuantifierID&quot;:&quot;EXT&quot;,&quot;QuantifierName&quot;:&quot;Exactly&quot;,&quot;QuantifierSecondValue&quot;:null},{&quot;Index&quot;:1,&quot;OperationID&quot;:&quot;ADV&quot;,&quot;OperationName&quot;:&quot;Advanced&quot;,&quot;OperationValue&quot;:&quot;true&quot;,&quot;QuantifierFirstValue&quot;:&quot;1&quot;,&quot;QuantifierID&quot;:&quot;EXT&quot;,&quot;QuantifierName&quot;:&quot;Exactly&quot;,&quot;QuantifierSecondValue&quot;:null},{&quot;Index&quot;:2,&quot;OperationID&quot;:&quot;END&quot;,&quot;OperationName&quot;:&quot;Ends with&quot;,&quot;OperationValue&quot;:&quot;$&quot;,&quot;QuantifierFirstValue&quot;:&quot;1&quot;,&quot;QuantifierID&quot;:&quot;EXT&quot;,&quot;QuantifierName&quot;:&quot;Exactly&quot;,&quot;QuantifierSecondValue&quot;:null}]" Pattern="^true$" RegexOption="IgnoreCase" />
                           </ActivityFunc>
                         </ui:RetryScope.Condition>
                         <sap:WorkflowViewStateService.ViewState>
@@ -1013,7 +1013,7 @@
                         </sap:WorkflowViewStateService.ViewState>
                         <TryCatch DisplayName="TryCatch Update Excel" sap:VirtualizedContainerService.HintSize="200,52" sap2010:WorkflowViewState.IdRef="TryCatch_2">
                           <TryCatch.Try>
-                            <ui:WriteRange AddHeaders="False" DataTable="[CopyOfExcel]" DisplayName="Write Range Workbook" sap:VirtualizedContainerService.HintSize="334,116" sap2010:WorkflowViewState.IdRef="WriteRange_1" Password="{x:Null}" SheetName="[ReportType]" StartingCell="A2" WorkbookPath="[FilePathToExcelFile]">
+                            <ui:WriteRange AddHeaders="False" DataTable="[CopyOfExcel]" DisplayName="Write Range Workbook" sap:VirtualizedContainerService.HintSize="334,116" sap2010:WorkflowViewState.IdRef="WriteRange_1" SheetName="[ReportType]" StartingCell="A2" WorkbookPath="[FilePathToExcelFile]">
                               <sap:WorkflowViewStateService.ViewState>
                                 <scg:Dictionary x:TypeArguments="x:String, x:Object">
                                   <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -1067,7 +1067,7 @@
                                       <x:Boolean x:Key="IsPinned">False</x:Boolean>
                                     </scg:Dictionary>
                                   </sap:WorkflowViewStateService.ViewState>
-                                  <oc:Set_Status CaseID="[CaseID]" DisplayName="Set Status &quot;Klart&quot;" DomainURL="[OePUrl]" EventID="{x:Null}" ExternalID="{x:Null}" ExternalIDSystem="{x:Null}" Headers="{x:Null}" sap:VirtualizedContainerService.HintSize="388,243" sap2010:WorkflowViewState.IdRef="Set_Status_5" NumberOfTries="1" Password="[OePPassword]" PrincipalName="{x:Null}" PrincipalUserID="{x:Null}" RequestTimeout="15000" StatusAlias="Klart" StatusCode="{x:Null}" StatusID="{x:Null}" Success="[Success]" Username="[OePUsername]">
+                                  <oc:Set_Status EventID="{x:Null}" ExternalID="{x:Null}" ExternalIDSystem="{x:Null}" Headers="{x:Null}" PrincipalName="{x:Null}" PrincipalUserID="{x:Null}" StatusCode="{x:Null}" StatusID="{x:Null}" CaseID="[CaseID]" DisplayName="Set Status &quot;Klart&quot;" DomainURL="[OePUrl]" sap:VirtualizedContainerService.HintSize="388,243" sap2010:WorkflowViewState.IdRef="Set_Status_5" NumberOfTries="1" Password="[OePPassword]" RequestTimeout="15000" StatusAlias="Klart" Success="[Success]" Username="[OePUsername]">
                                     <sap:WorkflowViewStateService.ViewState>
                                       <scg:Dictionary x:TypeArguments="x:String, x:Object">
                                         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -1173,7 +1173,7 @@
                       </If.Else>
                     </If>
                     <ui:BuildDataTable DataTable="[CaseManagerInfoToOeP]" DisplayName="Build Data Table Ledsagare" sap:VirtualizedContainerService.HintSize="945,60" sap2010:WorkflowViewState.IdRef="BuildDataTable_1" TableInfo="&lt;NewDataSet&gt;&#xA;  &lt;xs:schema id=&quot;NewDataSet&quot; xmlns=&quot;&quot; xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:msdata=&quot;urn:schemas-microsoft-com:xml-msdata&quot;&gt;&#xA;    &lt;xs:element name=&quot;NewDataSet&quot; msdata:IsDataSet=&quot;true&quot; msdata:MainDataTable=&quot;TableName&quot; msdata:UseCurrentLocale=&quot;true&quot;&gt;&#xA;      &lt;xs:complexType&gt;&#xA;        &lt;xs:choice minOccurs=&quot;0&quot; maxOccurs=&quot;unbounded&quot;&gt;&#xA;          &lt;xs:element name=&quot;TableName&quot;&gt;&#xA;            &lt;xs:complexType&gt;&#xA;              &lt;xs:sequence&gt;&#xA;                &lt;xs:element name=&quot;Totalt_x0020_antal_x0020_timmar&quot; msdata:Caption=&quot;&quot; minOccurs=&quot;0&quot;&gt;&#xA;                  &lt;xs:simpleType&gt;&#xA;                    &lt;xs:restriction base=&quot;xs:string&quot;&gt;&#xA;                      &lt;xs:maxLength value=&quot;100&quot; /&gt;&#xA;                    &lt;/xs:restriction&gt;&#xA;                  &lt;/xs:simpleType&gt;&#xA;                &lt;/xs:element&gt;&#xA;                &lt;xs:element name=&quot;Omkostnad_x0020_totalt&quot; msdata:Caption=&quot;&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;              &lt;/xs:sequence&gt;&#xA;            &lt;/xs:complexType&gt;&#xA;          &lt;/xs:element&gt;&#xA;        &lt;/xs:choice&gt;&#xA;      &lt;/xs:complexType&gt;&#xA;    &lt;/xs:element&gt;&#xA;  &lt;/xs:schema&gt;&#xA;&lt;/NewDataSet&gt;" />
-                    <ui:AddDataRow ArrayRow="[New Object(){HoursOrTimesToOpenEplatform,PrivateExpences}]" DataRow="{x:Null}" DataTable="[CaseManagerInfoToOeP]" DisplayName="Add Data Row Ledsagare" sap:VirtualizedContainerService.HintSize="945,52" sap2010:WorkflowViewState.IdRef="AddDataRow_3">
+                    <ui:AddDataRow DataRow="{x:Null}" ArrayRow="[New Object(){HoursOrTimesToOpenEplatform,PrivateExpences}]" DataTable="[CaseManagerInfoToOeP]" DisplayName="Add Data Row Ledsagare" sap:VirtualizedContainerService.HintSize="945,52" sap2010:WorkflowViewState.IdRef="AddDataRow_3">
                       <sap:WorkflowViewStateService.ViewState>
                         <scg:Dictionary x:TypeArguments="x:String, x:Object">
                           <x:Boolean x:Key="IsExpanded">False</x:Boolean>
@@ -1528,7 +1528,7 @@
                           </scg:Dictionary>
                         </sap:WorkflowViewStateService.ViewState>
                         <oe:Get_DataTable_From_XMLTable DisplayName="Private: Get DataTable From XMLTable" sap:VirtualizedContainerService.HintSize="388,25" sap2010:WorkflowViewState.IdRef="Get_DataTable_From_XMLTable_7" in_CaseXMLData="[CaseXMLData]" in_FlowInstance="[FlowInstance]" in_TableTagName="[TableTagName]" out_ReliefServiceTask="[DataTableFromXML]" />
-                        <ui:ForEachRow ColumnNames="{x:Null}" sap2010:Annotation.AnnotationText="Räknar ihop antalet dygn (24h) och antal timmar frånochmed-dagen och tom-dagen, samt om de är hel eller halvdag." CurrentIndex="{x:Null}" DataTable="[DataTableFromXML]" DisplayName="For Each Row in Data Table" sap:VirtualizedContainerService.HintSize="388,129" sap2010:WorkflowViewState.IdRef="ForEachRow_7" MaxIterations="{x:Null}" Values="{x:Null}">
+                        <ui:ForEachRow ColumnNames="{x:Null}" CurrentIndex="{x:Null}" sap2010:Annotation.AnnotationText="Räknar ihop antalet dygn (24h) och antal timmar frånochmed-dagen och tom-dagen, samt om de är hel eller halvdag." DataTable="[DataTableFromXML]" DisplayName="For Each Row in Data Table" sap:VirtualizedContainerService.HintSize="388,129" sap2010:WorkflowViewState.IdRef="ForEachRow_7">
                           <ui:ForEachRow.Body>
                             <ActivityAction x:TypeArguments="sd:DataRow">
                               <ActivityAction.Argument>
@@ -1856,7 +1856,7 @@
                                     </If.Else>
                                   </If>
                                 </Sequence>
-                                <ui:InterruptibleDoWhile sap2010:Annotation.AnnotationText="Räknar antalet dagar som ska ha dubbelt arvode" Condition="[DateToCheck &lt; Convert.ToDateTime(ToDate)]" CurrentIndex="{x:Null}" DisplayName="Do While DateToCheck &lt;= ToDate" sap:VirtualizedContainerService.HintSize="496,94" sap2010:WorkflowViewState.IdRef="InterruptibleDoWhile_3" MaxIterations="{x:Null}">
+                                <ui:InterruptibleDoWhile CurrentIndex="{x:Null}" sap2010:Annotation.AnnotationText="Räknar antalet dagar som ska ha dubbelt arvode" Condition="[DateToCheck &lt; Convert.ToDateTime(ToDate)]" DisplayName="Do While DateToCheck &lt;= ToDate" sap:VirtualizedContainerService.HintSize="496,94" sap2010:WorkflowViewState.IdRef="InterruptibleDoWhile_3">
                                   <ui:InterruptibleDoWhile.Body>
                                     <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="1053,779" sap2010:WorkflowViewState.IdRef="Sequence_278">
                                       <Sequence.Variables>
@@ -2154,7 +2154,7 @@
                                 </scg:Dictionary>
                               </sap:WorkflowViewStateService.ViewState>
                             </ui:FilterDataTable>
-                            <ui:ForEachRow ColumnNames="{x:Null}" CurrentIndex="{x:Null}" DataTable="[AllHours]" DisplayName="For Each Row in Data Table Calculating Total Hours" sap:VirtualizedContainerService.HintSize="530,432" sap2010:WorkflowViewState.IdRef="ForEachRow_6" MaxIterations="{x:Null}" Values="{x:Null}">
+                            <ui:ForEachRow ColumnNames="{x:Null}" CurrentIndex="{x:Null}" DataTable="[AllHours]" DisplayName="For Each Row in Data Table Calculating Total Hours" sap:VirtualizedContainerService.HintSize="530,432" sap2010:WorkflowViewState.IdRef="ForEachRow_6">
                               <ui:ForEachRow.Body>
                                 <ActivityAction x:TypeArguments="sd:DataRow">
                                   <ActivityAction.Argument>
@@ -2201,7 +2201,7 @@
                     </Sequence>
                   </If.Else>
                 </If>
-                <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="ChecknigDataFromProcapita.xaml - Invoke Workflow File" sap:VirtualizedContainerService.HintSize="434,113" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_5" Level="{x:Null}" LogEntry="{x:Null}" LogExit="{x:Null}" Timeout="{x:Null}" UnSafe="False" WorkflowFileName="Procapita\ChecknigDataFromProcapita.xaml">
+                <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="ChecknigDataFromProcapita.xaml - Invoke Workflow File" sap:VirtualizedContainerService.HintSize="434,113" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_5" UnSafe="False" WorkflowFileName="Procapita\ChecknigDataFromProcapita.xaml">
                   <ui:InvokeWorkflowFile.Arguments>
                     <OutArgument x:TypeArguments="x:String" x:Key="out_InternalMessage">[InternalMessage]</OutArgument>
                     <OutArgument x:TypeArguments="x:String" x:Key="out_DecidedQuantityFromProcapita">[DecidedQuantityFromProcapita]</OutArgument>
@@ -2294,7 +2294,7 @@
                       <av:PointCollection x:Key="ConnectorLocation">520,347.5 514,347.5 514,376.5</av:PointCollection>
                     </scg:Dictionary>
                   </sap:WorkflowViewStateService.ViewState>
-                  <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Excel.xaml - Invoke Workflow File" sap:VirtualizedContainerService.HintSize="200,52" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_2" Level="{x:Null}" LogEntry="{x:Null}" LogExit="{x:Null}" Timeout="{x:Null}" UnSafe="False" WorkflowFileName="Excel\Excel.xaml">
+                  <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Excel.xaml - Invoke Workflow File" sap:VirtualizedContainerService.HintSize="200,52" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_2" UnSafe="False" WorkflowFileName="Excel\Excel.xaml">
                     <ui:InvokeWorkflowFile.Arguments>
                       <InArgument x:TypeArguments="sd:DataTable" x:Key="in_ExcelOrginalHours">[ExcelOrginalHours]</InArgument>
                       <InArgument x:TypeArguments="x:String" x:Key="in_LastNameCareRecipient">[LastNameCareRecipient]</InArgument>
@@ -2364,15 +2364,15 @@
                   <InArgument x:TypeArguments="x:String">[exception.Message]</InArgument>
                 </Assign.Value>
               </Assign>
-              <ui:RetryScope ContinueOnError="{x:Null}" DisplayName="Retry Scope Remove Managers" sap:VirtualizedContainerService.HintSize="434,52" sap2010:WorkflowViewState.IdRef="RetryScope_15" NumberOfRetries="3" RetryInterval="{x:Null}">
+              <ui:RetryScope DisplayName="Retry Scope Remove Managers" sap:VirtualizedContainerService.HintSize="434,52" sap2010:WorkflowViewState.IdRef="RetryScope_15" NumberOfRetries="3">
                 <ui:RetryScope.ActivityBody>
                   <ActivityAction>
-                    <oc:Remove_Managers CaseID="[CaseID]" DisplayName="Remove Robot User as Manager" DomainURL="[OePUrl]" ExternalID="{x:Null}" ExternalIDSystem="{x:Null}" Headers="{x:Null}" sap:VirtualizedContainerService.HintSize="284,239" sap2010:WorkflowViewState.IdRef="Remove_Managers_8" ManagerGroupNames="[New List(Of String)]" ManagersAsUserID="[new list(of String) from {OePUsername}]" NumberOfTries="1" Password="[OePPassword]" RequestTimeout="15000" StatusCode="{x:Null}" Success="[Success]" Username="[OePUsername]" setManagersReturn="{x:Null}" />
+                    <oc:Remove_Managers ExternalID="{x:Null}" ExternalIDSystem="{x:Null}" Headers="{x:Null}" StatusCode="{x:Null}" setManagersReturn="{x:Null}" CaseID="[CaseID]" DisplayName="Remove Robot User as Manager" DomainURL="[OePUrl]" sap:VirtualizedContainerService.HintSize="284,239" sap2010:WorkflowViewState.IdRef="Remove_Managers_8" ManagerGroupNames="[New List(Of String)]" ManagersAsUserID="[new list(of String) from {OePUsername}]" NumberOfTries="1" Password="[OePPassword]" RequestTimeout="15000" Success="[Success]" Username="[OePUsername]" />
                   </ActivityAction>
                 </ui:RetryScope.ActivityBody>
                 <ui:RetryScope.Condition>
                   <ActivityFunc x:TypeArguments="x:Boolean">
-                    <ui:IsMatch BuilderPattern="^true$" DisplayName="Is Success" sap:VirtualizedContainerService.HintSize="334,60" sap2010:WorkflowViewState.IdRef="IsMatch_8" Input="[Success.ToString.ToLower]" IsBuilderTabModified="True" Model="[{&quot;Index&quot;:0,&quot;OperationID&quot;:&quot;ST&quot;,&quot;OperationName&quot;:&quot;Starts with&quot;,&quot;OperationValue&quot;:&quot;^&quot;,&quot;QuantifierFirstValue&quot;:&quot;1&quot;,&quot;QuantifierID&quot;:&quot;EXT&quot;,&quot;QuantifierName&quot;:&quot;Exactly&quot;,&quot;QuantifierSecondValue&quot;:null},{&quot;Index&quot;:1,&quot;OperationID&quot;:&quot;ADV&quot;,&quot;OperationName&quot;:&quot;Advanced&quot;,&quot;OperationValue&quot;:&quot;true&quot;,&quot;QuantifierFirstValue&quot;:&quot;1&quot;,&quot;QuantifierID&quot;:&quot;EXT&quot;,&quot;QuantifierName&quot;:&quot;Exactly&quot;,&quot;QuantifierSecondValue&quot;:null},{&quot;Index&quot;:2,&quot;OperationID&quot;:&quot;END&quot;,&quot;OperationName&quot;:&quot;Ends with&quot;,&quot;OperationValue&quot;:&quot;$&quot;,&quot;QuantifierFirstValue&quot;:&quot;1&quot;,&quot;QuantifierID&quot;:&quot;EXT&quot;,&quot;QuantifierName&quot;:&quot;Exactly&quot;,&quot;QuantifierSecondValue&quot;:null}]" Pattern="^true$" RegexOption="IgnoreCase" Result="{x:Null}" />
+                    <ui:IsMatch BuilderPattern="^true$" DisplayName="Is Success" sap:VirtualizedContainerService.HintSize="334,60" sap2010:WorkflowViewState.IdRef="IsMatch_8" Input="[Success.ToString.ToLower]" IsBuilderTabModified="True" Model="[{&quot;Index&quot;:0,&quot;OperationID&quot;:&quot;ST&quot;,&quot;OperationName&quot;:&quot;Starts with&quot;,&quot;OperationValue&quot;:&quot;^&quot;,&quot;QuantifierFirstValue&quot;:&quot;1&quot;,&quot;QuantifierID&quot;:&quot;EXT&quot;,&quot;QuantifierName&quot;:&quot;Exactly&quot;,&quot;QuantifierSecondValue&quot;:null},{&quot;Index&quot;:1,&quot;OperationID&quot;:&quot;ADV&quot;,&quot;OperationName&quot;:&quot;Advanced&quot;,&quot;OperationValue&quot;:&quot;true&quot;,&quot;QuantifierFirstValue&quot;:&quot;1&quot;,&quot;QuantifierID&quot;:&quot;EXT&quot;,&quot;QuantifierName&quot;:&quot;Exactly&quot;,&quot;QuantifierSecondValue&quot;:null},{&quot;Index&quot;:2,&quot;OperationID&quot;:&quot;END&quot;,&quot;OperationName&quot;:&quot;Ends with&quot;,&quot;OperationValue&quot;:&quot;$&quot;,&quot;QuantifierFirstValue&quot;:&quot;1&quot;,&quot;QuantifierID&quot;:&quot;EXT&quot;,&quot;QuantifierName&quot;:&quot;Exactly&quot;,&quot;QuantifierSecondValue&quot;:null}]" Pattern="^true$" RegexOption="IgnoreCase" />
                   </ActivityFunc>
                 </ui:RetryScope.Condition>
                 <sap:WorkflowViewStateService.ViewState>
@@ -2382,8 +2382,8 @@
                   </scg:Dictionary>
                 </sap:WorkflowViewStateService.ViewState>
               </ui:RetryScope>
-              <oc:Set_Status CaseID="[CaseID]" DisplayName="Set Status" DomainURL="[OePUrl]" EventID="{x:Null}" ExternalID="{x:Null}" ExternalIDSystem="{x:Null}" Headers="{x:Null}" sap:VirtualizedContainerService.HintSize="434,239" sap2010:WorkflowViewState.IdRef="Set_Status_1" NumberOfTries="1" Password="[OePPassword]" PrincipalName="{x:Null}" PrincipalUserID="{x:Null}" RequestTimeout="15000" StatusAlias="Manuell hantering" StatusCode="{x:Null}" StatusID="{x:Null}" Success="{x:Null}" Username="[OePUsername]" />
-              <oc:Add_Internal_Message AttachmentFilepaths="{x:Null}" CaseID="[CaseID]" DisplayName="Add Internal Message" DomainURL="[OePUrl]" ExternalID="{x:Null}" ExternalIDSystem="{x:Null}" Headers="{x:Null}" sap:VirtualizedContainerService.HintSize="434,398" sap2010:WorkflowViewState.IdRef="Add_Internal_Message_2" Message="[InternalMessage]" MessageID="{x:Null}" NumberOfTries="1" Password="[OePPassword]" PrincipalName="{x:Null}" PrincipalUserID="[OePUsername]" RequestTimeout="15000" StatusCode="{x:Null}" Success="{x:Null}" TimeStamp="[Now]" UserID="{x:Null}" Username="[OePUsername]" />
+              <oc:Set_Status EventID="{x:Null}" ExternalID="{x:Null}" ExternalIDSystem="{x:Null}" Headers="{x:Null}" PrincipalName="{x:Null}" PrincipalUserID="{x:Null}" StatusCode="{x:Null}" StatusID="{x:Null}" Success="{x:Null}" CaseID="[CaseID]" DisplayName="Set Status" DomainURL="[OePUrl]" sap:VirtualizedContainerService.HintSize="434,239" sap2010:WorkflowViewState.IdRef="Set_Status_1" NumberOfTries="1" Password="[OePPassword]" RequestTimeout="15000" StatusAlias="Manuell hantering" Username="[OePUsername]" />
+              <oc:Add_Internal_Message AttachmentFilepaths="{x:Null}" ExternalID="{x:Null}" ExternalIDSystem="{x:Null}" Headers="{x:Null}" MessageID="{x:Null}" PrincipalName="{x:Null}" StatusCode="{x:Null}" Success="{x:Null}" UserID="{x:Null}" CaseID="[CaseID]" DisplayName="Add Internal Message" DomainURL="[OePUrl]" sap:VirtualizedContainerService.HintSize="434,398" sap2010:WorkflowViewState.IdRef="Add_Internal_Message_2" Message="[InternalMessage]" NumberOfTries="1" Password="[OePPassword]" PrincipalUserID="[OePUsername]" RequestTimeout="15000" TimeStamp="[Now]" Username="[OePUsername]" />
               <Rethrow sap:VirtualizedContainerService.HintSize="434,25" sap2010:WorkflowViewState.IdRef="Rethrow_1" />
             </Sequence>
           </ActivityAction>
