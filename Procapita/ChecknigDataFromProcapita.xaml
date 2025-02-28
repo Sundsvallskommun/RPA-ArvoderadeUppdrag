@@ -10,11 +10,12 @@
     <x:Property Name="in_ListOfRowIndex" Type="InArgument(scg:List(x:Int32))" />
     <x:Property Name="io_FirstNameCareRecipient" Type="InOutArgument(x:String)" />
     <x:Property Name="io_LastNameCareRecipient" Type="InOutArgument(x:String)" />
+    <x:Property Name="out_CalculateTotalYear" Type="OutArgument(x:Boolean)" />
   </x:Members>
   <this:ChecknigDataFromProcapita.in_ListOfRowIndex>
     <InArgument x:TypeArguments="scg:List(x:Int32)" />
   </this:ChecknigDataFromProcapita.in_ListOfRowIndex>
-  <sap:VirtualizedContainerService.HintSize>1415,1359</sap:VirtualizedContainerService.HintSize>
+  <sap:VirtualizedContainerService.HintSize>1729,1361</sap:VirtualizedContainerService.HintSize>
   <sap2010:WorkflowViewState.IdRef>ActivityBuilder_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
     <sco:Collection x:TypeArguments="x:String">
@@ -136,9 +137,10 @@
       <AssemblyReference>Nager.Date</AssemblyReference>
       <AssemblyReference>UiPathTeam.NextWorkingDay.Activities</AssemblyReference>
       <AssemblyReference>System.ServiceModel.Activities</AssemblyReference>
+      <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
-  <Sequence DisplayName="Checknig Data From Procapita" sap:VirtualizedContainerService.HintSize="594,1294" sap2010:WorkflowViewState.IdRef="Sequence_390">
+  <Sequence DisplayName="Checknig Data From Procapita" sap:VirtualizedContainerService.HintSize="598,1256" sap2010:WorkflowViewState.IdRef="Sequence_390">
     <Sequence.Variables>
       <Variable x:TypeArguments="x:Int32" Name="RowIndexProcapita" />
       <Variable x:TypeArguments="x:Boolean" Name="CareRecipientFound" />
@@ -149,7 +151,7 @@
         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
-    <ui:ForEach x:TypeArguments="x:Int32" CurrentIndex="{x:Null}" sap2010:Annotation.AnnotationText="loopar igenom alla rader för att hitta vilken brukare som uppdragstagaren rapporterar för och sätter radindex till Procapita" DisplayName="For Each Row found from Procapita" sap:VirtualizedContainerService.HintSize="532,667" sap2010:WorkflowViewState.IdRef="ForEach`1_5" Values="[in_ListOfRowIndex]">
+    <ui:ForEach x:TypeArguments="x:Int32" CurrentIndex="{x:Null}" sap2010:Annotation.AnnotationText="loopar igenom alla rader för att hitta vilken brukare som uppdragstagaren rapporterar för och sätter radindex till Procapita" DisplayName="For Each Row found from Procapita" sap:VirtualizedContainerService.HintSize="536,109" sap2010:WorkflowViewState.IdRef="ForEach`1_5" Values="[in_ListOfRowIndex]">
       <ui:ForEach.Body>
         <ActivityAction x:TypeArguments="x:Int32">
           <ActivityAction.Argument>
@@ -388,13 +390,13 @@
       </ui:ForEach.Body>
       <sap:WorkflowViewStateService.ViewState>
         <scg:Dictionary x:TypeArguments="x:String, x:Object">
-          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          <x:Boolean x:Key="IsExpanded">False</x:Boolean>
           <x:Boolean x:Key="IsPinned">False</x:Boolean>
           <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
         </scg:Dictionary>
       </sap:WorkflowViewStateService.ViewState>
     </ui:ForEach>
-    <If Condition="[Not CareRecipientFound]" DisplayName="If Not CareRecipientFound" sap:VirtualizedContainerService.HintSize="532,52" sap2010:WorkflowViewState.IdRef="If_65">
+    <If Condition="[Not CareRecipientFound]" DisplayName="If Not CareRecipientFound" sap:VirtualizedContainerService.HintSize="536,52" sap2010:WorkflowViewState.IdRef="If_65">
       <sap:WorkflowViewStateService.ViewState>
         <scg:Dictionary x:TypeArguments="x:String, x:Object">
           <x:Boolean x:Key="IsExpanded">False</x:Boolean>
@@ -421,7 +423,7 @@
         </Sequence>
       </If.Else>
     </If>
-    <Assign DisplayName="Private: Assign DecidedQuantityFromProcapita Avlösarservice LSS" sap:VirtualizedContainerService.HintSize="532,82" sap2010:WorkflowViewState.IdRef="Assign_239">
+    <Assign DisplayName="Private: Assign DecidedQuantityFromProcapita Avlösarservice LSS" sap:VirtualizedContainerService.HintSize="536,82" sap2010:WorkflowViewState.IdRef="Assign_239">
       <Assign.To>
         <OutArgument x:TypeArguments="x:String">[out_DecidedQuantityFromProcapita]</OutArgument>
       </Assign.To>
@@ -435,7 +437,7 @@
         </scg:Dictionary>
       </sap:WorkflowViewStateService.ViewState>
     </Assign>
-    <Assign sap2010:Annotation.AnnotationText="" DisplayName="Private: Assign ValidityPeriod" sap:VirtualizedContainerService.HintSize="532,113" sap2010:WorkflowViewState.IdRef="Assign_295">
+    <Assign sap2010:Annotation.AnnotationText="" DisplayName="Private: Assign ValidityPeriod" sap:VirtualizedContainerService.HintSize="536,113" sap2010:WorkflowViewState.IdRef="Assign_295">
       <Assign.To>
         <OutArgument x:TypeArguments="x:String">[out_ValidityPeriod]</OutArgument>
       </Assign.To>
@@ -450,7 +452,7 @@
         </scg:Dictionary>
       </sap:WorkflowViewStateService.ViewState>
     </Assign>
-    <Switch x:TypeArguments="x:String" sap2010:Annotation.AnnotationText="defult = månad, flesta ska vara månad&#xD;&#xA;kanske här man borde kolla alla tidigare månader för år?" DisplayName="Switch calculate DecidedHoursFromProcapita" Expression="[out_DecidedQuantityFromProcapita.Split(&quot;/&quot;c)(1)]" sap:VirtualizedContainerService.HintSize="532,109" sap2010:WorkflowViewState.IdRef="Switch`1_7">
+    <Switch x:TypeArguments="x:String" sap2010:Annotation.AnnotationText="defult = månad, flesta ska vara månad&#xA;kanske här man borde kolla alla tidigare månader för år?" DisplayName="Switch calculate DecidedHoursFromProcapita" Expression="[out_DecidedQuantityFromProcapita.Split(&quot;/&quot;c)(1)]" sap:VirtualizedContainerService.HintSize="536,629" sap2010:WorkflowViewState.IdRef="Switch`1_7">
       <Switch.Default>
         <Assign DisplayName="Assign DecidedHoursFromProcapita Sequence 100%" sap:VirtualizedContainerService.HintSize="434,82" sap2010:WorkflowViewState.IdRef="Assign_154">
           <Assign.To>
@@ -469,25 +471,47 @@
       </Switch.Default>
       <sap:WorkflowViewStateService.ViewState>
         <scg:Dictionary x:TypeArguments="x:String, x:Object">
-          <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
           <x:Boolean x:Key="IsPinned">False</x:Boolean>
           <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
         </scg:Dictionary>
       </sap:WorkflowViewStateService.ViewState>
-      <Assign x:Key="år" DisplayName="Assign DecidedHoursFromProcapita Sequence 100% Year" sap:VirtualizedContainerService.HintSize="434,82" sap2010:WorkflowViewState.IdRef="Assign_151">
-        <Assign.To>
-          <OutArgument x:TypeArguments="x:Double">[out_DecidedHoursFromProcapita]</OutArgument>
-        </Assign.To>
-        <Assign.Value>
-          <InArgument x:TypeArguments="x:Double">[CDbl(System.Text.RegularExpressions.Regex.Match(out_DecidedQuantityFromProcapita, "\d+").Value)/12]</InArgument>
-        </Assign.Value>
+      <Sequence x:Key="år" sap:VirtualizedContainerService.HintSize="496,357" sap2010:WorkflowViewState.IdRef="Sequence_392">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-            <x:Boolean x:Key="IsPinned">False</x:Boolean>
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
-      </Assign>
+        <Assign sap2010:Annotation.AnnotationText="Behåller per år för att det är den som kommer att jämföras med den totala rapporterade." DisplayName="Assign DecidedHoursFromProcapita Sequence 100% Year" sap:VirtualizedContainerService.HintSize="434,124" sap2010:WorkflowViewState.IdRef="Assign_151">
+          <Assign.To>
+            <OutArgument x:TypeArguments="x:Double">[out_DecidedHoursFromProcapita]</OutArgument>
+          </Assign.To>
+          <Assign.Value>
+            <InArgument x:TypeArguments="x:Double">[CDbl(System.Text.RegularExpressions.Regex.Match(out_DecidedQuantityFromProcapita, "\d+").Value)]</InArgument>
+          </Assign.Value>
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+              <x:Boolean x:Key="IsPinned">False</x:Boolean>
+              <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+        </Assign>
+        <Assign DisplayName="Assign out_CalculateTotalYear" sap:VirtualizedContainerService.HintSize="434,82" sap2010:WorkflowViewState.IdRef="Assign_296">
+          <Assign.To>
+            <OutArgument x:TypeArguments="x:Boolean">[out_CalculateTotalYear]</OutArgument>
+          </Assign.To>
+          <Assign.Value>
+            <InArgument x:TypeArguments="x:Boolean">True</InArgument>
+          </Assign.Value>
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+              <x:Boolean x:Key="IsPinned">False</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+        </Assign>
+      </Sequence>
       <Assign x:Key="dag" DisplayName="Assign DecidedHoursFromProcapita Sequence 100% Day" sap:VirtualizedContainerService.HintSize="434,81" sap2010:WorkflowViewState.IdRef="Assign_152">
         <Assign.To>
           <OutArgument x:TypeArguments="x:Double">[out_DecidedHoursFromProcapita]</OutArgument>
@@ -502,7 +526,7 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </Assign>
-      <Assign x:Key="vecka" DisplayName="Assign DecidedHoursFromProcapita Sequence 100% Week" sap:VirtualizedContainerService.HintSize="434,82" sap2010:WorkflowViewState.IdRef="Assign_153">
+      <Assign x:Key="vecka" DisplayName="Assign DecidedHoursFromProcapita Sequence 100% Week" sap:VirtualizedContainerService.HintSize="434,81" sap2010:WorkflowViewState.IdRef="Assign_153">
         <Assign.To>
           <OutArgument x:TypeArguments="x:Double">[out_DecidedHoursFromProcapita]</OutArgument>
         </Assign.To>
