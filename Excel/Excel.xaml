@@ -20,7 +20,7 @@
     <x:Property Name="in_TotalHours" Type="InArgument(x:Double)" />
     <x:Property Name="out_CopyOfExcel" Type="OutArgument(sd:DataTable)" />
   </x:Members>
-  <sap:VirtualizedContainerService.HintSize>1729,2692</sap:VirtualizedContainerService.HintSize>
+  <sap:VirtualizedContainerService.HintSize>1708,2693</sap:VirtualizedContainerService.HintSize>
   <sap2010:WorkflowViewState.IdRef>ActivityBuilder_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
     <sco:Collection x:TypeArguments="x:String">
@@ -148,9 +148,10 @@
       <AssemblyReference>Nager.Date</AssemblyReference>
       <AssemblyReference>UiPathTeam.NextWorkingDay.Activities</AssemblyReference>
       <AssemblyReference>System.ServiceModel.Activities</AssemblyReference>
+      <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
-  <Sequence DisplayName="Excel" sap:VirtualizedContainerService.HintSize="1718,2627" sap2010:WorkflowViewState.IdRef="Sequence_375">
+  <Sequence DisplayName="Excel" sap:VirtualizedContainerService.HintSize="1718,2628" sap2010:WorkflowViewState.IdRef="Sequence_375">
     <Sequence.Variables>
       <Variable x:TypeArguments="x:Int32" Name="RowIndex" />
       <Variable x:TypeArguments="scg:List(x:Int32)" Name="ListOfMatchedRowIndex" />
@@ -168,12 +169,17 @@
         <InArgument x:TypeArguments="sd:DataTable">[in_ExcelOrginalHours.Copy]</InArgument>
       </Assign.Value>
     </Assign>
-    <Assign DisplayName="Assign ListOfMatchedRowIndex" sap:VirtualizedContainerService.HintSize="1656,82" sap2010:WorkflowViewState.IdRef="Assign_159">
+    <Assign DisplayName="Assign ListOfMatchedRowIndex" sap:VirtualizedContainerService.HintSize="1656,83" sap2010:WorkflowViewState.IdRef="Assign_159">
       <Assign.To>
         <OutArgument x:TypeArguments="scg:List(x:Int32)">[ListOfMatchedRowIndex]</OutArgument>
       </Assign.To>
       <Assign.Value>
-        <InArgument x:TypeArguments="scg:List(x:Int32)">[(From row In out_CopyOfExcel.AsEnumerable() Where row("Brukare").ToString().Contains(in_FirstNameCareRecipient) AndAlso row("Brukare").ToString.Contains(in_LastNameCareRecipient) AndAlso row("Personnummer (UT)").ToString = in_SSN Select out_CopyOfExcel.Rows.IndexOf(row)).ToList]</InArgument>
+        <InArgument x:TypeArguments="scg:List(x:Int32)" xml:space="preserve">[(From row In out_CopyOfExcel.AsEnumerable()  
+ Where row("Brukare").ToString().Contains(in_FirstNameCareRecipient) AndAlso  
+       row("Brukare").ToString().Contains(in_LastNameCareRecipient) AndAlso  
+       row("Personnummer (UT)").ToString() = in_SSN  
+ Select out_CopyOfExcel.Rows.IndexOf(row)  
+).ToList]</InArgument>
       </Assign.Value>
     </Assign>
     <If Condition="[ListOfMatchedRowIndex.Count &lt; 1]" DisplayName="If Not In Excel" sap:VirtualizedContainerService.HintSize="1656,988" sap2010:WorkflowViewState.IdRef="If_69">
@@ -318,7 +324,7 @@
               </scg:Dictionary>
             </sap:WorkflowViewStateService.ViewState>
           </Assign>
-          <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="496,92" sap2010:WorkflowViewState.IdRef="LogMessage_2" Level="Info" Message="[&quot;Radindex på ny rad:&quot; + RowIndex.ToString]" />
+          <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="496,92" sap2010:WorkflowViewState.IdRef="LogMessage_2" Level="Info" Message="[&quot;Radindex på ny rad: &quot; + RowIndex.ToString]" />
         </Sequence>
       </If.Then>
       <If.Else>
@@ -351,7 +357,7 @@
                     <InArgument x:TypeArguments="x:Int32">[ListOfMatchedRowIndex(0)]</InArgument>
                   </Assign.Value>
                 </Assign>
-                <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="434,92" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Info" Message="[&quot;Radindex på existerande rad:&quot; + RowIndex.ToString]" />
+                <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="434,92" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Info" Message="[&quot;Radindex på existerande rad: &quot; + RowIndex.ToString]" />
               </Sequence>
             </If.Then>
             <If.Else>
