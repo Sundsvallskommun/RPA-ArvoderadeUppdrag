@@ -1,4 +1,4 @@
-<Activity mc:Ignorable="sap sap2010" x:Class="Workflow" mva:VisualBasic.Settings="{x:Null}" sap:VirtualizedContainerService.HintSize="2029,3099" sap2010:WorkflowViewState.IdRef="Workflow_1" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:rfa="clr-namespace:Roboyo.Fuzzy_Logic.Activities;assembly=Roboyo_Fuzzy_Logic" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=mscorlib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data" xmlns:si="clr-namespace:System.IO;assembly=mscorlib" xmlns:ss="clr-namespace:System.Security;assembly=mscorlib" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+<Activity mc:Ignorable="sap sap2010" x:Class="Workflow" mva:VisualBasic.Settings="{x:Null}" sap:VirtualizedContainerService.HintSize="980,3499" sap2010:WorkflowViewState.IdRef="Workflow_1" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:rfa="clr-namespace:Roboyo.Fuzzy_Logic.Activities;assembly=Roboyo_Fuzzy_Logic" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=mscorlib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data" xmlns:si="clr-namespace:System.IO;assembly=mscorlib" xmlns:ss="clr-namespace:System.Security;assembly=mscorlib" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <TextExpression.NamespacesForImplementation>
     <sco:Collection x:TypeArguments="x:String">
       <x:String>Microsoft.VisualBasic</x:String>
@@ -86,13 +86,12 @@
       <AssemblyReference>UiPath.UIAutomationNext.Activities</AssemblyReference>
       <AssemblyReference>UiPath.Testing.Activities</AssemblyReference>
       <AssemblyReference>UiPath.PDF.Activities</AssemblyReference>
-      <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
-  <Sequence sap:VirtualizedContainerService.HintSize="754,3034" sap2010:WorkflowViewState.IdRef="Sequence_8">
+  <Sequence sap:VirtualizedContainerService.HintSize="852,3434" sap2010:WorkflowViewState.IdRef="Sequence_8">
     <Sequence.Variables>
       <Variable x:TypeArguments="x:Double" Name="PercentLastNameTempProcapia" />
-      <Variable x:TypeArguments="scg:List(x:String)" Name="LastNameListInskickat" />
+      <Variable x:TypeArguments="scg:List(x:String)" Name="LastNameListInskickad" />
       <Variable x:TypeArguments="scg:List(x:String)" Name="LastNameListProcapita" />
     </Sequence.Variables>
     <sap:WorkflowViewStateService.ViewState>
@@ -100,34 +99,35 @@
         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
-    <Sequence sap:VirtualizedContainerService.HintSize="692,1595" sap2010:WorkflowViewState.IdRef="Sequence_11">
+    <Sequence sap:VirtualizedContainerService.HintSize="790,1995" sap2010:WorkflowViewState.IdRef="Sequence_11">
       <Sequence.Variables>
         <Variable x:TypeArguments="x:Double" Name="PercentFirstName" />
         <Variable x:TypeArguments="x:Double" Name="PercentLastName" />
         <Variable x:TypeArguments="x:String" Name="LastNameCareRecipient">
           <Variable.Default>
-            <Literal x:TypeArguments="x:String">Romby Jerkersdotter</Literal>
+            <Literal x:TypeArguments="x:String">Stefan Strom Romy Jerkersdotter</Literal>
           </Variable.Default>
         </Variable>
         <Variable x:TypeArguments="x:String" Name="sting" />
         <Variable x:TypeArguments="x:Int32" Name="IndexInskickat" />
         <Variable x:TypeArguments="x:Double" Name="PercentLastNameProcapia" />
         <Variable x:TypeArguments="x:Double" Name="PercentLastNameTemp" />
+        <Variable x:TypeArguments="sd:DataTable" Name="in_Procapita_Table" />
       </Sequence.Variables>
       <sap:WorkflowViewStateService.ViewState>
         <scg:Dictionary x:TypeArguments="x:String, x:Object">
           <x:Boolean x:Key="IsExpanded">True</x:Boolean>
         </scg:Dictionary>
       </sap:WorkflowViewStateService.ViewState>
-      <Assign DisplayName="Assign LastNameList" sap:VirtualizedContainerService.HintSize="630,82" sap2010:WorkflowViewState.IdRef="Assign_1">
+      <Assign DisplayName="Assign LastNameList" sap:VirtualizedContainerService.HintSize="728,82" sap2010:WorkflowViewState.IdRef="Assign_1">
         <Assign.To>
-          <OutArgument x:TypeArguments="scg:List(x:String)">[LastNameListInskickat]</OutArgument>
+          <OutArgument x:TypeArguments="scg:List(x:String)">[LastNameListInskickad]</OutArgument>
         </Assign.To>
         <Assign.Value>
           <InArgument x:TypeArguments="scg:List(x:String)">[LastNameCareRecipient.Split(" "c).ToList]</InArgument>
         </Assign.Value>
       </Assign>
-      <Assign DisplayName="Assign LastNameList" sap:VirtualizedContainerService.HintSize="630,82" sap2010:WorkflowViewState.IdRef="Assign_3">
+      <Assign DisplayName="Assign LastNameList" sap:VirtualizedContainerService.HintSize="728,82" sap2010:WorkflowViewState.IdRef="Assign_3">
         <Assign.To>
           <OutArgument x:TypeArguments="x:String">[sting]</OutArgument>
         </Assign.To>
@@ -135,21 +135,28 @@
           <InArgument x:TypeArguments="x:String">Jerkersdotter Romby</InArgument>
         </Assign.Value>
       </Assign>
-      <Assign DisplayName="Assign LastNameList" sap:VirtualizedContainerService.HintSize="630,82" sap2010:WorkflowViewState.IdRef="Assign_4">
+      <ui:BuildDataTable DataTable="[in_Procapita_Table]" DisplayName="Build Data Table" sap:VirtualizedContainerService.HintSize="728,60" sap2010:WorkflowViewState.IdRef="BuildDataTable_1" TableInfo="&lt;NewDataSet&gt;&#xA;  &lt;xs:schema id=&quot;NewDataSet&quot; xmlns=&quot;&quot; xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:msdata=&quot;urn:schemas-microsoft-com:xml-msdata&quot;&gt;&#xA;    &lt;xs:element name=&quot;NewDataSet&quot; msdata:IsDataSet=&quot;true&quot; msdata:MainDataTable=&quot;TableName&quot; msdata:UseCurrentLocale=&quot;true&quot;&gt;&#xA;      &lt;xs:complexType&gt;&#xA;        &lt;xs:choice minOccurs=&quot;0&quot; maxOccurs=&quot;unbounded&quot;&gt;&#xA;          &lt;xs:element name=&quot;TableName&quot;&gt;&#xA;            &lt;xs:complexType&gt;&#xA;              &lt;xs:sequence&gt;&#xA;                &lt;xs:element name=&quot;Namn&quot; msdata:Caption=&quot;&quot; minOccurs=&quot;0&quot;&gt;&#xA;                  &lt;xs:simpleType&gt;&#xA;                    &lt;xs:restriction base=&quot;xs:string&quot;&gt;&#xA;                      &lt;xs:maxLength value=&quot;100&quot; /&gt;&#xA;                    &lt;/xs:restriction&gt;&#xA;                  &lt;/xs:simpleType&gt;&#xA;                &lt;/xs:element&gt;&#xA;              &lt;/xs:sequence&gt;&#xA;            &lt;/xs:complexType&gt;&#xA;          &lt;/xs:element&gt;&#xA;        &lt;/xs:choice&gt;&#xA;      &lt;/xs:complexType&gt;&#xA;    &lt;/xs:element&gt;&#xA;  &lt;/xs:schema&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Namn&gt;Jerkersdotter Romby Stefan Strom, Kalle&lt;/Namn&gt;&#xA;  &lt;/TableName&gt;&#xA;&lt;/NewDataSet&gt;" />
+      <Assign DisplayName="Assign LastNameListProcapita" sap:VirtualizedContainerService.HintSize="728,82" sap2010:WorkflowViewState.IdRef="Assign_7">
         <Assign.To>
           <OutArgument x:TypeArguments="scg:List(x:String)">[LastNameListProcapita]</OutArgument>
         </Assign.To>
         <Assign.Value>
-          <InArgument x:TypeArguments="scg:List(x:String)">[sting.Split(" "c).ToList]</InArgument>
+          <InArgument x:TypeArguments="scg:List(x:String)">[in_Procapita_Table(0)("Namn").ToString.ToLower.Trim.Split(","c)(0).Split(" "c).ToList]</InArgument>
         </Assign.Value>
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
       </Assign>
-      <ui:ForEach x:TypeArguments="x:String" CurrentIndex="[IndexInskickat]" DisplayName="For Each LastNameList" sap:VirtualizedContainerService.HintSize="630,864" sap2010:WorkflowViewState.IdRef="ForEach`1_1" Values="[LastNameListInskickat]">
+      <ui:ForEach x:TypeArguments="x:String" CurrentIndex="[IndexInskickat]" DisplayName="For Each LastNameList" sap:VirtualizedContainerService.HintSize="728,1286" sap2010:WorkflowViewState.IdRef="ForEach`1_1" Values="[LastNameListInskickad]">
         <ui:ForEach.Body>
           <ActivityAction x:TypeArguments="x:String">
             <ActivityAction.Argument>
               <DelegateInArgument x:TypeArguments="x:String" Name="currentItem1" />
             </ActivityAction.Argument>
-            <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="594,738" sap2010:WorkflowViewState.IdRef="Sequence_10">
+            <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="692,1160" sap2010:WorkflowViewState.IdRef="Sequence_10">
               <Sequence.Variables>
                 <Variable x:TypeArguments="x:Double" Name="levenshtein" />
                 <Variable x:TypeArguments="x:Double" Name="gram" />
@@ -160,19 +167,27 @@
                   <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                 </scg:Dictionary>
               </sap:WorkflowViewStateService.ViewState>
-              <ui:ForEach x:TypeArguments="x:String" CurrentIndex="[IndexProcapita]" DisplayName="For Each" sap:VirtualizedContainerService.HintSize="532,505" sap2010:WorkflowViewState.IdRef="ForEach`1_6" Values="[LastNameListProcapita]">
+              <Assign DisplayName="Assign PercentLastName + temp" sap:VirtualizedContainerService.HintSize="630,82" sap2010:WorkflowViewState.IdRef="Assign_8">
+                <Assign.To>
+                  <OutArgument x:TypeArguments="x:Double">[PercentLastNameProcapia]</OutArgument>
+                </Assign.To>
+                <Assign.Value>
+                  <InArgument x:TypeArguments="x:Double">0</InArgument>
+                </Assign.Value>
+              </Assign>
+              <ui:ForEach x:TypeArguments="x:String" CurrentIndex="[IndexProcapita]" DisplayName="For Each" sap:VirtualizedContainerService.HintSize="630,805" sap2010:WorkflowViewState.IdRef="ForEach`1_6" Values="[LastNameListProcapita]">
                 <ui:ForEach.Body>
                   <ActivityAction x:TypeArguments="x:String">
                     <ActivityAction.Argument>
                       <DelegateInArgument x:TypeArguments="x:String" Name="currentItem2" />
                     </ActivityAction.Argument>
-                    <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="496,379" sap2010:WorkflowViewState.IdRef="Sequence_14">
+                    <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="594,679" sap2010:WorkflowViewState.IdRef="Sequence_14">
                       <sap:WorkflowViewStateService.ViewState>
                         <scg:Dictionary x:TypeArguments="x:String, x:Object">
                           <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                         </scg:Dictionary>
                       </sap:WorkflowViewStateService.ViewState>
-                      <rfa:GetJaroWinklerDistance DisplayName="Private: Get jaro winkler distance Last Name 2" sap:VirtualizedContainerService.HintSize="434,146" sap2010:WorkflowViewState.IdRef="GetJaroWinklerDistance_3" JaroWinklerDistanceResult="[PercentLastNameTempProcapia]" String1="[currentItem1]" String2="[currentItem2]">
+                      <rfa:GetJaroWinklerDistance DisplayName="Private: Get jaro winkler distance Last Name 2" sap:VirtualizedContainerService.HintSize="532,146" sap2010:WorkflowViewState.IdRef="GetJaroWinklerDistance_3" JaroWinklerDistanceResult="[PercentLastNameTempProcapia]" String1="[currentItem1.ToLower.Trim]" String2="[currentItem2.ToLower.Trim]">
                         <sap:WorkflowViewStateService.ViewState>
                           <scg:Dictionary x:TypeArguments="x:String, x:Object">
                             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -180,25 +195,57 @@
                           </scg:Dictionary>
                         </sap:WorkflowViewStateService.ViewState>
                       </rfa:GetJaroWinklerDistance>
-                      <Assign DisplayName="Assign PercentLastName + temp" sap:VirtualizedContainerService.HintSize="434,82" sap2010:WorkflowViewState.IdRef="Assign_5">
-                        <Assign.To>
-                          <OutArgument x:TypeArguments="x:Double">[PercentLastNameProcapia]</OutArgument>
-                        </Assign.To>
-                        <Assign.Value>
-                          <InArgument x:TypeArguments="x:Double">[PercentLastNameProcapia +PercentLastNameTempProcapia]</InArgument>
-                        </Assign.Value>
-                      </Assign>
+                      <If Condition="[PercentLastNameTempProcapia &gt; PercentLastNameProcapia]" sap:VirtualizedContainerService.HintSize="532,382" sap2010:WorkflowViewState.IdRef="If_2">
+                        <If.Then>
+                          <Sequence sap:VirtualizedContainerService.HintSize="496,193" sap2010:WorkflowViewState.IdRef="Sequence_15">
+                            <sap:WorkflowViewStateService.ViewState>
+                              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                              </scg:Dictionary>
+                            </sap:WorkflowViewStateService.ViewState>
+                            <Assign DisplayName="Assign PercentLastName + temp" sap:VirtualizedContainerService.HintSize="434,82" sap2010:WorkflowViewState.IdRef="Assign_5">
+                              <Assign.To>
+                                <OutArgument x:TypeArguments="x:Double">[PercentLastNameProcapia]</OutArgument>
+                              </Assign.To>
+                              <Assign.Value>
+                                <InArgument x:TypeArguments="x:Double">[PercentLastNameTempProcapia]</InArgument>
+                              </Assign.Value>
+                            </Assign>
+                          </Sequence>
+                        </If.Then>
+                        <If.Else>
+                          <Sequence sap2010:WorkflowViewState.IdRef="Sequence_16">
+                            <sap:WorkflowViewStateService.ViewState>
+                              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                              </scg:Dictionary>
+                            </sap:WorkflowViewStateService.ViewState>
+                          </Sequence>
+                        </If.Else>
+                      </If>
                     </Sequence>
                   </ActivityAction>
                 </ui:ForEach.Body>
+                <sap:WorkflowViewStateService.ViewState>
+                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                    <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                    <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                  </scg:Dictionary>
+                </sap:WorkflowViewStateService.ViewState>
               </ui:ForEach>
-              <Assign DisplayName="Assign PercentLastName + temp" sap:VirtualizedContainerService.HintSize="532,82" sap2010:WorkflowViewState.IdRef="Assign_2">
+              <Assign DisplayName="Assign PercentLastName + temp" sap:VirtualizedContainerService.HintSize="630,82" sap2010:WorkflowViewState.IdRef="Assign_2">
                 <Assign.To>
                   <OutArgument x:TypeArguments="x:Double">[PercentLastName]</OutArgument>
                 </Assign.To>
                 <Assign.Value>
-                  <InArgument x:TypeArguments="x:Double">[PercentLastNameProcapia/(LastNameListInskickat.Count)]</InArgument>
+                  <InArgument x:TypeArguments="x:Double">[PercentLastName + PercentLastNameProcapia/(LastNameListInskickad.Count)]</InArgument>
                 </Assign.Value>
+                <sap:WorkflowViewStateService.ViewState>
+                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                    <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                    <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                  </scg:Dictionary>
+                </sap:WorkflowViewStateService.ViewState>
               </Assign>
             </Sequence>
           </ActivityAction>
@@ -210,17 +257,9 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </ui:ForEach>
-      <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="630,92" sap2010:WorkflowViewState.IdRef="LogMessage_2" Message="[&quot;stop&quot;]" />
-      <Assign DisplayName="Assign PercentLastName / listcount" sap:VirtualizedContainerService.HintSize="630,82" sap2010:WorkflowViewState.IdRef="Assign_6">
-        <Assign.To>
-          <OutArgument x:TypeArguments="x:Double">[PercentLastName]</OutArgument>
-        </Assign.To>
-        <Assign.Value>
-          <InArgument x:TypeArguments="x:Double">[PercentLastNameProcapia/(LastNameListInskickat.Count)]</InArgument>
-        </Assign.Value>
-      </Assign>
+      <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="728,92" sap2010:WorkflowViewState.IdRef="LogMessage_2" Message="[&quot;stop&quot;]" />
     </Sequence>
-    <Sequence sap:VirtualizedContainerService.HintSize="692,1167" sap2010:WorkflowViewState.IdRef="Sequence_4">
+    <Sequence sap:VirtualizedContainerService.HintSize="790,1167" sap2010:WorkflowViewState.IdRef="Sequence_4">
       <Sequence.Variables>
         <Variable x:TypeArguments="s:DateTime" Default="[new DateTime]" Name="ToDate" />
         <Variable x:TypeArguments="s:DateTime" Name="DateToCheck" />
