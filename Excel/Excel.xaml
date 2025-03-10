@@ -20,7 +20,7 @@
     <x:Property Name="in_TotalHours" Type="InArgument(x:Double)" />
     <x:Property Name="out_CopyOfExcel" Type="OutArgument(sd:DataTable)" />
   </x:Members>
-  <sap:VirtualizedContainerService.HintSize>1708,2693</sap:VirtualizedContainerService.HintSize>
+  <sap:VirtualizedContainerService.HintSize>1708,2822</sap:VirtualizedContainerService.HintSize>
   <sap2010:WorkflowViewState.IdRef>ActivityBuilder_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
     <sco:Collection x:TypeArguments="x:String">
@@ -151,7 +151,7 @@
       <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
-  <Sequence DisplayName="Excel" sap:VirtualizedContainerService.HintSize="1718,2628" sap2010:WorkflowViewState.IdRef="Sequence_375">
+  <Sequence DisplayName="Excel" sap:VirtualizedContainerService.HintSize="1718,2757" sap2010:WorkflowViewState.IdRef="Sequence_375">
     <Sequence.Variables>
       <Variable x:TypeArguments="x:Int32" Name="RowIndex" />
       <Variable x:TypeArguments="scg:List(x:Int32)" Name="ListOfMatchedRowIndex" />
@@ -182,7 +182,7 @@
 ).ToList]</InArgument>
       </Assign.Value>
     </Assign>
-    <If Condition="[ListOfMatchedRowIndex.Count &lt; 1]" DisplayName="If Not In Excel" sap:VirtualizedContainerService.HintSize="1656,988" sap2010:WorkflowViewState.IdRef="If_69">
+    <If Condition="[ListOfMatchedRowIndex.Count &lt; 1]" DisplayName="If Not In Excel" sap:VirtualizedContainerService.HintSize="1656,1117" sap2010:WorkflowViewState.IdRef="If_69">
       <sap:WorkflowViewStateService.ViewState>
         <scg:Dictionary x:TypeArguments="x:String, x:Object">
           <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -190,7 +190,7 @@
         </scg:Dictionary>
       </sap:WorkflowViewStateService.ViewState>
       <If.Then>
-        <Sequence sap:VirtualizedContainerService.HintSize="558,828" sap2010:WorkflowViewState.IdRef="Sequence_196">
+        <Sequence sap:VirtualizedContainerService.HintSize="558,957" sap2010:WorkflowViewState.IdRef="Sequence_196">
           <Sequence.Variables>
             <Variable x:TypeArguments="s:Object[]" Name="NewPersonInformation" />
           </Sequence.Variables>
@@ -199,8 +199,8 @@
               <x:Boolean x:Key="IsExpanded">True</x:Boolean>
             </scg:Dictionary>
           </sap:WorkflowViewStateService.ViewState>
-          <Switch x:TypeArguments="x:String" DisplayName="Switch" Expression="[in_ReportType]" sap:VirtualizedContainerService.HintSize="496,206" sap2010:WorkflowViewState.IdRef="Switch`1_11">
-            <Assign x:Key="Avlösarservice LSS" DisplayName="Assign NewPersonInformation Avlösarservice LSS" sap:VirtualizedContainerService.HintSize="434,85" sap2010:WorkflowViewState.IdRef="Assign_160">
+          <Switch x:TypeArguments="x:String" DisplayName="Switch" Expression="[in_ReportType]" sap:VirtualizedContainerService.HintSize="496,335" sap2010:WorkflowViewState.IdRef="Switch`1_11">
+            <Assign x:Key="Avlösarservice LSS" DisplayName="Assign NewPersonInformation Avlösarservice LSS" sap:VirtualizedContainerService.HintSize="434,83" sap2010:WorkflowViewState.IdRef="Assign_160">
               <Assign.To>
                 <OutArgument x:TypeArguments="s:Object[]">[NewPersonInformation]</OutArgument>
               </Assign.To>
@@ -250,7 +250,7 @@
                 </scg:Dictionary>
               </sap:WorkflowViewStateService.ViewState>
             </Assign>
-            <Assign x:Key="Korttidsvistelse hos stödfamilj" DisplayName="Assign NewPersonInformation Korttidsvistelse hos stödfamilj" sap:VirtualizedContainerService.HintSize="434,81" sap2010:WorkflowViewState.IdRef="Assign_284">
+            <Assign x:Key="Korttidsvistelse hos stödfamilj" DisplayName="Assign NewPersonInformation Korttidsvistelse hos stödfamilj" sap:VirtualizedContainerService.HintSize="434,83" sap2010:WorkflowViewState.IdRef="Assign_284">
               <Assign.To>
                 <OutArgument x:TypeArguments="s:Object[]">[NewPersonInformation]</OutArgument>
               </Assign.To>
@@ -261,18 +261,18 @@
     If(in_PostalAddress, "").Trim,
     If(in_SSN, "").Trim,
     If(in_Address, "").Trim,
+	If(out_ArvodePris,"").Trim,
+	If(out_OmkostnadPris,"").Trim,
 	If(in_ValidityPeriod, "").Trim,
     If(in_DecidedQuantityFromProcapita, "").Trim,
     "", "", "", "", "", "", "", "", "", "", "","",
     If(in_EMailUppdragstagare, "").Trim,
-	If(out_ArvodePris,"").Trim,
-	If(out_OmkostnadPris,"").Trim,
 	"Aktiv"
 }]</InArgument>
               </Assign.Value>
               <sap:WorkflowViewStateService.ViewState>
                 <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                  <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                   <x:Boolean x:Key="IsPinned">False</x:Boolean>
                 </scg:Dictionary>
               </sap:WorkflowViewStateService.ViewState>
