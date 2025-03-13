@@ -11,7 +11,7 @@
   <this:ManagesSharedDecision.in_ListOfMatchedRowIndexSharedDecisions>
     <InArgument x:TypeArguments="scg:List(x:Int32)" />
   </this:ManagesSharedDecision.in_ListOfMatchedRowIndexSharedDecisions>
-  <sap:VirtualizedContainerService.HintSize>1115,1388</sap:VirtualizedContainerService.HintSize>
+  <sap:VirtualizedContainerService.HintSize>2029,1388</sap:VirtualizedContainerService.HintSize>
   <sap2010:WorkflowViewState.IdRef>ActivityBuilder_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
     <sco:Collection x:TypeArguments="x:String">
@@ -120,7 +120,6 @@
       <AssemblyReference>Nager.Date</AssemblyReference>
       <AssemblyReference>UiPathTeam.NextWorkingDay.Activities</AssemblyReference>
       <AssemblyReference>System.ServiceModel.Activities</AssemblyReference>
-      <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
   <Sequence sap:VirtualizedContainerService.HintSize="594,1323" sap2010:WorkflowViewState.IdRef="Sequence_352">
@@ -136,7 +135,7 @@
     <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="532,92" sap2010:WorkflowViewState.IdRef="LogMessage_32" Level="Info" Message="[&quot;Hanterar delat beslut.&quot;]" />
     <If Condition="[in_ListOfMatchedRowIndexSharedDecisions.Count &lt; 2]" DisplayName="If More Than 2 Rows found" sap:VirtualizedContainerService.HintSize="532,325" sap2010:WorkflowViewState.IdRef="If_99">
       <If.Then>
-        <Sequence sap:VirtualizedContainerService.HintSize="450,136" sap2010:WorkflowViewState.IdRef="Sequence_348">
+        <Sequence DisplayName="More than 2 rows" sap:VirtualizedContainerService.HintSize="450,136" sap2010:WorkflowViewState.IdRef="Sequence_348">
           <sap:WorkflowViewStateService.ViewState>
             <scg:Dictionary x:TypeArguments="x:String, x:Object">
               <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -161,7 +160,7 @@
           <ActivityAction.Argument>
             <DelegateInArgument x:TypeArguments="x:Int32" Name="currentItem" />
           </ActivityAction.Argument>
-          <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="496,193" sap2010:WorkflowViewState.IdRef="Sequence_347">
+          <Sequence DisplayName="Calculate total hours" sap:VirtualizedContainerService.HintSize="496,193" sap2010:WorkflowViewState.IdRef="Sequence_347">
             <sap:WorkflowViewStateService.ViewState>
               <scg:Dictionary x:TypeArguments="x:String, x:Object">
                 <x:Boolean x:Key="IsExpanded">True</x:Boolean>
