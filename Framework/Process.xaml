@@ -5,7 +5,7 @@
     <x:Property Name="in_TransactionNumber" Type="InArgument(x:Int32)" />
     <x:Property Name="io_DictProcapitaTables" Type="InOutArgument(scg:Dictionary(x:String, sd:DataTable))" />
   </x:Members>
-  <sap:VirtualizedContainerService.HintSize>1247,2935</sap:VirtualizedContainerService.HintSize>
+  <sap:VirtualizedContainerService.HintSize>2022,2935</sap:VirtualizedContainerService.HintSize>
   <sap2010:WorkflowViewState.IdRef>ProcessTransaction_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
     <scg:List x:TypeArguments="x:String" Capacity="100">
@@ -355,7 +355,7 @@
               </Assign.Value>
             </Assign>
           </Sequence>
-          <If sap2010:Annotation.AnnotationText="Not Environment.ToUpper.Equals(&quot;TEST&quot;)" Condition="[Not Environment.ToUpper.Equals(&quot;TEST&quot;)]" DisplayName="Get XML" sap:VirtualizedContainerService.HintSize="1095,1221" sap2010:WorkflowViewState.IdRef="If_2">
+          <If sap2010:Annotation.AnnotationText="Not Environment.ToUpper.Equals(&quot;TEST&quot;)" Condition="[Not Environment.ToUpper.Equals(&quot;TEST&quot;)]" DisplayName="Get XML" sap:VirtualizedContainerService.HintSize="1074,109" sap2010:WorkflowViewState.IdRef="If_2">
             <sap:WorkflowViewStateService.ViewState>
               <scg:Dictionary x:TypeArguments="x:String, x:Object">
                 <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
@@ -901,9 +901,9 @@
                             <av:PointCollection x:Key="ConnectorLocation">520,856 520,886 520.141666666667,886 520.141666666667,906</av:PointCollection>
                           </scg:Dictionary>
                         </sap:WorkflowViewStateService.ViewState>
-                        <TryCatch DisplayName="TryCatch Update Excel" sap:VirtualizedContainerService.HintSize="438,375" sap2010:WorkflowViewState.IdRef="TryCatch_2">
+                        <TryCatch DisplayName="TryCatch Update Excel" sap:VirtualizedContainerService.HintSize="490,520" sap2010:WorkflowViewState.IdRef="TryCatch_2">
                           <TryCatch.Try>
-                            <ui:WriteRange AddHeaders="False" sap2010:Annotation.AnnotationText="FilePathToExcelFile" DataTable="[CopyOfExcel]" DisplayName="Write Range Workbook" sap:VirtualizedContainerService.HintSize="334,147" sap2010:WorkflowViewState.IdRef="WriteRange_1" SheetName="[ReportType]" StartingCell="A2">
+                            <ui:WriteRange AddHeaders="False" sap2010:Annotation.AnnotationText="FilePathToExcelFile" DataTable="[CopyOfExcel]" DisplayName="Write Range Workbook UpdateExcelfile" sap:VirtualizedContainerService.HintSize="334,147" sap2010:WorkflowViewState.IdRef="WriteRange_1" SheetName="[ReportType]" StartingCell="A2" WorkbookPath="[FilePathToExcelFile]">
                               <sap:WorkflowViewStateService.ViewState>
                                 <scg:Dictionary x:TypeArguments="x:String, x:Object">
                                   <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -911,18 +911,13 @@
                                   <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
                                 </scg:Dictionary>
                               </sap:WorkflowViewStateService.ViewState>
-                              <ui:WriteRange.WorkbookPath>
-                                <InArgument x:TypeArguments="x:String">
-                                  <Literal x:TypeArguments="x:String" Value="" />
-                                </InArgument>
-                              </ui:WriteRange.WorkbookPath>
                             </ui:WriteRange>
                           </TryCatch.Try>
                           <TryCatch.Catches>
-                            <Catch x:TypeArguments="s:Exception" sap:VirtualizedContainerService.HintSize="404,21" sap2010:WorkflowViewState.IdRef="Catch`1_2">
+                            <Catch x:TypeArguments="s:Exception" sap:VirtualizedContainerService.HintSize="456,357" sap2010:WorkflowViewState.IdRef="Catch`1_2">
                               <sap:WorkflowViewStateService.ViewState>
                                 <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                                  <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                                   <x:Boolean x:Key="IsPinned">False</x:Boolean>
                                 </scg:Dictionary>
                               </sap:WorkflowViewStateService.ViewState>
@@ -930,7 +925,15 @@
                                 <ActivityAction.Argument>
                                   <DelegateInArgument x:TypeArguments="s:Exception" Name="exception" />
                                 </ActivityAction.Argument>
-                                <Throw DisplayName="Throw Unable To Update Excel" Exception="[New BusinessRuleException(&quot;Kunde inte uppdatera excelfil med timmar rapporterade.&quot;)]" sap:VirtualizedContainerService.HintSize="200,25" sap2010:WorkflowViewState.IdRef="Throw_31" />
+                                <Sequence sap:VirtualizedContainerService.HintSize="450,268" sap2010:WorkflowViewState.IdRef="Sequence_449">
+                                  <sap:WorkflowViewStateService.ViewState>
+                                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                    </scg:Dictionary>
+                                  </sap:WorkflowViewStateService.ViewState>
+                                  <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="388,92" sap2010:WorkflowViewState.IdRef="LogMessage_40" Level="Info" Message="[&quot;Kunde inte uppdatera excelfilen: &quot; + FilePathToExcelFile +&quot;. Felmeddelande: &quot; + exception.Message]" />
+                                  <Throw DisplayName="Throw Unable To Update Excel" Exception="[New SystemException(&quot;Kunde inte uppdatera excelfil med timmar rapporterade.&quot;)]" sap:VirtualizedContainerService.HintSize="388,25" sap2010:WorkflowViewState.IdRef="Throw_31" />
+                                </Sequence>
                               </ActivityAction>
                             </Catch>
                           </TryCatch.Catches>
