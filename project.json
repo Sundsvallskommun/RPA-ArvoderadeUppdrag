@@ -4,16 +4,13 @@
   "description": "Robotic Enterprise Framework (Windows)",
   "main": "Main.xaml",
   "dependencies": {
-    "OpenEplatform.API": "[1.0.15-alpha.1]",
-    "OpenEplatform.External": "[3.0.0]",
-    "Procapita_Plus_Legacy": "[1.0.3-alpha.11]",
-    "Roboyo.Fuzzy_Logic.Activities": "[1.0.15]",
-    "UiPath.Excel.Activities": "[2.20.2]",
-    "UiPath.PDF.Activities": "[3.2.2]",
-    "UiPath.System.Activities": "[24.3.1]",
+    "OpenEplatform.API_Windows": "[1.0.14]",
+    "OpenEplatform.External": "[4.0.0]",
+    "UiPath.Excel.Activities": "[3.2.1]",
+    "UiPath.PDF.Activities": "[3.6.0]",
+    "UiPath.System.Activities": "[25.10.5]",
     "UiPath.Testing.Activities": "[23.4.1]",
-    "UiPath.UIAutomation.Activities": "[23.10.13]",
-    "UiPathTeam.NextWorkingDay.Activities.Design": "[1.0.1]"
+    "UiPath.UIAutomation.Activities": "[25.10.22]"
   },
   "webServices": [],
   "entitiesStores": [],
@@ -120,5 +117,5 @@
   "isTemplate": false,
   "templateProjectData": {},
   "publishData": {},
-  "targetFramework": "Legacy"
+  "targetFramework": "Windows"
 }

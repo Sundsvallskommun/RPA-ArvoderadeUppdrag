@@ -1,0 +1,121 @@
+<Activity mc:Ignorable="sap sap2010" x:Class="NextWorkingDay" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:s="clr-namespace:System;assembly=System.Private.CoreLib" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Private.CoreLib" xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=System.Private.CoreLib" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <x:Members>
+    <x:Property Name="in_Date" Type="InArgument(s:DateTime)" />
+    <x:Property Name="out_NextWorkingDay" Type="OutArgument(s:DateTime)" />
+  </x:Members>
+  <sap2010:WorkflowViewState.IdRef>NextWorkingDay_1</sap2010:WorkflowViewState.IdRef>
+  <TextExpression.NamespacesForImplementation>
+    <sco:Collection x:TypeArguments="x:String">
+      <x:String>Microsoft.VisualBasic</x:String>
+      <x:String>Microsoft.VisualBasic.Activities</x:String>
+      <x:String>System</x:String>
+      <x:String>System.Activities</x:String>
+      <x:String>System.Activities.Expressions</x:String>
+      <x:String>System.Activities.Statements</x:String>
+      <x:String>System.Collections</x:String>
+      <x:String>System.Collections.Generic</x:String>
+      <x:String>System.Collections.ObjectModel</x:String>
+      <x:String>System.Data</x:String>
+      <x:String>System.Diagnostics</x:String>
+      <x:String>System.IO</x:String>
+      <x:String>System.Linq</x:String>
+      <x:String>System.Xml</x:String>
+      <x:String>System.Xml.Linq</x:String>
+      <x:String>UiPath.Core</x:String>
+      <x:String>UiPath.Core.Activities</x:String>
+      <x:String>GlobalVariablesNamespace</x:String>
+      <x:String>GlobalConstantsNamespace</x:String>
+      <x:String>System.Runtime.Serialization</x:String>
+      <x:String>System.Activities.Runtime.Collections</x:String>
+      <x:String>System.Reflection</x:String>
+      <x:String>System.Linq.Expressions</x:String>
+    </sco:Collection>
+  </TextExpression.NamespacesForImplementation>
+  <TextExpression.ReferencesForImplementation>
+    <sco:Collection x:TypeArguments="AssemblyReference">
+      <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
+      <AssemblyReference>mscorlib</AssemblyReference>
+      <AssemblyReference>PresentationCore</AssemblyReference>
+      <AssemblyReference>PresentationFramework</AssemblyReference>
+      <AssemblyReference>System</AssemblyReference>
+      <AssemblyReference>System.Activities</AssemblyReference>
+      <AssemblyReference>System.Collections</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.TypeConverter</AssemblyReference>
+      <AssemblyReference>System.Core</AssemblyReference>
+      <AssemblyReference>System.Data</AssemblyReference>
+      <AssemblyReference>System.Data.DataSetExtensions</AssemblyReference>
+      <AssemblyReference>System.Drawing</AssemblyReference>
+      <AssemblyReference>System.Linq</AssemblyReference>
+      <AssemblyReference>System.ObjectModel</AssemblyReference>
+      <AssemblyReference>System.Private.CoreLib</AssemblyReference>
+      <AssemblyReference>System.Xaml</AssemblyReference>
+      <AssemblyReference>System.Xml</AssemblyReference>
+      <AssemblyReference>System.Xml.Linq</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.UiAutomation.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.Workflow</AssemblyReference>
+      <AssemblyReference>WindowsBase</AssemblyReference>
+      <AssemblyReference>UiPath.Studio.Constants</AssemblyReference>
+      <AssemblyReference>System.Private.ServiceModel</AssemblyReference>
+      <AssemblyReference>System.Private.DataContractSerialization</AssemblyReference>
+      <AssemblyReference>System.Runtime.Serialization.Formatters</AssemblyReference>
+      <AssemblyReference>System.Runtime.Serialization.Primitives</AssemblyReference>
+      <AssemblyReference>System.Reflection.DispatchProxy</AssemblyReference>
+      <AssemblyReference>System.Reflection.TypeExtensions</AssemblyReference>
+      <AssemblyReference>System.Reflection.Metadata</AssemblyReference>
+      <AssemblyReference>UiPath.Excel.Activities.Design</AssemblyReference>
+      <AssemblyReference>System.Console</AssemblyReference>
+      <AssemblyReference>System.Security.Permissions</AssemblyReference>
+      <AssemblyReference>System.Configuration.ConfigurationManager</AssemblyReference>
+      <AssemblyReference>System.ComponentModel</AssemblyReference>
+      <AssemblyReference>System.Memory</AssemblyReference>
+      <AssemblyReference>System.Private.Uri</AssemblyReference>
+      <AssemblyReference>NPOI.Core</AssemblyReference>
+      <AssemblyReference>System.Collections.NonGeneric</AssemblyReference>
+      <AssemblyReference>System.Linq.Expressions</AssemblyReference>
+    </sco:Collection>
+  </TextExpression.ReferencesForImplementation>
+  <Sequence DisplayName="NextWorkingDay" sap:VirtualizedContainerService.HintSize="1759,903.6566666666666" sap2010:WorkflowViewState.IdRef="Sequence_1">
+    <sap:WorkflowViewStateService.ViewState>
+      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+      </scg:Dictionary>
+    </sap:WorkflowViewStateService.ViewState>
+    <TryCatch DisplayName="Try Catch" sap:VirtualizedContainerService.HintSize="452,678" sap2010:WorkflowViewState.IdRef="TryCatch_1">
+      <TryCatch.Try>
+        <ui:InvokeCode ContinueOnError="{x:Null}" Code="' =====================================================================&#xD;&#xA;' NÄSTA ARBETSDAG (svenska helgdagar)&#xD;&#xA;' ---------------------------------------------------------------------&#xD;&#xA;' In:  in_Date (DateTime)            - utgångsdatum (klockslag ignoreras)&#xD;&#xA;' Ut:  out_NextWorkingDay (DateTime) - första arbetsdagen EFTER in_Date&#xD;&#xA;'&#xD;&#xA;' Arbetsdag = inte lördag, inte söndag och inte i listan &quot;holidays&quot;.&#xD;&#xA;' Även om in_Date själv är en arbetsdag returneras nästa arbetsdag,&#xD;&#xA;' eftersom vi alltid börjar räkna från dagen efter.&#xD;&#xA;' =====================================================================&#xD;&#xA;&#xD;&#xA;' Startdatum: dagen efter in_Date. .Date tar bort klockslaget (00:00:00),&#xD;&#xA;' annars skulle holidays.Contains(d) aldrig slå till, eftersom&#xD;&#xA;' helgdagarna i listan också ligger på 00:00:00.&#xD;&#xA;Dim d As DateTime = in_Date.Date.AddDays(1)   ' Börja alltid på dagen efter&#xD;&#xA;&#xD;&#xA;' Vilket år helgdagslistan just nu gäller för.&#xD;&#xA;' -1 = ingen lista laddad ännu, så den byggs första varvet.&#xD;&#xA;Dim loadedYear As Integer = -1&#xD;&#xA;&#xD;&#xA;' Årets helgdagar. HashSet gör Contains-sökningen snabb.&#xD;&#xA;Dim holidays As New HashSet(Of DateTime)()&#xD;&#xA;&#xD;&#xA;' ---------------------------------------------------------------------&#xD;&#xA;' HUVUDLOOP: stega en dag i taget tills vi hittar en arbetsdag&#xD;&#xA;' ---------------------------------------------------------------------&#xD;&#xA;Do&#xD;&#xA;    ' -----------------------------------------------------------------&#xD;&#xA;    ' Bygg om helgdagslistan om vi har gått in i ett nytt år.&#xD;&#xA;    ' Händer första varvet, och om vi passerar ett årsskifte&#xD;&#xA;    ' (t.ex. in_Date = 2026-12-30 -&gt; loopen går vidare in i 2027).&#xD;&#xA;    ' FELSÖK: logga loadedYear och holidays.Count här. Normalt är det&#xD;&#xA;    ' 16 dagar, men det kan bli färre om två helgdagar råkar infalla&#xD;&#xA;    ' samma datum (HashSet lagrar dubbletter bara en gång).&#xD;&#xA;    ' -----------------------------------------------------------------&#xD;&#xA;    If d.Year &lt;&gt; loadedYear Then&#xD;&#xA;        loadedYear = d.Year&#xD;&#xA;        holidays.Clear()&#xD;&#xA;        Dim y As Integer = d.Year&#xD;&#xA;&#xD;&#xA;        ' -------------------------------------------------------------&#xD;&#xA;        ' PÅSKDAGEN: &quot;Anonymous Gregorian algorithm&quot; (Meeus/Jones/Butcher).&#xD;&#xA;        ' Ger påskdagens månad och dag för valfritt år i den&#xD;&#xA;        ' gregorianska kalendern. Variablerna heter dd, ii och mm (inte&#xD;&#xA;        ' d, i, m) för att inte krocka med loopvariabeln d.&#xD;&#xA;        ' FELSÖK: kontrollvärden för easter:&#xD;&#xA;        '   2024 -&gt; 2024-03-31&#xD;&#xA;        '   2025 -&gt; 2025-04-20&#xD;&#xA;        '   2026 -&gt; 2026-04-05&#xD;&#xA;        '   2027 -&gt; 2027-03-28&#xD;&#xA;        ' -------------------------------------------------------------&#xD;&#xA;        Dim a As Integer = y Mod 19                    ' Årets plats i 19-årig måncykel&#xD;&#xA;        Dim b As Integer = y \ 100                     ' Sekel&#xD;&#xA;        Dim c As Integer = y Mod 100                   ' År inom seklet&#xD;&#xA;        Dim dd As Integer = b \ 4                      ' Skottårskorrigering för sekler&#xD;&#xA;        Dim e As Integer = b Mod 4&#xD;&#xA;        Dim f As Integer = (b + 8) \ 25                ' Mån-korrigering&#xD;&#xA;        Dim g As Integer = (b - f + 1) \ 3&#xD;&#xA;        Dim h As Integer = (19 * a + b - dd - g + 15) Mod 30   ' Dagar till påskfullmånen&#xD;&#xA;        Dim ii As Integer = c \ 4&#xD;&#xA;        Dim k As Integer = c Mod 4&#xD;&#xA;        Dim l As Integer = (32 + 2 * e + 2 * ii - h - k) Mod 7 ' Dagar till söndagen efter&#xD;&#xA;        Dim mm As Integer = (a + 11 * h + 22 * l) \ 451&#xD;&#xA;        Dim monthE As Integer = (h + l - 7 * mm + 114) \ 31          ' 3 = mars, 4 = april&#xD;&#xA;        Dim dayE As Integer = ((h + l - 7 * mm + 114) Mod 31) + 1    ' Dag i månaden&#xD;&#xA;        Dim easter As New DateTime(y, monthE, dayE)&#xD;&#xA;&#xD;&#xA;        ' -------------------------------------------------------------&#xD;&#xA;        ' FASTA OCH PÅSKBEROENDE HELGDAGAR&#xD;&#xA;        ' Afton-dagarna (jul-, nyårs- och midsommarafton) är inte röda&#xD;&#xA;        ' dagar enligt lag men räknas här som lediga.&#xD;&#xA;        ' -------------------------------------------------------------&#xD;&#xA;        holidays.Add(New DateTime(y, 1, 1))    ' Nyårsdagen&#xD;&#xA;        holidays.Add(New DateTime(y, 1, 6))    ' Trettondedag jul&#xD;&#xA;        holidays.Add(easter.AddDays(-2))       ' Långfredagen&#xD;&#xA;        holidays.Add(easter)                   ' Påskdagen (alltid söndag)&#xD;&#xA;        holidays.Add(easter.AddDays(1))        ' Annandag påsk&#xD;&#xA;        holidays.Add(New DateTime(y, 5, 1))    ' Första maj&#xD;&#xA;        holidays.Add(easter.AddDays(39))       ' Kristi himmelsfärdsdag (torsdag)&#xD;&#xA;        holidays.Add(easter.AddDays(49))       ' Pingstdagen (alltid söndag)&#xD;&#xA;        holidays.Add(New DateTime(y, 6, 6))    ' Nationaldagen&#xD;&#xA;        holidays.Add(New DateTime(y, 12, 24))  ' Julafton&#xD;&#xA;        holidays.Add(New DateTime(y, 12, 25))  ' Juldagen&#xD;&#xA;        holidays.Add(New DateTime(y, 12, 26))  ' Annandag jul&#xD;&#xA;        holidays.Add(New DateTime(y, 12, 31))  ' Nyårsafton&#xD;&#xA;&#xD;&#xA;        ' -------------------------------------------------------------&#xD;&#xA;        ' MIDSOMMAR: midsommardagen = lördagen mellan 20 och 26 juni.&#xD;&#xA;        ' Börja på 20 juni och stega fram till första lördagen.&#xD;&#xA;        ' FELSÖK: 2026 -&gt; midsommarafton 2026-06-19, midsommardagen 2026-06-20.&#xD;&#xA;        ' -------------------------------------------------------------&#xD;&#xA;        Dim Mid As New DateTime(y, 6, 20)&#xD;&#xA;        While Mid.DayOfWeek &lt;&gt; DayOfWeek.Saturday&#xD;&#xA;            Mid = Mid.AddDays(1)&#xD;&#xA;        End While&#xD;&#xA;        holidays.Add(Mid)                      ' Midsommardagen (lördag)&#xD;&#xA;        holidays.Add(Mid.AddDays(-1))          ' Midsommarafton (fredag)&#xD;&#xA;&#xD;&#xA;        ' -------------------------------------------------------------&#xD;&#xA;        ' ALLA HELGONS DAG: lördagen mellan 31 oktober och 6 november.&#xD;&#xA;        ' Infaller alltid på en lördag och påverkar därför inte resultatet&#xD;&#xA;        ' (helger hoppas ändå över), men den finns med för fullständighet.&#xD;&#xA;        ' -------------------------------------------------------------&#xD;&#xA;        Dim allSaints As New DateTime(y, 10, 31)&#xD;&#xA;        While allSaints.DayOfWeek &lt;&gt; DayOfWeek.Saturday&#xD;&#xA;            allSaints = allSaints.AddDays(1)&#xD;&#xA;        End While&#xD;&#xA;        holidays.Add(allSaints)                ' Alla helgons dag&#xD;&#xA;    End If&#xD;&#xA;&#xD;&#xA;    ' -----------------------------------------------------------------&#xD;&#xA;    ' KONTROLL AV DAGEN&#xD;&#xA;    ' Om d är lördag, söndag eller helgdag: gå till nästa dag och kör&#xD;&#xA;    ' loopen igen. Annars har vi hittat arbetsdagen och går ur loopen.&#xD;&#xA;    ' FELSÖK: logga d.ToString(&quot;yyyy-MM-dd ddd&quot;) och&#xD;&#xA;    ' holidays.Contains(d) här för att se varje dag som testas och varför&#xD;&#xA;    ' den hoppas över.&#xD;&#xA;    ' -----------------------------------------------------------------&#xD;&#xA;    If d.DayOfWeek = DayOfWeek.Saturday OrElse d.DayOfWeek = DayOfWeek.Sunday OrElse holidays.Contains(d) Then&#xD;&#xA;        d = d.AddDays(1)&#xD;&#xA;    Else&#xD;&#xA;        Exit Do&#xD;&#xA;    End If&#xD;&#xA;Loop&#xD;&#xA;&#xD;&#xA;' Resultat: första arbetsdagen efter in_Date (klockslag 00:00:00).&#xD;&#xA;out_NextWorkingDay = d" DisplayName="Invoke Code NextWorkingDay" sap:VirtualizedContainerService.HintSize="450,165" sap2010:WorkflowViewState.IdRef="InvokeCode_1">
+          <ui:InvokeCode.Arguments>
+            <InArgument x:TypeArguments="s:DateTime" x:Key="in_Date">[in_Date]</InArgument>
+            <OutArgument x:TypeArguments="s:DateTime" x:Key="out_NextWorkingDay">[out_NextWorkingDay]</OutArgument>
+          </ui:InvokeCode.Arguments>
+        </ui:InvokeCode>
+      </TryCatch.Try>
+      <TryCatch.Catches>
+        <Catch x:TypeArguments="s:Exception" sap2010:WorkflowViewState.IdRef="Catch`1_1">
+          <ActivityAction x:TypeArguments="s:Exception">
+            <ActivityAction.Argument>
+              <DelegateInArgument x:TypeArguments="s:Exception" Name="exception" />
+            </ActivityAction.Argument>
+            <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="450,234" sap2010:WorkflowViewState.IdRef="Sequence_2">
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+              <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="416,170" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Warn" Message="[exception.Message]" />
+            </Sequence>
+          </ActivityAction>
+        </Catch>
+      </TryCatch.Catches>
+      <TryCatch.Finally>
+        <Sequence DisplayName="Finally" sap:VirtualizedContainerService.HintSize="450,94" sap2010:WorkflowViewState.IdRef="Sequence_3">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+        </Sequence>
+      </TryCatch.Finally>
+    </TryCatch>
+  </Sequence>
+</Activity>
