@@ -1,9 +1,9 @@
 <Activity mc:Ignorable="sap sap2010" x:Class="ManagesSharedDecision" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Private.CoreLib" xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=System.Private.CoreLib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data.Common" xmlns:this="clr-namespace:" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <x:Members>
     <x:Property Name="in_SSN" Type="InArgument(x:String)" />
-    <x:Property Name="in_DecidedQuantityFromProcapita" Type="InArgument(x:String)" />
+    <x:Property Name="in_DecidedQuantityFromLifeCare" Type="InArgument(x:String)" />
     <x:Property Name="in_ValidityPeriod" Type="InArgument(x:String)" />
-    <x:Property Name="in_DecidedHoursFromProcapita" Type="InArgument(x:Double)" />
+    <x:Property Name="in_DecidedHoursFromLifeCare" Type="InArgument(x:Double)" />
     <x:Property Name="in_CopyOfExcel" Type="InArgument(sd:DataTable)" />
     <x:Property Name="in_MonthName" Type="InArgument(x:String)" />
     <x:Property Name="in_ListOfMatchedRowIndexSharedDecisions" Type="InArgument(scg:List(x:Int32))" />
@@ -39,6 +39,8 @@
       <x:String>System.Xml.Linq</x:String>
       <x:String>System.IO</x:String>
       <x:String>System.Net.Mail</x:String>
+      <x:String>GlobalVariablesNamespace</x:String>
+      <x:String>GlobalConstantsNamespace</x:String>
     </sco:Collection>
   </TextExpression.NamespacesForImplementation>
   <TextExpression.ReferencesForImplementation>
@@ -116,7 +118,7 @@
       <AssemblyReference>WindowsBase</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
-  <Sequence sap:VirtualizedContainerService.HintSize="594,1323" sap2010:WorkflowViewState.IdRef="Sequence_352">
+  <Sequence sap:VirtualizedContainerService.HintSize="1778,1429" sap2010:WorkflowViewState.IdRef="Sequence_352">
     <Sequence.Variables>
       <Variable x:TypeArguments="x:Double" Name="TotalHoursSharedDecisions" />
     </Sequence.Variables>
@@ -126,20 +128,20 @@
         <x:Boolean x:Key="IsPinned">False</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
-    <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="532,92" sap2010:WorkflowViewState.IdRef="LogMessage_32" Level="Info" Message="[&quot;Hanterar delat beslut.&quot;]" />
-    <If Condition="[in_ListOfMatchedRowIndexSharedDecisions.Count &lt; 2]" DisplayName="If More Than 2 Rows found" sap:VirtualizedContainerService.HintSize="532,325" sap2010:WorkflowViewState.IdRef="If_99">
+    <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="452,175" sap2010:WorkflowViewState.IdRef="LogMessage_32" Level="Info" Message="[&quot;Hanterar delat beslut.&quot;]" />
+    <If Condition="[in_ListOfMatchedRowIndexSharedDecisions.Count &lt; 2]" DisplayName="If More Than 2 Rows found" sap:VirtualizedContainerService.HintSize="452,415" sap2010:WorkflowViewState.IdRef="If_99">
       <If.Then>
-        <Sequence DisplayName="More than 2 rows" sap:VirtualizedContainerService.HintSize="450,136" sap2010:WorkflowViewState.IdRef="Sequence_348">
+        <Sequence DisplayName="More than 2 rows" sap:VirtualizedContainerService.HintSize="450,182" sap2010:WorkflowViewState.IdRef="Sequence_348">
           <sap:WorkflowViewStateService.ViewState>
             <scg:Dictionary x:TypeArguments="x:String, x:Object">
               <x:Boolean x:Key="IsExpanded">True</x:Boolean>
             </scg:Dictionary>
           </sap:WorkflowViewStateService.ViewState>
-          <Throw DisplayName="Throw More than 2 rows" Exception="[New BusinessRuleException(&quot;Kan inte avgöra vilka rader i Excel-filen med rapporterade timmar som tillhör samma beslut. Dubbelkolla att Giltighetsperioden,Kvantitet och personnummer är rätt för rader som tillhör beslutet.&quot;)]" sap:VirtualizedContainerService.HintSize="388,25" sap2010:WorkflowViewState.IdRef="Throw_21" />
+          <Throw DisplayName="Throw More than 2 rows" Exception="[New BusinessRuleException(&quot;Kan inte avgöra vilka rader i Excel-filen med rapporterade timmar som tillhör samma beslut. Dubbelkolla att Giltighetsperioden,Kvantitet och personnummer är rätt för rader som tillhör beslutet.&quot;)]" sap:VirtualizedContainerService.HintSize="416,118" sap2010:WorkflowViewState.IdRef="Throw_21" />
         </Sequence>
       </If.Then>
       <If.Else>
-        <Sequence sap2010:WorkflowViewState.IdRef="Sequence_349">
+        <Sequence DisplayName="Else" sap:VirtualizedContainerService.HintSize="450,94" sap2010:WorkflowViewState.IdRef="Sequence_349">
           <sap:WorkflowViewStateService.ViewState>
             <scg:Dictionary x:TypeArguments="x:String, x:Object">
               <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -148,19 +150,19 @@
         </Sequence>
       </If.Else>
     </If>
-    <ui:ForEach x:TypeArguments="x:Int32" CurrentIndex="{x:Null}" sap2010:Annotation.AnnotationText="Räknar ihop alla timmar rapporterade för denna månad i det delade beslutet." DisplayName="For Each ListOfMatchedRowIndexSharedDecisions" sap:VirtualizedContainerService.HintSize="532,350" sap2010:WorkflowViewState.IdRef="ForEach`1_11" Values="[in_ListOfMatchedRowIndexSharedDecisions]">
+    <ui:ForEach x:TypeArguments="x:Int32" CurrentIndex="{x:Null}" sap2010:Annotation.AnnotationText="Räknar ihop alla timmar rapporterade för denna månad i det delade beslutet." DisplayName="For Each ListOfMatchedRowIndexSharedDecisions" sap:VirtualizedContainerService.HintSize="452,410" sap2010:WorkflowViewState.IdRef="ForEach`1_11" Values="[in_ListOfMatchedRowIndexSharedDecisions]">
       <ui:ForEach.Body>
         <ActivityAction x:TypeArguments="x:Int32">
           <ActivityAction.Argument>
             <DelegateInArgument x:TypeArguments="x:Int32" Name="currentItem" />
           </ActivityAction.Argument>
-          <Sequence DisplayName="Calculate total hours" sap:VirtualizedContainerService.HintSize="496,193" sap2010:WorkflowViewState.IdRef="Sequence_347">
+          <Sequence DisplayName="Calculate total hours" sap:VirtualizedContainerService.HintSize="450,234" sap2010:WorkflowViewState.IdRef="Sequence_347">
             <sap:WorkflowViewStateService.ViewState>
               <scg:Dictionary x:TypeArguments="x:String, x:Object">
                 <x:Boolean x:Key="IsExpanded">True</x:Boolean>
               </scg:Dictionary>
             </sap:WorkflowViewStateService.ViewState>
-            <Assign DisplayName="Assign TotalHoursSharedDecisions" sap:VirtualizedContainerService.HintSize="434,82" sap2010:WorkflowViewState.IdRef="Assign_265">
+            <Assign DisplayName="Assign TotalHoursSharedDecisions" sap:VirtualizedContainerService.HintSize="416,170" sap2010:WorkflowViewState.IdRef="Assign_265">
               <Assign.To>
                 <OutArgument x:TypeArguments="x:Double">[TotalHoursSharedDecisions]</OutArgument>
               </Assign.To>
@@ -179,19 +181,19 @@
         </scg:Dictionary>
       </sap:WorkflowViewStateService.ViewState>
     </ui:ForEach>
-    <If Condition="[TotalHoursSharedDecisions &gt;= in_DecidedHoursFromProcapita]" DisplayName="If Total Hours when shared is ok" sap:VirtualizedContainerService.HintSize="532,325" sap2010:WorkflowViewState.IdRef="If_100">
+    <If Condition="[TotalHoursSharedDecisions &gt;= in_DecidedHoursFromLifeCare]" DisplayName="If Total Hours when shared is ok" sap:VirtualizedContainerService.HintSize="452,406" sap2010:WorkflowViewState.IdRef="If_100">
       <If.Then>
-        <Sequence sap:VirtualizedContainerService.HintSize="450,136" sap2010:WorkflowViewState.IdRef="Sequence_350">
+        <Sequence DisplayName="Then" sap:VirtualizedContainerService.HintSize="450,182" sap2010:WorkflowViewState.IdRef="Sequence_350">
           <sap:WorkflowViewStateService.ViewState>
             <scg:Dictionary x:TypeArguments="x:String, x:Object">
               <x:Boolean x:Key="IsExpanded">True</x:Boolean>
             </scg:Dictionary>
           </sap:WorkflowViewStateService.ViewState>
-          <Throw DisplayName="Throw More hours reported than decided" Exception="[New BusinessRuleException(&quot;Beslutet verkar vara ett delat beslut och det är totalt fler timmar rapporterade än vad beslutet är på.&quot;)]" sap:VirtualizedContainerService.HintSize="388,25" sap2010:WorkflowViewState.IdRef="Throw_22" />
+          <Throw DisplayName="Throw More hours reported than decided" Exception="[New BusinessRuleException(&quot;Beslutet verkar vara ett delat beslut och det är totalt fler timmar rapporterade än vad beslutet är på.&quot;)]" sap:VirtualizedContainerService.HintSize="416,118" sap2010:WorkflowViewState.IdRef="Throw_22" />
         </Sequence>
       </If.Then>
       <If.Else>
-        <Sequence sap2010:WorkflowViewState.IdRef="Sequence_351">
+        <Sequence DisplayName="Else" sap:VirtualizedContainerService.HintSize="450,94" sap2010:WorkflowViewState.IdRef="Sequence_351">
           <sap:WorkflowViewStateService.ViewState>
             <scg:Dictionary x:TypeArguments="x:String, x:Object">
               <x:Boolean x:Key="IsExpanded">True</x:Boolean>

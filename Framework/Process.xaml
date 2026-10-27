@@ -3,7 +3,7 @@
     <x:Property sap2010:Annotation.AnnotationText="Transaction item to be processed." Name="in_TransactionItem" Type="InArgument(ui:QueueItem)" />
     <x:Property sap2010:Annotation.AnnotationText="Dictionary structure to store configuration data of the process (settings, constants and assets)." Name="in_Config" Type="InArgument(scg:Dictionary(x:String, x:Object))" />
     <x:Property Name="in_TransactionNumber" Type="InArgument(x:Int32)" />
-    <x:Property Name="io_DictProcapitaTables" Type="InOutArgument(scg:Dictionary(x:String, sd:DataTable))" />
+    <x:Property Name="io_DictLifeCareTables" Type="InOutArgument(scg:Dictionary(x:String, sd:DataTable))" />
   </x:Members>
   <sap:VirtualizedContainerService.HintSize>1908,4047</sap:VirtualizedContainerService.HintSize>
   <sap2010:WorkflowViewState.IdRef>ProcessTransaction_1</sap2010:WorkflowViewState.IdRef>
@@ -181,9 +181,12 @@
       <AssemblyReference>System.Collections.NonGeneric</AssemblyReference>
       <AssemblyReference>System.Linq.Expressions</AssemblyReference>
       <AssemblyReference>System.Runtime.Numerics</AssemblyReference>
+      <AssemblyReference>System.Data.SqlClient</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.EventBasedAsync</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.Primitives</AssemblyReference>
     </scg:List>
   </TextExpression.ReferencesForImplementation>
-  <Sequence sap:VirtualizedContainerService.HintSize="1753,2521" sap2010:WorkflowViewState.IdRef="Sequence_326">
+  <Sequence sap:VirtualizedContainerService.HintSize="1778,3119" sap2010:WorkflowViewState.IdRef="Sequence_326">
     <Sequence.Variables>
       <Variable x:TypeArguments="ss:SecureString" Name="OePPassword" />
       <Variable x:TypeArguments="x:String" Name="OePUsername" />
@@ -195,12 +198,12 @@
         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
-    <TryCatch DisplayName="Try Catch" sap:VirtualizedContainerService.HintSize="636,2498" sap2010:WorkflowViewState.IdRef="TryCatch_1">
+    <TryCatch DisplayName="Try Catch" sap:VirtualizedContainerService.HintSize="636,3096" sap2010:WorkflowViewState.IdRef="TryCatch_1">
       <TryCatch.Variables>
         <Variable x:TypeArguments="x:String" Name="InternalMessage" />
       </TryCatch.Variables>
       <TryCatch.Try>
-        <Sequence sap2010:Annotation.AnnotationText="Invoke major steps of the business process, which are usually implemented by multiple subworkflows.&#xA;&#xA;If a BusinessRuleException is thrown, the transaction is skipped. &#xA;If another kind of exception occurs, the current transaction can be retried. " DisplayName="Process" sap:VirtualizedContainerService.HintSize="634,1765" sap2010:WorkflowViewState.IdRef="Sequence_1">
+        <Sequence sap2010:Annotation.AnnotationText="Invoke major steps of the business process, which are usually implemented by multiple subworkflows.&#xA;&#xA;If a BusinessRuleException is thrown, the transaction is skipped. &#xA;If another kind of exception occurs, the current transaction can be retried. " DisplayName="Process" sap:VirtualizedContainerService.HintSize="634,1579" sap2010:WorkflowViewState.IdRef="Sequence_1">
           <Sequence.Variables>
             <Variable x:TypeArguments="sxl:XNamespace" Default="[&quot;http://www.oeplatform.org/version/2.0/schemas/flowinstance&quot;]" Name="FlowInstance" />
             <Variable x:TypeArguments="x:String" Name="FilePathToApplication" />
@@ -234,8 +237,8 @@
             <Variable x:TypeArguments="x:String" Name="DictionaryKey" />
             <Variable x:TypeArguments="sd:DataTable" Name="CopyOfExcel" />
             <Variable x:TypeArguments="x:String" Name="ValidityPeriod" />
-            <Variable x:TypeArguments="x:String" Name="DecidedQuantityFromProcapita" />
-            <Variable x:TypeArguments="x:Double" Name="DecidedHoursFromProcapita" />
+            <Variable x:TypeArguments="x:String" Name="DecidedQuantityFromLifeCare" />
+            <Variable x:TypeArguments="x:Double" Name="DecidedHoursFromLifeCare" />
             <Variable x:TypeArguments="x:Double" Name="MaximumPrivateExpense" />
             <Variable x:TypeArguments="x:String" Name="Cred_NA_OeP" />
             <Variable x:TypeArguments="x:String" Name="FolderPathToCopies" />
@@ -645,21 +648,6 @@
               </If>
             </Sequence>
           </Sequence>
-          <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="SetDates.xaml - Invoke Workflow File" sap:VirtualizedContainerService.HintSize="600,186" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_3" UnSafe="False" WorkflowFileName="Procapita\SetDates.xaml">
-            <ui:InvokeWorkflowFile.Arguments>
-              <InArgument x:TypeArguments="x:String" x:Key="in_FolderPathToCopies">[FolderPathToCopies]</InArgument>
-              <OutArgument x:TypeArguments="x:String" x:Key="out_FilePathToExcelFile">[FilePathToExcelFile]</OutArgument>
-              <InArgument x:TypeArguments="x:String" x:Key="in_ReportType">[ReportType]</InArgument>
-              <OutArgument x:TypeArguments="sd:DataTable" x:Key="out_ExcelOrginalHours">[ExcelOrginalHours]</OutArgument>
-              <OutArgument x:TypeArguments="x:String" x:Key="out_DateTo">[DateTo]</OutArgument>
-              <OutArgument x:TypeArguments="x:String" x:Key="out_DateFrom">[DateFrom]</OutArgument>
-              <InArgument x:TypeArguments="x:String" x:Key="in_FolderPathToReportedHours">[FolderPathToReportedHours]</InArgument>
-              <InOutArgument x:TypeArguments="x:String" x:Key="io_MonthName">[MonthName]</InOutArgument>
-              <OutArgument x:TypeArguments="x:String" x:Key="out_YearToUse">[Year]</OutArgument>
-              <InArgument x:TypeArguments="x:String" x:Key="in_Environment">[Environment]</InArgument>
-              <InArgument x:TypeArguments="x:Int32" x:Key="in_TransactionNumber">[in_TransactionNumber]</InArgument>
-            </ui:InvokeWorkflowFile.Arguments>
-          </ui:InvokeWorkflowFile>
           <If sap2010:Annotation.AnnotationText="byt ut månaden till asset" Condition="[DateTime.TryParseExact(DateFrom, &quot;yyyyMMdd&quot;, Nothing, Globalization.DateTimeStyles.None, New DateTime) AndAlso &#xA;DateTime.ParseExact(DateFrom, &quot;yyyyMMdd&quot;, Nothing) &lt; DateTime.Now.AddMonths(-OkNrOfMonthBack)]" DisplayName="If Older than 3 month" sap:VirtualizedContainerService.HintSize="600,92" sap2010:WorkflowViewState.IdRef="If_127">
             <sap:WorkflowViewStateService.ViewState>
               <scg:Dictionary x:TypeArguments="x:String, x:Object">
@@ -698,14 +686,14 @@
               <InArgument x:TypeArguments="x:String">[SSN.Substring(0, 6) &amp; "-" &amp; SSN.Substring(6)]</InArgument>
             </Assign.Value>
           </Assign>
-          <Sequence DisplayName="Get And Check Procapita" sap:VirtualizedContainerService.HintSize="600,61" sap2010:WorkflowViewState.IdRef="Sequence_393">
+          <Sequence DisplayName="Get And Check LifeCare data" sap:VirtualizedContainerService.HintSize="600,61" sap2010:WorkflowViewState.IdRef="Sequence_393">
             <sap:WorkflowViewStateService.ViewState>
               <scg:Dictionary x:TypeArguments="x:String, x:Object">
                 <x:Boolean x:Key="IsExpanded">False</x:Boolean>
                 <x:Boolean x:Key="IsPinned">False</x:Boolean>
               </scg:Dictionary>
             </sap:WorkflowViewStateService.ViewState>
-            <Assign DisplayName="Assign DictionaryKey" sap:VirtualizedContainerService.HintSize="434,82" sap2010:WorkflowViewState.IdRef="Assign_295">
+            <Assign DisplayName="Assign DictionaryKey" sap:VirtualizedContainerService.HintSize="416,175" sap2010:WorkflowViewState.IdRef="Assign_295">
               <Assign.To>
                 <OutArgument x:TypeArguments="x:String">[DictionaryKey]</OutArgument>
               </Assign.To>
@@ -713,24 +701,15 @@
                 <InArgument x:TypeArguments="x:String">[MonthName+ReportType]</InArgument>
               </Assign.Value>
             </Assign>
-            <Assign DisplayName="Assign io_DictProcapitaTables" sap:VirtualizedContainerService.HintSize="434,82" sap2010:WorkflowViewState.IdRef="Assign_298">
+            <Assign DisplayName="Assign io_DictLifeCareTables" sap:VirtualizedContainerService.HintSize="416,175" sap2010:WorkflowViewState.IdRef="Assign_298">
               <Assign.To>
-                <OutArgument x:TypeArguments="scg:Dictionary(x:String, sd:DataTable)">[io_DictProcapitaTables]</OutArgument>
+                <OutArgument x:TypeArguments="scg:Dictionary(x:String, sd:DataTable)">[io_DictLifeCareTables]</OutArgument>
               </Assign.To>
               <Assign.Value>
-                <InArgument x:TypeArguments="scg:Dictionary(x:String, sd:DataTable)">[If(io_DictProcapitaTables IsNot Nothing, io_DictProcapitaTables, New Dictionary(Of String, DataTable))]</InArgument>
+                <InArgument x:TypeArguments="scg:Dictionary(x:String, sd:DataTable)">[If(io_DictLifeCareTables IsNot Nothing, io_DictLifeCareTables, New Dictionary(Of String, DataTable))]</InArgument>
               </Assign.Value>
             </Assign>
-            <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="GetDataFromProcapita.xaml - Invoke Workflow File" sap:VirtualizedContainerService.HintSize="434,113" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_4" UnSafe="False" WorkflowFileName="Procapita\GetDataFromProcapita.xaml">
-              <ui:InvokeWorkflowFile.Arguments>
-                <InArgument x:TypeArguments="x:String" x:Key="DictionaryKey">[DictionaryKey]</InArgument>
-                <InOutArgument x:TypeArguments="scg:Dictionary(x:String, sd:DataTable)" x:Key="io_DictProcapitaTables">[io_DictProcapitaTables]</InOutArgument>
-                <InArgument x:TypeArguments="x:String" x:Key="ReportType">[ReportType]</InArgument>
-                <InArgument x:TypeArguments="x:String" x:Key="FilePathToApplication">[FilePathToApplication]</InArgument>
-                <InArgument x:TypeArguments="x:String" x:Key="DateFrom">[DateFrom]</InArgument>
-                <InArgument x:TypeArguments="x:String" x:Key="DateTo">[DateTo]</InArgument>
-              </ui:InvokeWorkflowFile.Arguments>
-            </ui:InvokeWorkflowFile>
+            <ui:Comment sap:VirtualizedContainerService.HintSize="416,119" sap2010:WorkflowViewState.IdRef="Comment_1" Text="Hämta data från LifeCare. Här hämatdes det förut med: GetDataFromProcapita.xaml - Invoke Workflow File" />
           </Sequence>
           <Sequence DisplayName="Set Robot To Case Manages " sap:VirtualizedContainerService.HintSize="600,61" sap2010:WorkflowViewState.IdRef="Sequence_452">
             <Sequence.Variables>
@@ -766,11 +745,10 @@
               </If.Else>
             </If>
           </Sequence>
-          <Flowchart sap:VirtualizedContainerService.HintSize="1759,904" sap2010:WorkflowViewState.IdRef="Flowchart_1">
+          <Flowchart sap:VirtualizedContainerService.HintSize="600,652" sap2010:WorkflowViewState.IdRef="Flowchart_1">
             <Flowchart.Variables>
               <Variable x:TypeArguments="sd:DataTable" Name="HoursAndCostOepTable" />
               <Variable x:TypeArguments="x:String" Name="PrivateExpences" />
-              <Variable x:TypeArguments="x:Int32" Name="RowIndexProcapita" />
               <Variable x:TypeArguments="x:String" Name="CareRecipientSSN" />
               <Variable x:TypeArguments="x:Double" Name="FeeNumber" />
               <Variable x:TypeArguments="x:String" Name="ArvodePris" />
@@ -834,10 +812,10 @@
                     <Variable x:TypeArguments="sd:DataTable" Name="AvlosareTable" />
                     <Variable x:TypeArguments="x:String" Name="CellValue" />
                     <Variable x:TypeArguments="scg:List(x:Int32)" Name="ListOfRowIndex" />
-                    <Variable x:TypeArguments="x:Double" Name="DecidedHoursFromProcapita" />
+                    <Variable x:TypeArguments="x:Double" Name="DecidedHoursFromLifeCareAvlosare" />
                     <Variable x:TypeArguments="x:String" Name="ValidityPeriod" />
                     <Variable x:TypeArguments="x:Boolean" Name="MoreHoursThanDecision" />
-                    <Variable x:TypeArguments="x:String" Name="DecidedQuantityFromProcapita" />
+                    <Variable x:TypeArguments="x:String" Name="DecidedQuantityFromLifeCareAvlosare" />
                     <Variable x:TypeArguments="sd:DataTable" Name="CopyOfExcel" />
                     <Variable x:TypeArguments="x:Boolean" Name="ValidityPeriodOk" />
                   </Sequence.Variables>
@@ -1048,10 +1026,10 @@
                     <Variable x:TypeArguments="sd:DataTable" Name="AvlosareTable" />
                     <Variable x:TypeArguments="x:String" Name="CellValue" />
                     <Variable x:TypeArguments="scg:List(x:Int32)" Name="ListOfRowIndex" />
-                    <Variable x:TypeArguments="x:Double" Name="DecidedHoursFromProcapita" />
+                    <Variable x:TypeArguments="x:Double" Name="DecidedHoursFromLifeCareLedsagarservice" />
                     <Variable x:TypeArguments="x:String" Name="ValidityPeriod" />
                     <Variable x:TypeArguments="x:Boolean" Name="MoreHoursThanDecision" />
-                    <Variable x:TypeArguments="x:String" Name="DecidedQuantityFromProcapita" />
+                    <Variable x:TypeArguments="x:String" Name="DecidedQuantityFromLifeCareLedsagarservice" />
                     <Variable x:TypeArguments="sd:DataTable" Name="CopyOfExcel" />
                     <Variable x:TypeArguments="x:Boolean" Name="ValidityPeriodOk" />
                   </Sequence.Variables>
@@ -1263,7 +1241,7 @@
                     <av:Point x:Key="AnnotationLocation">140,420</av:Point>
                   </scg:Dictionary>
                 </sap:WorkflowViewStateService.ViewState>
-                <Sequence DisplayName="Korttidsvistelse hos stödfamilj LSS" sap:VirtualizedContainerService.HintSize="520,1959" sap2010:WorkflowViewState.IdRef="Sequence_219">
+                <Sequence DisplayName="Korttidsvistelse hos stödfamilj LSS" sap:VirtualizedContainerService.HintSize="110,70" sap2010:WorkflowViewState.IdRef="Sequence_219">
                   <Sequence.Variables>
                     <Variable x:TypeArguments="sd:DataTable" Name="AvlosareTable" />
                     <Variable x:TypeArguments="x:String" Name="CellValue" />
@@ -1348,11 +1326,11 @@
                     <Variable x:TypeArguments="sd:DataTable" Name="AvlosareTable" />
                     <Variable x:TypeArguments="x:String" Name="CellValue" />
                     <Variable x:TypeArguments="scg:List(x:Int32)" Name="ListOfRowIndex" />
-                    <Variable x:TypeArguments="x:Double" Name="DecidedHoursFromProcapita" />
+                    <Variable x:TypeArguments="x:Double" Name="DecidedHoursFromLifeCareKontaktperson" />
                     <Variable x:TypeArguments="x:String" Name="ValidityPeriod" />
                     <Variable x:TypeArguments="x:String" Name="HoursToOpenEplatform" />
                     <Variable x:TypeArguments="x:Boolean" Name="MoreHoursThanDecision" />
-                    <Variable x:TypeArguments="x:String" Name="DecidedQuantityFromProcapita" />
+                    <Variable x:TypeArguments="x:String" Name="DecidedQuantityFromLifeCareKontaktperson" />
                     <Variable x:TypeArguments="sd:DataTable" Name="CopyOfExcel" />
                     <Variable x:TypeArguments="sd:DataTable" Name="ExcelOrginalHours" />
                     <Variable x:TypeArguments="x:Boolean" Name="ValidityPeriodOk" />
@@ -1394,12 +1372,12 @@
                   <av:Point x:Key="AnnotationLocation">780,89</av:Point>
                 </scg:Dictionary>
               </sap:WorkflowViewStateService.ViewState>
-              <Sequence sap2010:Annotation.AnnotationText="Lägg till koll att den inte har rapporterat för samma månad redan (i excelfil)" DisplayName="Extract Data From Procapita" sap:VirtualizedContainerService.HintSize="110,70" sap2010:WorkflowViewState.IdRef="Sequence_455">
+              <Sequence sap2010:Annotation.AnnotationText="Lägg till koll att den inte har rapporterat för samma månad redan (i excelfil)" DisplayName="Extract Data From LifeCare" sap:VirtualizedContainerService.HintSize="110,70" sap2010:WorkflowViewState.IdRef="Sequence_455">
                 <Sequence.Variables>
                   <Variable x:TypeArguments="scg:List(x:Int32)" Name="ListOfRowIndex" />
                   <Variable x:TypeArguments="x:String" Name="TableTagName" />
                   <Variable x:TypeArguments="x:String" Name="TableTagName2" />
-                  <Variable x:TypeArguments="sd:DataTable" Name="Procapita_Table" />
+                  <Variable x:TypeArguments="sd:DataTable" Name="LifeCare_Table" />
                   <Variable x:TypeArguments="x:String" Name="FileName" />
                   <Variable x:TypeArguments="x:Boolean" Name="CalculateTotalYear" />
                   <Variable x:TypeArguments="x:Double" Name="TempTotalHours" />
@@ -1411,20 +1389,20 @@
                     <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
                   </scg:Dictionary>
                 </sap:WorkflowViewStateService.ViewState>
-                <Assign DisplayName="Assign Procapita_Table " sap:VirtualizedContainerService.HintSize="550,175" sap2010:WorkflowViewState.IdRef="Assign_237">
+                <Assign DisplayName="Assign LifeCare_Table" sap:VirtualizedContainerService.HintSize="488,175" sap2010:WorkflowViewState.IdRef="Assign_237">
                   <Assign.To>
-                    <OutArgument x:TypeArguments="sd:DataTable">[Procapita_Table]</OutArgument>
+                    <OutArgument x:TypeArguments="sd:DataTable">[LifeCare_Table]</OutArgument>
                   </Assign.To>
                   <Assign.Value>
-                    <InArgument x:TypeArguments="sd:DataTable">[io_DictProcapitaTables(DictionaryKey)]</InArgument>
+                    <InArgument x:TypeArguments="sd:DataTable">[io_DictLifeCareTables(DictionaryKey)]</InArgument>
                   </Assign.Value>
                 </Assign>
-                <Assign sap2010:Annotation.AnnotationText="Lista på alla radindex som uppdragstagaren finns med på." DisplayName="Assign ListOfRowIndex Korttidsvistelse hos SF LSS" sap:VirtualizedContainerService.HintSize="550,220" sap2010:WorkflowViewState.IdRef="Assign_306">
+                <Assign sap2010:Annotation.AnnotationText="Lista på alla radindex som uppdragstagaren finns med på." DisplayName="Assign ListOfRowIndex Korttidsvistelse hos SF LSS" sap:VirtualizedContainerService.HintSize="488,220" sap2010:WorkflowViewState.IdRef="Assign_306">
                   <Assign.To>
                     <OutArgument x:TypeArguments="scg:List(x:Int32)">[ListOfRowIndex]</OutArgument>
                   </Assign.To>
                   <Assign.Value>
-                    <InArgument x:TypeArguments="scg:List(x:Int32)">[(From row In Procapita_Table.AsEnumerable() Where row("Resurs").ToString().Contains(SSN) Select Procapita_Table.Rows.IndexOf(row)).ToList]</InArgument>
+                    <InArgument x:TypeArguments="scg:List(x:Int32)">[(From row In LifeCare_Table.AsEnumerable() Where row("Resurs").ToString().Contains(SSN) Select LifeCare_Table.Rows.IndexOf(row)).ToList]</InArgument>
                   </Assign.Value>
                   <sap:WorkflowViewStateService.ViewState>
                     <scg:Dictionary x:TypeArguments="x:String, x:Object">
@@ -1434,7 +1412,7 @@
                     </scg:Dictionary>
                   </sap:WorkflowViewStateService.ViewState>
                 </Assign>
-                <Switch x:TypeArguments="x:String" DisplayName="Switch Get Procapita " Expression="[ReportType]" sap:VirtualizedContainerService.HintSize="550,57" sap2010:WorkflowViewState.IdRef="Switch`1_10">
+                <Switch x:TypeArguments="x:String" DisplayName="Switch Get LifeCare" Expression="[ReportType]" sap:VirtualizedContainerService.HintSize="488,57" sap2010:WorkflowViewState.IdRef="Switch`1_10">
                   <Switch.Default>
                     <Sequence DisplayName="Default" sap2010:WorkflowViewState.IdRef="Sequence_457" />
                   </Switch.Default>
@@ -1572,7 +1550,7 @@
                     </If>
                   </Sequence>
                 </Switch>
-                <If Condition="[ListOfRowIndex.Count &lt; 1]" DisplayName="If No beslut found" sap:VirtualizedContainerService.HintSize="550,57" sap2010:WorkflowViewState.IdRef="If_87">
+                <If Condition="[ListOfRowIndex.Count &lt; 1]" DisplayName="If No beslut found" sap:VirtualizedContainerService.HintSize="488,57" sap2010:WorkflowViewState.IdRef="If_87">
                   <sap:WorkflowViewStateService.ViewState>
                     <scg:Dictionary x:TypeArguments="x:String, x:Object">
                       <x:Boolean x:Key="IsExpanded">False</x:Boolean>
@@ -1580,17 +1558,17 @@
                     </scg:Dictionary>
                   </sap:WorkflowViewStateService.ViewState>
                   <If.Then>
-                    <Sequence sap:VirtualizedContainerService.HintSize="450,136" sap2010:WorkflowViewState.IdRef="Sequence_312">
+                    <Sequence DisplayName="Then" sap:VirtualizedContainerService.HintSize="450,182" sap2010:WorkflowViewState.IdRef="Sequence_312">
                       <sap:WorkflowViewStateService.ViewState>
                         <scg:Dictionary x:TypeArguments="x:String, x:Object">
                           <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                         </scg:Dictionary>
                       </sap:WorkflowViewStateService.ViewState>
-                      <Throw DisplayName="Throw No Decision Found" Exception="[New BusinessRuleException(&quot;Inget beslut funnet i Procapita.&quot;)]" sap:VirtualizedContainerService.HintSize="388,25" sap2010:WorkflowViewState.IdRef="Throw_18" />
+                      <Throw DisplayName="Throw No Decision Found" Exception="[New BusinessRuleException(&quot;Inget beslut funnet i LifeCare.&quot;)]" sap:VirtualizedContainerService.HintSize="416,118" sap2010:WorkflowViewState.IdRef="Throw_18" />
                     </Sequence>
                   </If.Then>
                   <If.Else>
-                    <Sequence sap:VirtualizedContainerService.HintSize="450,103" sap2010:WorkflowViewState.IdRef="Sequence_313">
+                    <Sequence DisplayName="Else" sap:VirtualizedContainerService.HintSize="450,94" sap2010:WorkflowViewState.IdRef="Sequence_313">
                       <sap:WorkflowViewStateService.ViewState>
                         <scg:Dictionary x:TypeArguments="x:String, x:Object">
                           <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -1599,7 +1577,7 @@
                     </Sequence>
                   </If.Else>
                 </If>
-                <If Condition="[ReportType.Contains(&quot;Korttidsvistelse hos stödfamilj&quot;)]" DisplayName="Calculate Nr Of Days (SF) And Hours" sap:VirtualizedContainerService.HintSize="550,2329" sap2010:WorkflowViewState.IdRef="If_74">
+                <If Condition="[ReportType.Contains(&quot;Korttidsvistelse hos stödfamilj&quot;)]" DisplayName="Calculate Nr Of Days (SF) And Hours" sap:VirtualizedContainerService.HintSize="488,2329" sap2010:WorkflowViewState.IdRef="If_74">
                   <sap:WorkflowViewStateService.ViewState>
                     <scg:Dictionary x:TypeArguments="x:String, x:Object">
                       <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -1607,13 +1585,13 @@
                     </scg:Dictionary>
                   </sap:WorkflowViewStateService.ViewState>
                   <If.Then>
-                    <Sequence DisplayName="Stödfamilj" sap:VirtualizedContainerService.HintSize="504,295" sap2010:WorkflowViewState.IdRef="Sequence_262">
+                    <Sequence DisplayName="Stödfamilj" sap:VirtualizedContainerService.HintSize="486,295" sap2010:WorkflowViewState.IdRef="Sequence_262">
                       <sap:WorkflowViewStateService.ViewState>
                         <scg:Dictionary x:TypeArguments="x:String, x:Object">
                           <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                         </scg:Dictionary>
                       </sap:WorkflowViewStateService.ViewState>
-                      <Sequence DisplayName="Calculate Total Arvode antal And Omkostnad Antal" sap:VirtualizedContainerService.HintSize="470,61" sap2010:WorkflowViewState.IdRef="Sequence_264">
+                      <Sequence DisplayName="Calculate Total Arvode antal And Omkostnad Antal" sap:VirtualizedContainerService.HintSize="452,61" sap2010:WorkflowViewState.IdRef="Sequence_264">
                         <Sequence.Variables>
                           <Variable x:TypeArguments="sd:DataTable" Name="DataTableFromXML" />
                           <Variable x:TypeArguments="sd:DataTable" Name="DatesTable" />
@@ -2083,7 +2061,7 @@
                           </sap:WorkflowViewStateService.ViewState>
                         </ui:ForEachRow>
                       </Sequence>
-                      <Assign DisplayName="Assign OmkostnadAntal to TotlHours" sap:VirtualizedContainerService.HintSize="470,170" sap2010:WorkflowViewState.IdRef="Assign_240">
+                      <Assign DisplayName="Assign OmkostnadAntal to TotlHours" sap:VirtualizedContainerService.HintSize="452,170" sap2010:WorkflowViewState.IdRef="Assign_240">
                         <Assign.To>
                           <OutArgument x:TypeArguments="x:Double">[TotalHours]</OutArgument>
                         </Assign.To>
@@ -2094,16 +2072,16 @@
                     </Sequence>
                   </If.Then>
                   <If.Else>
-                    <Sequence DisplayName="Else" sap:VirtualizedContainerService.HintSize="504,1895" sap2010:WorkflowViewState.IdRef="Sequence_263">
+                    <Sequence DisplayName="Else" sap:VirtualizedContainerService.HintSize="486,1895" sap2010:WorkflowViewState.IdRef="Sequence_263">
                       <sap:WorkflowViewStateService.ViewState>
                         <scg:Dictionary x:TypeArguments="x:String, x:Object">
                           <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                           <x:Boolean x:Key="IsPinned">False</x:Boolean>
                         </scg:Dictionary>
                       </sap:WorkflowViewStateService.ViewState>
-                      <If Condition="[ReportType.Contains(&quot;Kontaktperson LSS&quot;)]" DisplayName="If Kontaktperson LSS" sap:VirtualizedContainerService.HintSize="470,1831" sap2010:WorkflowViewState.IdRef="If_84">
+                      <If Condition="[ReportType.Contains(&quot;Kontaktperson LSS&quot;)]" DisplayName="If Kontaktperson LSS" sap:VirtualizedContainerService.HintSize="452,1831" sap2010:WorkflowViewState.IdRef="If_84">
                         <If.Then>
-                          <Sequence DisplayName="Calculate Times" sap:VirtualizedContainerService.HintSize="468,920" sap2010:WorkflowViewState.IdRef="Sequence_304">
+                          <Sequence DisplayName="Calculate Times" sap:VirtualizedContainerService.HintSize="450,920" sap2010:WorkflowViewState.IdRef="Sequence_304">
                             <Sequence.Variables>
                               <Variable x:TypeArguments="sd:DataTable" Name="DataTableFromXML" />
                               <Variable x:TypeArguments="x:Int32" Name="NrOfTimes" />
@@ -2113,8 +2091,8 @@
                                 <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                               </scg:Dictionary>
                             </sap:WorkflowViewStateService.ViewState>
-                            <oe:Get_DataTable_From_XMLTable DisplayName="Private: Get DataTable From XMLTable" sap:VirtualizedContainerService.HintSize="434,283" sap2010:WorkflowViewState.IdRef="Get_DataTable_From_XMLTable_9" in_CaseXMLData="[CaseXMLData]" in_FlowInstance="[&quot;http://www.oeplatform.org/version/2.0/schemas/flowinstance&quot;]" in_TableTagName="contactsMonth" out_ReliefServiceTask="[DataTableFromXML]" />
-                            <Assign sap2010:Annotation.AnnotationText="Jag tror att detta är den som kan fela pga en fråga som ser ut att vara obligatorisk men inte är det. " DisplayName="Assign DataTableFromXML Remove Empty Rows" sap:VirtualizedContainerService.HintSize="434,224" sap2010:WorkflowViewState.IdRef="Assign_333">
+                            <oe:Get_DataTable_From_XMLTable DisplayName="Private: Get DataTable From XMLTable" sap:VirtualizedContainerService.HintSize="416,283" sap2010:WorkflowViewState.IdRef="Get_DataTable_From_XMLTable_9" in_CaseXMLData="[CaseXMLData]" in_FlowInstance="[&quot;http://www.oeplatform.org/version/2.0/schemas/flowinstance&quot;]" in_TableTagName="contactsMonth" out_ReliefServiceTask="[DataTableFromXML]" />
+                            <Assign sap2010:Annotation.AnnotationText="Jag tror att detta är den som kan fela pga en fråga som ser ut att vara obligatorisk men inte är det. " DisplayName="Assign DataTableFromXML Remove Empty Rows" sap:VirtualizedContainerService.HintSize="416,224" sap2010:WorkflowViewState.IdRef="Assign_333">
                               <Assign.To>
                                 <OutArgument x:TypeArguments="sd:DataTable">[DataTableFromXML]</OutArgument>
                               </Assign.To>
@@ -2127,7 +2105,7 @@
                                 </scg:Dictionary>
                               </sap:WorkflowViewStateService.ViewState>
                             </Assign>
-                            <Assign DisplayName="Assign NrOfTimes" sap:VirtualizedContainerService.HintSize="434,179" sap2010:WorkflowViewState.IdRef="Assign_244">
+                            <Assign DisplayName="Assign NrOfTimes" sap:VirtualizedContainerService.HintSize="416,179" sap2010:WorkflowViewState.IdRef="Assign_244">
                               <Assign.To>
                                 <OutArgument x:TypeArguments="x:Int32">[NrOfTimes]</OutArgument>
                               </Assign.To>
@@ -2135,7 +2113,7 @@
                                 <InArgument x:TypeArguments="x:Int32">[DataTableFromXML.RowCount]</InArgument>
                               </Assign.Value>
                             </Assign>
-                            <Assign DisplayName="Assign NrOfTimes to TotlHours" sap:VirtualizedContainerService.HintSize="434,170" sap2010:WorkflowViewState.IdRef="Assign_286">
+                            <Assign DisplayName="Assign NrOfTimes to TotlHours" sap:VirtualizedContainerService.HintSize="416,170" sap2010:WorkflowViewState.IdRef="Assign_286">
                               <Assign.To>
                                 <OutArgument x:TypeArguments="x:Double">[TotalHours]</OutArgument>
                               </Assign.To>
@@ -2146,7 +2124,7 @@
                           </Sequence>
                         </If.Then>
                         <If.Else>
-                          <Sequence DisplayName="Calculate Total Hours" sap:VirtualizedContainerService.HintSize="468,777" sap2010:WorkflowViewState.IdRef="Sequence_305">
+                          <Sequence DisplayName="Calculate Total Hours" sap:VirtualizedContainerService.HintSize="450,777" sap2010:WorkflowViewState.IdRef="Sequence_305">
                             <Sequence.Variables>
                               <Variable x:TypeArguments="sd:DataTable" Name="ReliefServiceTaskTable" />
                               <Variable x:TypeArguments="sd:DataTable" Name="DatesTable" />
@@ -2157,8 +2135,8 @@
                                 <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                               </scg:Dictionary>
                             </sap:WorkflowViewStateService.ViewState>
-                            <oe:Get_DataTable_From_XMLTable DisplayName="Private: Get DataTable From XMLTable" sap:VirtualizedContainerService.HintSize="434,283" sap2010:WorkflowViewState.IdRef="Get_DataTable_From_XMLTable_6" in_CaseXMLData="[CaseXMLData]" in_FlowInstance="[FlowInstance]" in_TableTagName="[TableTagName]" out_ReliefServiceTask="[ReliefServiceTaskTable]" />
-                            <Assign DisplayName="Assign ReliefServiceTaskTable Remove Empty Rows" sap:VirtualizedContainerService.HintSize="434,179" sap2010:WorkflowViewState.IdRef="Assign_332">
+                            <oe:Get_DataTable_From_XMLTable DisplayName="Private: Get DataTable From XMLTable" sap:VirtualizedContainerService.HintSize="416,283" sap2010:WorkflowViewState.IdRef="Get_DataTable_From_XMLTable_6" in_CaseXMLData="[CaseXMLData]" in_FlowInstance="[FlowInstance]" in_TableTagName="[TableTagName]" out_ReliefServiceTask="[ReliefServiceTaskTable]" />
+                            <Assign DisplayName="Assign ReliefServiceTaskTable Remove Empty Rows" sap:VirtualizedContainerService.HintSize="416,179" sap2010:WorkflowViewState.IdRef="Assign_332">
                               <Assign.To>
                                 <OutArgument x:TypeArguments="sd:DataTable">[ReliefServiceTaskTable]</OutArgument>
                               </Assign.To>
@@ -2166,7 +2144,7 @@
                                 <InArgument x:TypeArguments="sd:DataTable">[ReliefServiceTaskTable.AsEnumerable().Where(Function(row) Not row.ItemArray.All(Function(field) field Is DBNull.Value OrElse field.ToString().Trim() = "")).CopyToDataTable()]</InArgument>
                               </Assign.Value>
                             </Assign>
-                            <ui:FilterDataTable DataTable="[ReliefServiceTaskTable]" DisplayName="Private: Filter Data Table - Keep Column Antal timmar" FilterRowsMode="Keep" sap:VirtualizedContainerService.HintSize="434,199" sap2010:WorkflowViewState.IdRef="FilterDataTable_12" OutputDataTable="[AllHours]" SelectColumnsMode="Keep">
+                            <ui:FilterDataTable DataTable="[ReliefServiceTaskTable]" DisplayName="Private: Filter Data Table - Keep Column Antal timmar" FilterRowsMode="Keep" sap:VirtualizedContainerService.HintSize="416,199" sap2010:WorkflowViewState.IdRef="FilterDataTable_12" OutputDataTable="[AllHours]" SelectColumnsMode="Keep">
                               <ui:FilterDataTable.Filters>
                                 <scg:List x:TypeArguments="ui:FilterOperationArgument" Capacity="4">
                                   <ui:FilterOperationArgument Column="{x:Null}" Operand="{x:Null}" BooleanOperator="And" Operator="LT" />
@@ -2184,7 +2162,7 @@
                                 </scg:Dictionary>
                               </sap:WorkflowViewStateService.ViewState>
                             </ui:FilterDataTable>
-                            <ui:ForEachRow ColumnNames="{x:Null}" CurrentIndex="{x:Null}" DataTable="[AllHours]" DisplayName="For Each Row in Data Table Calculating Total Hours" sap:VirtualizedContainerService.HintSize="434,52" sap2010:WorkflowViewState.IdRef="ForEachRow_6">
+                            <ui:ForEachRow ColumnNames="{x:Null}" CurrentIndex="{x:Null}" DataTable="[AllHours]" DisplayName="For Each Row in Data Table Calculating Total Hours" sap:VirtualizedContainerService.HintSize="416,52" sap2010:WorkflowViewState.IdRef="ForEachRow_6">
                               <ui:ForEachRow.Body>
                                 <ActivityAction x:TypeArguments="sd:DataRow">
                                   <ActivityAction.Argument>
@@ -2231,12 +2209,12 @@
                     </Sequence>
                   </If.Else>
                 </If>
-                <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="ChecknigDataFromProcapita.xaml - Invoke Workflow File" sap:VirtualizedContainerService.HintSize="550,182" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_5" UnSafe="False" WorkflowFileName="Procapita\ChecknigDataFromProcapita.xaml">
+                <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="LifeCare\ChecknigDataFromLifeCare.xaml" sap:VirtualizedContainerService.HintSize="488,182" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_5" UnSafe="False" WorkflowFileName="LifeCare\ChecknigDataFromLifeCare.xaml">
                   <ui:InvokeWorkflowFile.Arguments>
                     <OutArgument x:TypeArguments="x:String" x:Key="out_InternalMessage">[InternalMessage]</OutArgument>
-                    <OutArgument x:TypeArguments="x:String" x:Key="out_DecidedQuantityFromProcapita">[DecidedQuantityFromProcapita]</OutArgument>
-                    <OutArgument x:TypeArguments="x:Double" x:Key="out_DecidedHoursFromProcapita">[DecidedHoursFromProcapita]</OutArgument>
-                    <InArgument x:TypeArguments="sd:DataTable" x:Key="in_Procapita_Table">[Procapita_Table]</InArgument>
+                    <OutArgument x:TypeArguments="x:String" x:Key="out_DecidedQuantityFromLifeCare">[DecidedQuantityFromLifeCare]</OutArgument>
+                    <OutArgument x:TypeArguments="x:Double" x:Key="out_DecidedHoursFromLifeCare">[DecidedHoursFromLifeCare]</OutArgument>
+                    <InArgument x:TypeArguments="sd:DataTable" x:Key="in_LifeCare_Table">[LifeCare_Table]</InArgument>
                     <OutArgument x:TypeArguments="x:String" x:Key="out_ValidityPeriod">[ValidityPeriod]</OutArgument>
                     <InArgument x:TypeArguments="x:Int32" x:Key="in_CaseID">[CaseID]</InArgument>
                     <InArgument x:TypeArguments="x:Double" x:Key="in_PercentOk">[PercentOk]</InArgument>
@@ -2246,7 +2224,7 @@
                     <OutArgument x:TypeArguments="x:Boolean" x:Key="out_CalculateTotalYear">[CalculateTotalYear]</OutArgument>
                   </ui:InvokeWorkflowFile.Arguments>
                 </ui:InvokeWorkflowFile>
-                <If Condition="[CalculateTotalYear]" DisplayName="If CalculateTotalYear" sap:VirtualizedContainerService.HintSize="550,57" sap2010:WorkflowViewState.IdRef="If_122">
+                <If Condition="[CalculateTotalYear]" DisplayName="If CalculateTotalYear" sap:VirtualizedContainerService.HintSize="488,57" sap2010:WorkflowViewState.IdRef="If_122">
                   <sap:WorkflowViewStateService.ViewState>
                     <scg:Dictionary x:TypeArguments="x:String, x:Object">
                       <x:Boolean x:Key="IsExpanded">False</x:Boolean>
@@ -2430,8 +2408,8 @@
                     </Sequence>
                   </If.Else>
                 </If>
-                <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="550,175" sap2010:WorkflowViewState.IdRef="LogMessage_32" Level="Info" Message="[&quot;Kvantitet: &quot; + DecidedQuantityFromProcapita + &quot;, antal timmar/tillfällen: &quot; + DecidedHoursFromProcapita.ToString + &quot;, rapporterade timmar/tillfällen: &quot; + TotalHours.ToString]" />
-                <If Condition="[TotalHours &lt;= DecidedHoursFromProcapita AndAlso TempTotalHours &lt;= DecidedHoursFromProcapita]" DisplayName="If Ok nr of hours reported" sap:VirtualizedContainerService.HintSize="550,1151" sap2010:WorkflowViewState.IdRef="If_111">
+                <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="488,175" sap2010:WorkflowViewState.IdRef="LogMessage_32" Level="Info" Message="[&quot;Kvantitet: &quot; + DecidedQuantityFromLifeCare + &quot;, antal timmar/tillfällen: &quot; + DecidedHoursFromLifeCare.ToString + &quot;, rapporterade timmar/tillfällen: &quot; + TotalHours.ToString]" />
+                <If Condition="[TotalHours &lt;= DecidedHoursFromLifeCare AndAlso TempTotalHours &lt;= DecidedHoursFromLifeCare]" DisplayName="If Ok nr of hours reported" sap:VirtualizedContainerService.HintSize="488,1384" sap2010:WorkflowViewState.IdRef="If_111">
                   <sap:WorkflowViewStateService.ViewState>
                     <scg:Dictionary x:TypeArguments="x:String, x:Object">
                       <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -2439,13 +2417,13 @@
                     </scg:Dictionary>
                   </sap:WorkflowViewStateService.ViewState>
                   <If.Then>
-                    <Sequence DisplayName="Approved Hours OK" sap:VirtualizedContainerService.HintSize="496,324" sap2010:WorkflowViewState.IdRef="Sequence_400">
+                    <Sequence DisplayName="Approved Hours OK" sap:VirtualizedContainerService.HintSize="486,413" sap2010:WorkflowViewState.IdRef="Sequence_400">
                       <sap:WorkflowViewStateService.ViewState>
                         <scg:Dictionary x:TypeArguments="x:String, x:Object">
                           <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                         </scg:Dictionary>
                       </sap:WorkflowViewStateService.ViewState>
-                      <Assign DisplayName="Assign HoursToOpenEplatform Approved Hours" sap:VirtualizedContainerService.HintSize="434,81" sap2010:WorkflowViewState.IdRef="Assign_309">
+                      <Assign DisplayName="Assign HoursToOpenEplatform Approved Hours" sap:VirtualizedContainerService.HintSize="452,179" sap2010:WorkflowViewState.IdRef="Assign_309">
                         <Assign.To>
                           <OutArgument x:TypeArguments="x:String">[HoursOrTimesToOpenEplatform]</OutArgument>
                         </Assign.To>
@@ -2453,29 +2431,29 @@
                           <InArgument x:TypeArguments="x:String">[TotalHours.ToString]</InArgument>
                         </Assign.Value>
                       </Assign>
-                      <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="434,92" sap2010:WorkflowViewState.IdRef="LogMessage_35" Level="Info" Message="[&quot;Antal timmar/tillfällen ok!&quot;]" />
+                      <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="452,170" sap2010:WorkflowViewState.IdRef="LogMessage_35" Level="Info" Message="[&quot;Antal timmar/tillfällen ok!&quot;]" />
                     </Sequence>
                   </If.Then>
                   <If.Else>
-                    <Sequence DisplayName="Approved Hours Not OK" sap:VirtualizedContainerService.HintSize="548,688" sap2010:WorkflowViewState.IdRef="Sequence_401">
+                    <Sequence DisplayName="Approved Hours Not OK" sap:VirtualizedContainerService.HintSize="486,832" sap2010:WorkflowViewState.IdRef="Sequence_401">
                       <sap:WorkflowViewStateService.ViewState>
                         <scg:Dictionary x:TypeArguments="x:String, x:Object">
                           <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                         </scg:Dictionary>
                       </sap:WorkflowViewStateService.ViewState>
-                      <If Condition="[CalculateTotalYear]" DisplayName="If CalculateTotalYear And More Hours Than Decided" sap:VirtualizedContainerService.HintSize="486,324" sap2010:WorkflowViewState.IdRef="If_125">
+                      <If Condition="[CalculateTotalYear]" DisplayName="If CalculateTotalYear And More Hours Than Decided" sap:VirtualizedContainerService.HintSize="452,419" sap2010:WorkflowViewState.IdRef="If_125">
                         <If.Then>
-                          <Sequence sap:VirtualizedContainerService.HintSize="450,136" sap2010:WorkflowViewState.IdRef="Sequence_437">
+                          <Sequence DisplayName="Then" sap:VirtualizedContainerService.HintSize="450,182" sap2010:WorkflowViewState.IdRef="Sequence_437">
                             <sap:WorkflowViewStateService.ViewState>
                               <scg:Dictionary x:TypeArguments="x:String, x:Object">
                                 <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                               </scg:Dictionary>
                             </sap:WorkflowViewStateService.ViewState>
-                            <Throw Exception="[New BusinessRuleException(&quot;Fler timmar/tillfällen rapporterade än beslutet är på. Detta gäller ett beslut som har kvantitet per år. Totalt rapporterade timmar/tillfällen är: &quot; + TotalHours.ToString + &quot; och beslutet är på: &quot; + DecidedHoursFromProcapita.ToString + &quot; timmar/tillfällen per år.&quot;)]" sap:VirtualizedContainerService.HintSize="388,25" sap2010:WorkflowViewState.IdRef="Throw_38" />
+                            <Throw Exception="[New BusinessRuleException(&quot;Fler timmar/tillfällen rapporterade än beslutet är på. Detta gäller ett beslut som har kvantitet per år. Totalt rapporterade timmar/tillfällen är: &quot; + TotalHours.ToString + &quot; och beslutet är på: &quot; + DecidedHoursFromLifeCare.ToString + &quot; timmar/tillfällen per år.&quot;)]" sap:VirtualizedContainerService.HintSize="416,118" sap2010:WorkflowViewState.IdRef="Throw_38" />
                           </Sequence>
                         </If.Then>
                         <If.Else>
-                          <Sequence sap:VirtualizedContainerService.HintSize="450,103" sap2010:WorkflowViewState.IdRef="Sequence_438">
+                          <Sequence DisplayName="Else" sap:VirtualizedContainerService.HintSize="450,94" sap2010:WorkflowViewState.IdRef="Sequence_438">
                             <sap:WorkflowViewStateService.ViewState>
                               <scg:Dictionary x:TypeArguments="x:String, x:Object">
                                 <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -2484,15 +2462,15 @@
                           </Sequence>
                         </If.Else>
                       </If>
-                      <Assign DisplayName="Assign HoursToOpenEplatform Approved Hours Not ok" sap:VirtualizedContainerService.HintSize="486,81" sap2010:WorkflowViewState.IdRef="Assign_310">
+                      <Assign DisplayName="Assign HoursToOpenEplatform Approved Hours Not ok" sap:VirtualizedContainerService.HintSize="452,179" sap2010:WorkflowViewState.IdRef="Assign_310">
                         <Assign.To>
                           <OutArgument x:TypeArguments="x:String">[HoursOrTimesToOpenEplatform]</OutArgument>
                         </Assign.To>
                         <Assign.Value>
-                          <InArgument x:TypeArguments="x:String">[DecidedHoursFromProcapita.ToString]</InArgument>
+                          <InArgument x:TypeArguments="x:String">[DecidedHoursFromLifeCare.ToString]</InArgument>
                         </Assign.Value>
                       </Assign>
-                      <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="486,92" sap2010:WorkflowViewState.IdRef="LogMessage_36" Level="Info" Message="[&quot;Antal timmar/tillfällen inte ok! Ändrar antal timmar från: &quot; + TotalHours.ToString + &quot; till: &quot; + HoursOrTimesToOpenEplatform + &quot; timmar.&quot;]">
+                      <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="452,170" sap2010:WorkflowViewState.IdRef="LogMessage_36" Level="Info" Message="[&quot;Antal timmar/tillfällen inte ok! Ändrar antal timmar från: &quot; + TotalHours.ToString + &quot; till: &quot; + HoursOrTimesToOpenEplatform + &quot; timmar.&quot;]">
                         <sap:WorkflowViewStateService.ViewState>
                           <scg:Dictionary x:TypeArguments="x:String, x:Object">
                             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -2503,7 +2481,7 @@
                     </Sequence>
                   </If.Else>
                 </If>
-                <If Condition="[DecidedHoursFromProcapita = 0]" DisplayName="If No hours in Procapita" sap:VirtualizedContainerService.HintSize="486,324" sap2010:WorkflowViewState.IdRef="If_112">
+                <If Condition="[DecidedHoursFromLifeCare = 0]" DisplayName="If No hours in LifeCare" sap:VirtualizedContainerService.HintSize="452,383" sap2010:WorkflowViewState.IdRef="If_112">
                   <sap:WorkflowViewStateService.ViewState>
                     <scg:Dictionary x:TypeArguments="x:String, x:Object">
                       <x:Boolean x:Key="IsExpanded">False</x:Boolean>
@@ -2511,17 +2489,17 @@
                     </scg:Dictionary>
                   </sap:WorkflowViewStateService.ViewState>
                   <If.Then>
-                    <Sequence sap:VirtualizedContainerService.HintSize="450,136" sap2010:WorkflowViewState.IdRef="Sequence_402">
+                    <Sequence DisplayName="Then" sap:VirtualizedContainerService.HintSize="450,182" sap2010:WorkflowViewState.IdRef="Sequence_402">
                       <sap:WorkflowViewStateService.ViewState>
                         <scg:Dictionary x:TypeArguments="x:String, x:Object">
                           <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                         </scg:Dictionary>
                       </sap:WorkflowViewStateService.ViewState>
-                      <Throw DisplayName="Throw No hours from procapita" Exception="[new BusinessRuleException(&quot;Ingen kvantitet funnen för beslutet. Beslutet saknar timmar/tillfällen.&quot;)]" sap:VirtualizedContainerService.HintSize="388,25" sap2010:WorkflowViewState.IdRef="Throw_30" />
+                      <Throw DisplayName="Throw No hours from LifeCare" Exception="[new BusinessRuleException(&quot;Ingen kvantitet funnen för beslutet. Beslutet saknar timmar/tillfällen.&quot;)]" sap:VirtualizedContainerService.HintSize="416,118" sap2010:WorkflowViewState.IdRef="Throw_30" />
                     </Sequence>
                   </If.Then>
                   <If.Else>
-                    <Sequence sap:VirtualizedContainerService.HintSize="450,103" sap2010:WorkflowViewState.IdRef="Sequence_403">
+                    <Sequence DisplayName="Else" sap:VirtualizedContainerService.HintSize="450,94" sap2010:WorkflowViewState.IdRef="Sequence_403">
                       <sap:WorkflowViewStateService.ViewState>
                         <scg:Dictionary x:TypeArguments="x:String, x:Object">
                           <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -2540,14 +2518,14 @@
                       <av:PointCollection x:Key="ConnectorLocation">460,285 460,376.5</av:PointCollection>
                     </scg:Dictionary>
                   </sap:WorkflowViewStateService.ViewState>
-                  <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Excel.xaml - Invoke Workflow File" sap:VirtualizedContainerService.HintSize="110,70" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_2" UnSafe="False" WorkflowFileName="Excel\Excel.xaml">
+                  <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Excel.xaml - Invoke Workflow File" sap:VirtualizedContainerService.HintSize="334,150" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_2" UnSafe="False" WorkflowFileName="Excel\Excel.xaml">
                     <ui:InvokeWorkflowFile.Arguments>
                       <InArgument x:TypeArguments="sd:DataTable" x:Key="in_ExcelOrginalHours">[ExcelOrginalHours]</InArgument>
                       <InArgument x:TypeArguments="x:String" x:Key="in_LastNameCareRecipient">[LastNameCareRecipient]</InArgument>
                       <InArgument x:TypeArguments="x:String" x:Key="in_SSN">[SSN]</InArgument>
                       <InArgument x:TypeArguments="x:String" x:Key="in_FirstNameCareRecipient">[FirstNameCareRecipient]</InArgument>
                       <InArgument x:TypeArguments="x:String" x:Key="in_ReportType">[ReportType]</InArgument>
-                      <InArgument x:TypeArguments="x:String" x:Key="in_DecidedQuantityFromProcapita">[DecidedQuantityFromProcapita]</InArgument>
+                      <InArgument x:TypeArguments="x:String" x:Key="in_DecidedQuantityFromLifeCare">[DecidedQuantityFromLifeCare]</InArgument>
                       <InArgument x:TypeArguments="x:String" x:Key="in_ValidityPeriod">[ValidityPeriod]</InArgument>
                       <InArgument x:TypeArguments="x:String" x:Key="in_LastNameUppdragstagare">[LastNameUppdragstagare]</InArgument>
                       <InArgument x:TypeArguments="x:String" x:Key="in_FirstNameUppdragstagare">[FirstNameUppdragstagare]</InArgument>
@@ -2557,7 +2535,7 @@
                       <OutArgument x:TypeArguments="x:String" x:Key="out_OmkostnadPris">[OmkostnadPris]</OutArgument>
                       <OutArgument x:TypeArguments="x:String" x:Key="out_ArvodePris">[ArvodePris]</OutArgument>
                       <InArgument x:TypeArguments="x:Int32" x:Key="in_CaseID">[CaseID]</InArgument>
-                      <InArgument x:TypeArguments="x:Double" x:Key="in_DecidedHoursFromProcapita">[DecidedHoursFromProcapita]</InArgument>
+                      <InArgument x:TypeArguments="x:Double" x:Key="in_DecidedHoursFromLifeCare">[DecidedHoursFromLifeCare]</InArgument>
                       <InArgument x:TypeArguments="x:String" x:Key="in_MonthName">[MonthName]</InArgument>
                       <InArgument x:TypeArguments="x:Double" x:Key="in_TotalHours">[If(ReportType.Equals("Korttidsvistelse hos stödfamilj"), OmkostnadAntal,TotalHours)]</InArgument>
                       <OutArgument x:TypeArguments="sd:DataTable" x:Key="out_CopyOfExcel">[CopyOfExcel]</OutArgument>
@@ -2592,7 +2570,7 @@
             <ActivityAction.Argument>
               <DelegateInArgument x:TypeArguments="s:Exception" Name="exception" />
             </ActivityAction.Argument>
-            <Sequence sap2010:Annotation.AnnotationText="sätt try catch runt allt och logga" DisplayName="Body" sap:VirtualizedContainerService.HintSize="634,544" sap2010:WorkflowViewState.IdRef="Sequence_327">
+            <Sequence sap2010:Annotation.AnnotationText="sätt try catch runt allt och logga" DisplayName="Body" sap:VirtualizedContainerService.HintSize="634,1328" sap2010:WorkflowViewState.IdRef="Sequence_327">
               <Sequence.Variables>
                 <Variable x:TypeArguments="x:Boolean" Name="Success" />
               </Sequence.Variables>
@@ -2603,7 +2581,7 @@
                   <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
                 </scg:Dictionary>
               </sap:WorkflowViewStateService.ViewState>
-              <Assign DisplayName="Assign InternalMessage" sap:VirtualizedContainerService.HintSize="434,81" sap2010:WorkflowViewState.IdRef="Assign_313">
+              <Assign DisplayName="Assign InternalMessage" sap:VirtualizedContainerService.HintSize="600,179" sap2010:WorkflowViewState.IdRef="Assign_313">
                 <Assign.To>
                   <OutArgument x:TypeArguments="x:String">[InternalMessage]</OutArgument>
                 </Assign.To>
@@ -2611,7 +2589,7 @@
                   <InArgument x:TypeArguments="x:String">[exception.Message]</InArgument>
                 </Assign.Value>
               </Assign>
-              <oc:Add_Internal_Message AttachmentFilepaths="{x:Null}" ExternalID="{x:Null}" ExternalIDSystem="{x:Null}" Headers="{x:Null}" MessageID="{x:Null}" PrincipalName="{x:Null}" StatusCode="{x:Null}" Success="{x:Null}" UserID="{x:Null}" CaseID="[CaseID]" DisplayName="Add Internal Message" DomainURL="[OePUrl]" sap:VirtualizedContainerService.HintSize="434,52" sap2010:WorkflowViewState.IdRef="Add_Internal_Message_2" Message="[InternalMessage]" NumberOfTries="1" Password="[OePPassword]" PrincipalUserID="[OePUsername]" RequestTimeout="15000" TimeStamp="[Now]" Username="[OePUsername]">
+              <oc:Add_Internal_Message AttachmentFilepaths="{x:Null}" ExternalID="{x:Null}" ExternalIDSystem="{x:Null}" Headers="{x:Null}" MessageID="{x:Null}" PrincipalName="{x:Null}" StatusCode="{x:Null}" Success="{x:Null}" UserID="{x:Null}" CaseID="[CaseID]" DisplayName="Add Internal Message" DomainURL="[OePUrl]" sap:VirtualizedContainerService.HintSize="600,61" sap2010:WorkflowViewState.IdRef="Add_Internal_Message_2" Message="[InternalMessage]" NumberOfTries="1" Password="[OePPassword]" PrincipalUserID="[OePUsername]" RequestTimeout="15000" TimeStamp="[Now]" Username="[OePUsername]">
                 <sap:WorkflowViewStateService.ViewState>
                   <scg:Dictionary x:TypeArguments="x:String, x:Object">
                     <x:Boolean x:Key="IsExpanded">False</x:Boolean>
@@ -2619,7 +2597,7 @@
                   </scg:Dictionary>
                 </sap:WorkflowViewStateService.ViewState>
               </oc:Add_Internal_Message>
-              <ui:RetryScope LogRetriedExceptions="{x:Null}" RetriedExceptionsLogLevel="{x:Null}" DisplayName="Retry Scope Remove Managers" sap:VirtualizedContainerService.HintSize="434,52" sap2010:WorkflowViewState.IdRef="RetryScope_15" NumberOfRetries="3">
+              <ui:RetryScope LogRetriedExceptions="{x:Null}" RetriedExceptionsLogLevel="{x:Null}" DisplayName="Retry Scope Remove Managers" sap:VirtualizedContainerService.HintSize="600,61" sap2010:WorkflowViewState.IdRef="RetryScope_15" NumberOfRetries="3">
                 <ui:RetryScope.ActivityBody>
                   <ActivityAction>
                     <oc:Remove_Managers ExternalID="{x:Null}" ExternalIDSystem="{x:Null}" Headers="{x:Null}" StatusCode="{x:Null}" setManagersReturn="{x:Null}" CaseID="[CaseID]" DisplayName="Remove Robot User as Manager" DomainURL="[OePUrl]" sap:VirtualizedContainerService.HintSize="284,239" sap2010:WorkflowViewState.IdRef="Remove_Managers_8" ManagerGroupNames="[New List(Of String)]" ManagersAsUserID="[new list(of String) from {OePUsername}]" NumberOfTries="1" Password="[OePPassword]" RequestTimeout="15000" Success="[Success]" Username="[OePUsername]" />
@@ -2637,7 +2615,7 @@
                   </scg:Dictionary>
                 </sap:WorkflowViewStateService.ViewState>
               </ui:RetryScope>
-              <oc:Set_Status EventID="{x:Null}" ExternalID="{x:Null}" ExternalIDSystem="{x:Null}" Headers="{x:Null}" PrincipalName="{x:Null}" PrincipalUserID="{x:Null}" StatusCode="{x:Null}" StatusID="{x:Null}" Success="{x:Null}" CaseID="[CaseID]" DisplayName="Set Status" DomainURL="[OePUrl]" sap:VirtualizedContainerService.HintSize="434,239" sap2010:WorkflowViewState.IdRef="Set_Status_1" NumberOfTries="1" Password="[OePPassword]" RequestTimeout="15000" StatusAlias="Manuell hantering" Username="[OePUsername]" />
+              <oc:Set_Status EventID="{x:Null}" ExternalID="{x:Null}" ExternalIDSystem="{x:Null}" Headers="{x:Null}" PrincipalName="{x:Null}" PrincipalUserID="{x:Null}" StatusCode="{x:Null}" StatusID="{x:Null}" Success="{x:Null}" CaseID="[CaseID]" DisplayName="Set Status" DomainURL="[OePUrl]" sap:VirtualizedContainerService.HintSize="600,907" sap2010:WorkflowViewState.IdRef="Set_Status_1" NumberOfTries="1" Password="[OePPassword]" RequestTimeout="15000" StatusAlias="Manuell hantering" Username="[OePUsername]" />
               <Rethrow sap:VirtualizedContainerService.HintSize="434,25" sap2010:WorkflowViewState.IdRef="Rethrow_1" />
             </Sequence>
           </ActivityAction>

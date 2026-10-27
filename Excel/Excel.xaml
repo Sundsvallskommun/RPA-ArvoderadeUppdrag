@@ -5,7 +5,7 @@
     <x:Property Name="in_SSN" Type="InArgument(x:String)" />
     <x:Property Name="in_FirstNameCareRecipient" Type="InArgument(x:String)" />
     <x:Property Name="in_ReportType" Type="InArgument(x:String)" />
-    <x:Property Name="in_DecidedQuantityFromProcapita" Type="InArgument(x:String)" />
+    <x:Property Name="in_DecidedQuantityFromLifeCare" Type="InArgument(x:String)" />
     <x:Property Name="in_ValidityPeriod" Type="InArgument(x:String)" />
     <x:Property Name="in_LastNameUppdragstagare" Type="InArgument(x:String)" />
     <x:Property Name="in_FirstNameUppdragstagare" Type="InArgument(x:String)" />
@@ -15,7 +15,7 @@
     <x:Property Name="out_OmkostnadPris" Type="OutArgument(x:String)" />
     <x:Property Name="out_ArvodePris" Type="OutArgument(x:String)" />
     <x:Property Name="in_CaseID" Type="InArgument(x:Int32)" />
-    <x:Property Name="in_DecidedHoursFromProcapita" Type="InArgument(x:Double)" />
+    <x:Property Name="in_DecidedHoursFromLifeCare" Type="InArgument(x:Double)" />
     <x:Property Name="in_MonthName" Type="InArgument(x:String)" />
     <x:Property Name="in_TotalHours" Type="InArgument(x:Double)" />
     <x:Property Name="out_CopyOfExcel" Type="OutArgument(sd:DataTable)" />
@@ -57,6 +57,10 @@
       <x:String>UiPath.Excel.Activities</x:String>
       <x:String>UiPath.Platform.ResourceHandling</x:String>
       <x:String>UiPath.Shared.Activities.Business</x:String>
+      <x:String>GlobalVariablesNamespace</x:String>
+      <x:String>GlobalConstantsNamespace</x:String>
+      <x:String>System.Linq.Expressions</x:String>
+      <x:String>System.Numerics</x:String>
     </sco:Collection>
   </TextExpression.NamespacesForImplementation>
   <TextExpression.ReferencesForImplementation>
@@ -132,9 +136,16 @@
       <AssemblyReference>UiPath.UIAutomationNext.Activities.Design</AssemblyReference>
       <AssemblyReference>UiPath.Workflow</AssemblyReference>
       <AssemblyReference>WindowsBase</AssemblyReference>
+      <AssemblyReference>System.Private.ServiceModel</AssemblyReference>
+      <AssemblyReference>System.Runtime.Serialization.Formatters</AssemblyReference>
+      <AssemblyReference>System.Runtime.Serialization.Primitives</AssemblyReference>
+      <AssemblyReference>NPOI.Core</AssemblyReference>
+      <AssemblyReference>System.Collections.NonGeneric</AssemblyReference>
+      <AssemblyReference>System.Linq.Expressions</AssemblyReference>
+      <AssemblyReference>System.Runtime.Numerics</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
-  <Sequence DisplayName="Excel" sap:VirtualizedContainerService.HintSize="1718,2757" sap2010:WorkflowViewState.IdRef="Sequence_375">
+  <Sequence DisplayName="Excel" sap:VirtualizedContainerService.HintSize="1778,3817" sap2010:WorkflowViewState.IdRef="Sequence_375">
     <Sequence.Variables>
       <Variable x:TypeArguments="x:Int32" Name="RowIndex" />
       <Variable x:TypeArguments="scg:List(x:Int32)" Name="ListOfMatchedRowIndex" />
@@ -144,7 +155,7 @@
         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
-    <Assign DisplayName="Assign CopyOfExcel" sap:VirtualizedContainerService.HintSize="1656,82" sap2010:WorkflowViewState.IdRef="Assign_286">
+    <Assign DisplayName="Assign CopyOfExcel" sap:VirtualizedContainerService.HintSize="1027,175" sap2010:WorkflowViewState.IdRef="Assign_286">
       <Assign.To>
         <OutArgument x:TypeArguments="sd:DataTable">[out_CopyOfExcel]</OutArgument>
       </Assign.To>
@@ -152,7 +163,7 @@
         <InArgument x:TypeArguments="sd:DataTable">[in_ExcelOrginalHours.Copy]</InArgument>
       </Assign.Value>
     </Assign>
-    <Assign DisplayName="Assign ListOfMatchedRowIndex" sap:VirtualizedContainerService.HintSize="1656,83" sap2010:WorkflowViewState.IdRef="Assign_159">
+    <Assign DisplayName="Assign ListOfMatchedRowIndex" sap:VirtualizedContainerService.HintSize="1027,175" sap2010:WorkflowViewState.IdRef="Assign_159">
       <Assign.To>
         <OutArgument x:TypeArguments="scg:List(x:Int32)">[ListOfMatchedRowIndex]</OutArgument>
       </Assign.To>
@@ -165,7 +176,7 @@
 ).ToList]</InArgument>
       </Assign.Value>
     </Assign>
-    <If Condition="[ListOfMatchedRowIndex.Count &lt; 1]" DisplayName="If Not In Excel" sap:VirtualizedContainerService.HintSize="1656,1117" sap2010:WorkflowViewState.IdRef="If_69">
+    <If Condition="[ListOfMatchedRowIndex.Count &lt; 1]" DisplayName="If Not In Excel" sap:VirtualizedContainerService.HintSize="1027,1995" sap2010:WorkflowViewState.IdRef="If_69">
       <sap:WorkflowViewStateService.ViewState>
         <scg:Dictionary x:TypeArguments="x:String, x:Object">
           <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -173,7 +184,7 @@
         </scg:Dictionary>
       </sap:WorkflowViewStateService.ViewState>
       <If.Then>
-        <Sequence sap:VirtualizedContainerService.HintSize="558,957" sap2010:WorkflowViewState.IdRef="Sequence_196">
+        <Sequence DisplayName="Then" sap:VirtualizedContainerService.HintSize="1025,1307" sap2010:WorkflowViewState.IdRef="Sequence_196">
           <Sequence.Variables>
             <Variable x:TypeArguments="s:Object[]" Name="NewPersonInformation" />
           </Sequence.Variables>
@@ -182,8 +193,11 @@
               <x:Boolean x:Key="IsExpanded">True</x:Boolean>
             </scg:Dictionary>
           </sap:WorkflowViewStateService.ViewState>
-          <Switch x:TypeArguments="x:String" DisplayName="Switch" Expression="[in_ReportType]" sap:VirtualizedContainerService.HintSize="496,335" sap2010:WorkflowViewState.IdRef="Switch`1_11">
-            <Assign x:Key="Avlösarservice LSS" DisplayName="Assign NewPersonInformation Avlösarservice LSS" sap:VirtualizedContainerService.HintSize="434,83" sap2010:WorkflowViewState.IdRef="Assign_160">
+          <Switch x:TypeArguments="x:String" DisplayName="Switch" Expression="[in_ReportType]" sap:VirtualizedContainerService.HintSize="991,813" sap2010:WorkflowViewState.IdRef="Switch`1_11">
+            <Switch.Default>
+              <Sequence DisplayName="Default" sap2010:WorkflowViewState.IdRef="Sequence_378" />
+            </Switch.Default>
+            <Assign x:Key="Avlösarservice LSS" DisplayName="Assign NewPersonInformation Avlösarservice LSS" sap:VirtualizedContainerService.HintSize="434,143" sap2010:WorkflowViewState.IdRef="Assign_160">
               <Assign.To>
                 <OutArgument x:TypeArguments="s:Object[]">[NewPersonInformation]</OutArgument>
               </Assign.To>
@@ -195,7 +209,7 @@
     If(in_SSN, "").Trim,
     If(in_Address, "").Trim,
 	If(in_ValidityPeriod, "").Trim,
-    If(in_DecidedQuantityFromProcapita, "").Trim,
+    If(in_DecidedQuantityFromLifeCare, "").Trim,
     "", "", "", "", "", "", "", "", "", "", "","",
     If(in_EMailUppdragstagare, "").Trim,
 	"Aktiv"
@@ -208,7 +222,7 @@
                 </scg:Dictionary>
               </sap:WorkflowViewStateService.ViewState>
             </Assign>
-            <Assign x:Key="Ledsagarservice LSS" DisplayName="Assign NewPersonInformation Ledsagarservice LSS" sap:VirtualizedContainerService.HintSize="434,85" sap2010:WorkflowViewState.IdRef="Assign_283">
+            <Assign x:Key="Ledsagarservice LSS" DisplayName="Assign NewPersonInformation Ledsagarservice LSS" sap:VirtualizedContainerService.HintSize="434,143" sap2010:WorkflowViewState.IdRef="Assign_283">
               <Assign.To>
                 <OutArgument x:TypeArguments="s:Object[]">[NewPersonInformation]</OutArgument>
               </Assign.To>
@@ -220,7 +234,7 @@
     If(in_SSN, "").Trim,
     If(in_Address, "").Trim,
 	If(in_ValidityPeriod, "").Trim,
-    If(in_DecidedQuantityFromProcapita, "").Trim,
+    If(in_DecidedQuantityFromLifeCare, "").Trim,
     "", "", "", "", "", "", "", "", "", "", "","",
     If(in_EMailUppdragstagare, "").Trim,
 	"Aktiv"
@@ -247,7 +261,7 @@
 	If(out_ArvodePris,"").Trim,
 	If(out_OmkostnadPris,"").Trim,
 	If(in_ValidityPeriod, "").Trim,
-    If(in_DecidedQuantityFromProcapita, "").Trim,
+    If(in_DecidedQuantityFromLifeCare, "").Trim,
     "", "", "", "", "", "", "", "", "", "", "","",
     If(in_EMailUppdragstagare, "").Trim,
 	"Aktiv"
@@ -272,7 +286,7 @@
     If(in_SSN, "").Trim,
     If(in_Address, "").Trim,
 	If(in_ValidityPeriod, "").Trim,
-    If(in_DecidedQuantityFromProcapita, "").Trim,
+    If(in_DecidedQuantityFromLifeCare, "").Trim,
     "", "", "", "", "", "", "", "", "", "", "","",
     If(in_EMailUppdragstagare, "").Trim,
 	"Aktiv"
@@ -286,7 +300,7 @@
               </sap:WorkflowViewStateService.ViewState>
             </Assign>
           </Switch>
-          <ui:AddDataRow DataRow="{x:Null}" ArrayRow="[NewPersonInformation]" DataTable="[out_CopyOfExcel]" DisplayName="Private: Add Data Row New Person" sap:VirtualizedContainerService.HintSize="496,186" sap2010:WorkflowViewState.IdRef="AddDataRow_6">
+          <ui:AddDataRow DataRow="{x:Null}" ArrayRow="[NewPersonInformation]" DataTable="[out_CopyOfExcel]" DisplayName="Private: Add Data Row New Person" sap:VirtualizedContainerService.HintSize="991,225" sap2010:WorkflowViewState.IdRef="AddDataRow_6">
             <sap:WorkflowViewStateService.ViewState>
               <scg:Dictionary x:TypeArguments="x:String, x:Object">
                 <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -311,7 +325,7 @@
         </Sequence>
       </If.Then>
       <If.Else>
-        <Sequence sap:VirtualizedContainerService.HintSize="1053,596" sap2010:WorkflowViewState.IdRef="Sequence_208">
+        <Sequence DisplayName="Else" sap:VirtualizedContainerService.HintSize="1025,549" sap2010:WorkflowViewState.IdRef="Sequence_208">
           <sap:WorkflowViewStateService.ViewState>
             <scg:Dictionary x:TypeArguments="x:String, x:Object">
               <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -357,7 +371,7 @@
         </Sequence>
       </If.Else>
     </If>
-    <If sap2010:Annotation.AnnotationText="" Condition="[out_CopyOfExcel(RowIndex)(&quot;Brukare&quot;).ToString.ToLower.Contains(in_FirstNameCareRecipient.ToLower) AndAlso out_CopyOfExcel(RowIndex)(&quot;Brukare&quot;).ToString.ToLower.Contains(in_LastNameCareRecipient.ToLower)]" DisplayName="If SSN for right CareRecipient" sap:VirtualizedContainerService.HintSize="1656,52" sap2010:WorkflowViewState.IdRef="If_70">
+    <If sap2010:Annotation.AnnotationText="" Condition="[out_CopyOfExcel(RowIndex)(&quot;Brukare&quot;).ToString.ToLower.Contains(in_FirstNameCareRecipient.ToLower) AndAlso out_CopyOfExcel(RowIndex)(&quot;Brukare&quot;).ToString.ToLower.Contains(in_LastNameCareRecipient.ToLower)]" DisplayName="If SSN for right CareRecipient" sap:VirtualizedContainerService.HintSize="1027,57" sap2010:WorkflowViewState.IdRef="If_70">
       <sap:WorkflowViewStateService.ViewState>
         <scg:Dictionary x:TypeArguments="x:String, x:Object">
           <x:Boolean x:Key="IsExpanded">False</x:Boolean>
@@ -419,7 +433,7 @@
         </Sequence>
       </If.Else>
     </If>
-    <If Condition="[in_ReportType.Equals(&quot;Korttidsvistelse hos stödfamilj&quot;)]" DisplayName="If Korttidsvistelse hos stödfamilj" sap:VirtualizedContainerService.HintSize="1656,504" sap2010:WorkflowViewState.IdRef="If_104">
+    <If Condition="[in_ReportType.Equals(&quot;Korttidsvistelse hos stödfamilj&quot;)]" DisplayName="If Korttidsvistelse hos stödfamilj" sap:VirtualizedContainerService.HintSize="1027,646" sap2010:WorkflowViewState.IdRef="If_104">
       <sap:WorkflowViewStateService.ViewState>
         <scg:Dictionary x:TypeArguments="x:String, x:Object">
           <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -427,13 +441,13 @@
         </scg:Dictionary>
       </sap:WorkflowViewStateService.ViewState>
       <If.Then>
-        <Sequence sap:VirtualizedContainerService.HintSize="496,315" sap2010:WorkflowViewState.IdRef="Sequence_373">
+        <Sequence DisplayName="Then" sap:VirtualizedContainerService.HintSize="450,413" sap2010:WorkflowViewState.IdRef="Sequence_373">
           <sap:WorkflowViewStateService.ViewState>
             <scg:Dictionary x:TypeArguments="x:String, x:Object">
               <x:Boolean x:Key="IsExpanded">True</x:Boolean>
             </scg:Dictionary>
           </sap:WorkflowViewStateService.ViewState>
-          <Assign DisplayName="Assign OmkostnadPris" sap:VirtualizedContainerService.HintSize="434,82" sap2010:WorkflowViewState.IdRef="Assign_281">
+          <Assign DisplayName="Assign OmkostnadPris" sap:VirtualizedContainerService.HintSize="416,179" sap2010:WorkflowViewState.IdRef="Assign_281">
             <Assign.To>
               <OutArgument x:TypeArguments="x:String">[out_OmkostnadPris]</OutArgument>
             </Assign.To>
@@ -447,7 +461,7 @@
               </scg:Dictionary>
             </sap:WorkflowViewStateService.ViewState>
           </Assign>
-          <Assign DisplayName="Assign ArvodePris" sap:VirtualizedContainerService.HintSize="434,82" sap2010:WorkflowViewState.IdRef="Assign_282">
+          <Assign DisplayName="Assign ArvodePris" sap:VirtualizedContainerService.HintSize="416,170" sap2010:WorkflowViewState.IdRef="Assign_282">
             <Assign.To>
               <OutArgument x:TypeArguments="x:String">[out_ArvodePris]</OutArgument>
             </Assign.To>
@@ -464,7 +478,7 @@
         </Sequence>
       </If.Then>
       <If.Else>
-        <Sequence sap2010:WorkflowViewState.IdRef="Sequence_374">
+        <Sequence DisplayName="Else" sap:VirtualizedContainerService.HintSize="450,94" sap2010:WorkflowViewState.IdRef="Sequence_374">
           <sap:WorkflowViewStateService.ViewState>
             <scg:Dictionary x:TypeArguments="x:String, x:Object">
               <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -473,7 +487,7 @@
         </Sequence>
       </If.Else>
     </If>
-    <Sequence DisplayName="Manage Shared Decisions" sap:VirtualizedContainerService.HintSize="1656,608" sap2010:WorkflowViewState.IdRef="Sequence_339">
+    <Sequence DisplayName="Manage Shared Decisions" sap:VirtualizedContainerService.HintSize="1027,746" sap2010:WorkflowViewState.IdRef="Sequence_339">
       <Sequence.Variables>
         <Variable x:TypeArguments="x:Double" Name="TotalHoursSharedDecisions" />
         <Variable x:TypeArguments="scg:List(x:Int32)" Name="ListOfMatchedRowIndexSharedDecisions" />
@@ -484,12 +498,12 @@
           <x:Boolean x:Key="IsPinned">False</x:Boolean>
         </scg:Dictionary>
       </sap:WorkflowViewStateService.ViewState>
-      <Assign sap2010:Annotation.AnnotationText="Lista med alla radindex för det delade beslutet. (samma brukare, giltighetsperiod ,vatnitet och ppdragstagarens ssn" DisplayName="Assign ListOfMatchedRowIndexSharedDecisions" sap:VirtualizedContainerService.HintSize="484,124" sap2010:WorkflowViewState.IdRef="Assign_287">
+      <Assign sap2010:Annotation.AnnotationText="Lista med alla radindex för det delade beslutet. (samma brukare, giltighetsperiod ,vatnitet och ppdragstagarens ssn" DisplayName="Assign ListOfMatchedRowIndexSharedDecisions" sap:VirtualizedContainerService.HintSize="452,236" sap2010:WorkflowViewState.IdRef="Assign_287">
         <Assign.To>
           <OutArgument x:TypeArguments="scg:List(x:Int32)">[ListOfMatchedRowIndexSharedDecisions]</OutArgument>
         </Assign.To>
         <Assign.Value>
-          <InArgument x:TypeArguments="scg:List(x:Int32)" xml:space="preserve">[(From row In out_CopyOfExcel.AsEnumerable() Where row("Kvantitet").ToString().Contains(in_DecidedQuantityFromProcapita) AndAlso row("Brukare").ToString().Contains(in_FirstNameCareRecipient)  AndAlso row("Brukare").ToString().Contains(in_LastNameCareRecipient) AndAlso row("Giltighetsperiod").ToString().Contains(in_ValidityPeriod)  AndAlso row("Personnummer (UT)").ToString = in_SSN Select out_CopyOfExcel.Rows.IndexOf(row)).ToList]</InArgument>
+          <InArgument x:TypeArguments="scg:List(x:Int32)" xml:space="preserve">[(From row In out_CopyOfExcel.AsEnumerable() Where row("Kvantitet").ToString().Contains(in_DecidedQuantityFromLifeCare) AndAlso row("Brukare").ToString().Contains(in_FirstNameCareRecipient)  AndAlso row("Brukare").ToString().Contains(in_LastNameCareRecipient) AndAlso row("Giltighetsperiod").ToString().Contains(in_ValidityPeriod)  AndAlso row("Personnummer (UT)").ToString = in_SSN Select out_CopyOfExcel.Rows.IndexOf(row)).ToList]</InArgument>
         </Assign.Value>
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
@@ -497,7 +511,7 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </Assign>
-      <If sap2010:Annotation.AnnotationText="delat beslut. Samma kvantiet, giltighetstid namn på brukare" Condition="[ListOfMatchedRowIndexSharedDecisions.Count &gt; 1]" DisplayName="If SharedDecision" sap:VirtualizedContainerService.HintSize="484,333" sap2010:WorkflowViewState.IdRef="If_96">
+      <If sap2010:Annotation.AnnotationText="delat beslut. Samma kvantiet, giltighetstid namn på brukare" Condition="[ListOfMatchedRowIndexSharedDecisions.Count &gt; 1]" DisplayName="If SharedDecision" sap:VirtualizedContainerService.HintSize="452,427" sap2010:WorkflowViewState.IdRef="If_96">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -506,12 +520,12 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
         <If.Then>
-          <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="ManagesSharedDecision.xaml - Invoke Workflow File" sap:VirtualizedContainerService.HintSize="334,113" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_1" UnSafe="False" WorkflowFileName="Procapita\ManagesSharedDecision.xaml">
+          <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="ManagesSharedDecision.xaml - Invoke Workflow File" sap:VirtualizedContainerService.HintSize="450,150" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_1" UnSafe="False" WorkflowFileName="LifeCare\ManagesSharedDecision.xaml">
             <ui:InvokeWorkflowFile.Arguments>
               <InArgument x:TypeArguments="x:String" x:Key="in_SSN">[in_SSN]</InArgument>
-              <InArgument x:TypeArguments="x:String" x:Key="in_DecidedQuantityFromProcapita">[in_DecidedQuantityFromProcapita]</InArgument>
+              <InArgument x:TypeArguments="x:String" x:Key="in_DecidedQuantityFromLifeCare">[in_DecidedQuantityFromLifeCare]</InArgument>
               <InArgument x:TypeArguments="x:String" x:Key="in_ValidityPeriod">[in_ValidityPeriod]</InArgument>
-              <InArgument x:TypeArguments="x:Double" x:Key="in_DecidedHoursFromProcapita">[in_DecidedHoursFromProcapita]</InArgument>
+              <InArgument x:TypeArguments="x:Double" x:Key="in_DecidedHoursFromLifeCare">[in_DecidedHoursFromLifeCare]</InArgument>
               <InArgument x:TypeArguments="sd:DataTable" x:Key="in_CopyOfExcel">[out_CopyOfExcel]</InArgument>
               <InArgument x:TypeArguments="x:String" x:Key="in_MonthName">[in_MonthName]</InArgument>
               <InArgument x:TypeArguments="scg:List(x:Int32)" x:Key="in_ListOfMatchedRowIndexSharedDecisions">[ListOfMatchedRowIndexSharedDecisions]</InArgument>
@@ -519,7 +533,7 @@
           </ui:InvokeWorkflowFile>
         </If.Then>
         <If.Else>
-          <Sequence sap2010:WorkflowViewState.IdRef="Sequence_341">
+          <Sequence DisplayName="Else" sap:VirtualizedContainerService.HintSize="450,94" sap2010:WorkflowViewState.IdRef="Sequence_341">
             <sap:WorkflowViewStateService.ViewState>
               <scg:Dictionary x:TypeArguments="x:String, x:Object">
                 <x:Boolean x:Key="IsExpanded">True</x:Boolean>

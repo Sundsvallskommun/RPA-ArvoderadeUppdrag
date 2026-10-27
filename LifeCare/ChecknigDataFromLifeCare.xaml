@@ -1,9 +1,9 @@
-<Activity mc:Ignorable="sap sap2010" x:Class="ChecknigDataFromProcapita" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Private.CoreLib" xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=System.Private.CoreLib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data.Common" xmlns:this="clr-namespace:" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+<Activity mc:Ignorable="sap sap2010" x:Class="ChecknigDataFromLifeCare" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Private.CoreLib" xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=System.Private.CoreLib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data.Common" xmlns:this="clr-namespace:" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <x:Members>
     <x:Property Name="out_InternalMessage" Type="OutArgument(x:String)" />
-    <x:Property Name="out_DecidedQuantityFromProcapita" Type="OutArgument(x:String)" />
-    <x:Property Name="out_DecidedHoursFromProcapita" Type="OutArgument(x:Double)" />
-    <x:Property Name="in_Procapita_Table" Type="InArgument(sd:DataTable)" />
+    <x:Property Name="out_DecidedQuantityFromLifeCare" Type="OutArgument(x:String)" />
+    <x:Property Name="out_DecidedHoursFromLifeCare" Type="OutArgument(x:Double)" />
+    <x:Property Name="in_LifeCare_Table" Type="InArgument(sd:DataTable)" />
     <x:Property Name="out_ValidityPeriod" Type="OutArgument(x:String)" />
     <x:Property Name="in_CaseID" Type="InArgument(x:Int32)" />
     <x:Property Name="in_PercentOk" Type="InArgument(x:Double)" />
@@ -12,9 +12,9 @@
     <x:Property Name="io_LastNameCareRecipient" Type="InOutArgument(x:String)" />
     <x:Property Name="out_CalculateTotalYear" Type="OutArgument(x:Boolean)" />
   </x:Members>
-  <this:ChecknigDataFromProcapita.in_ListOfRowIndex>
+  <this:ChecknigDataFromLifeCare.in_ListOfRowIndex>
     <InArgument x:TypeArguments="scg:List(x:Int32)" />
-  </this:ChecknigDataFromProcapita.in_ListOfRowIndex>
+  </this:ChecknigDataFromLifeCare.in_ListOfRowIndex>
   <sap:VirtualizedContainerService.HintSize>1776,4360</sap:VirtualizedContainerService.HintSize>
   <sap2010:WorkflowViewState.IdRef>ActivityBuilder_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
@@ -48,6 +48,9 @@
       <x:String>UiPath.Core.Activities</x:String>
       <x:String>UiPath.DataTableUtilities</x:String>
       <x:String>UiPath.Platform.ResourceHandling</x:String>
+      <x:String>GlobalVariablesNamespace</x:String>
+      <x:String>GlobalConstantsNamespace</x:String>
+      <x:String>System.Linq.Expressions</x:String>
     </sco:Collection>
   </TextExpression.NamespacesForImplementation>
   <TextExpression.ReferencesForImplementation>
@@ -124,11 +127,17 @@
       <AssemblyReference>UiPath.UIAutomationNext.Activities.Design</AssemblyReference>
       <AssemblyReference>UiPath.Workflow</AssemblyReference>
       <AssemblyReference>WindowsBase</AssemblyReference>
+      <AssemblyReference>System.Linq.Expressions</AssemblyReference>
+      <AssemblyReference>System.Private.ServiceModel</AssemblyReference>
+      <AssemblyReference>System.Runtime.Serialization.Formatters</AssemblyReference>
+      <AssemblyReference>System.Runtime.Serialization.Primitives</AssemblyReference>
+      <AssemblyReference>NPOI.Core</AssemblyReference>
+      <AssemblyReference>System.Collections.NonGeneric</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
-  <Sequence DisplayName="Checknig Data From Procapita" sap:VirtualizedContainerService.HintSize="1786,4295" sap2010:WorkflowViewState.IdRef="Sequence_390">
+  <Sequence DisplayName="Checknig Data From LifeCare" sap:VirtualizedContainerService.HintSize="1778,6415" sap2010:WorkflowViewState.IdRef="Sequence_390">
     <Sequence.Variables>
-      <Variable x:TypeArguments="x:Int32" Name="RowIndexProcapita" />
+      <Variable x:TypeArguments="x:Int32" Name="RowIndexLifeCare" />
       <Variable x:TypeArguments="x:Boolean" Name="CareRecipientFound" />
       <Variable x:TypeArguments="x:Boolean" Name="MoreHoursThanDecision" />
     </Sequence.Variables>
@@ -137,13 +146,13 @@
         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
-    <ui:ForEach x:TypeArguments="x:Int32" CurrentIndex="{x:Null}" sap2010:Annotation.AnnotationText="loopar igenom alla rader för att hitta vilken brukare som uppdragstagaren rapporterar för och sätter radindex till Procapita" DisplayName="For Each Row found from Procapita" sap:VirtualizedContainerService.HintSize="1738,3486" sap2010:WorkflowViewState.IdRef="ForEach`1_5" Values="[in_ListOfRowIndex]">
+    <ui:ForEach x:TypeArguments="x:Int32" CurrentIndex="{x:Null}" sap2010:Annotation.AnnotationText="loopar igenom alla rader för att hitta vilken brukare som uppdragstagaren rapporterar för och sätter radindex till LifeCare" DisplayName="For Each Row found from LifeCare" sap:VirtualizedContainerService.HintSize="596,4726" sap2010:WorkflowViewState.IdRef="ForEach`1_5" Values="[in_ListOfRowIndex]">
       <ui:ForEach.Body>
         <ActivityAction x:TypeArguments="x:Int32">
           <ActivityAction.Argument>
             <DelegateInArgument x:TypeArguments="x:Int32" Name="currentItem" />
           </ActivityAction.Argument>
-          <Sequence DisplayName="Finding Brukare" sap:VirtualizedContainerService.HintSize="1688,3329" sap2010:WorkflowViewState.IdRef="Sequence_198">
+          <Sequence DisplayName="Finding Brukare" sap:VirtualizedContainerService.HintSize="594,4550" sap2010:WorkflowViewState.IdRef="Sequence_198">
             <Sequence.Variables>
               <Variable x:TypeArguments="x:Int32" Name="TempCurrentItem" />
             </Sequence.Variables>
@@ -153,7 +162,7 @@
                 <x:Boolean x:Key="IsPinned">False</x:Boolean>
               </scg:Dictionary>
             </sap:WorkflowViewStateService.ViewState>
-            <Assign DisplayName="Assign TempCurrentItem" sap:VirtualizedContainerService.HintSize="1640,82" sap2010:WorkflowViewState.IdRef="Assign_288">
+            <Assign DisplayName="Assign TempCurrentItem" sap:VirtualizedContainerService.HintSize="560,179" sap2010:WorkflowViewState.IdRef="Assign_288">
               <Assign.To>
                 <OutArgument x:TypeArguments="x:Int32">[TempCurrentItem]</OutArgument>
               </Assign.To>
@@ -161,7 +170,7 @@
                 <InArgument x:TypeArguments="x:Int32">[currentItem]</InArgument>
               </Assign.Value>
             </Assign>
-            <If sap2010:Annotation.AnnotationText="Hittar namn på brukaren i procapita. Brukarens namn står endast på första raden av de beslut som tillhör den. Letar uppåt tills den hittas.&#xA;" Condition="[String.IsNullOrWhiteSpace(in_Procapita_Table(TempCurrentItem)(&quot;Namn&quot;).ToString)]" DisplayName="If Empty Row" sap:VirtualizedContainerService.HintSize="1640,154" sap2010:WorkflowViewState.IdRef="If_108">
+            <If sap2010:Annotation.AnnotationText="Hittar namn på brukaren i LifeCare. Brukarens namn står endast på första raden av de beslut som tillhör den. Letar uppåt tills den hittas.&#xA;" Condition="[String.IsNullOrWhiteSpace(in_LifeCare_Table(TempCurrentItem)(&quot;Namn&quot;).ToString)]" DisplayName="If Empty Row" sap:VirtualizedContainerService.HintSize="560,138" sap2010:WorkflowViewState.IdRef="If_108">
               <sap:WorkflowViewStateService.ViewState>
                 <scg:Dictionary x:TypeArguments="x:String, x:Object">
                   <x:Boolean x:Key="IsExpanded">False</x:Boolean>
@@ -176,7 +185,7 @@
                       <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                     </scg:Dictionary>
                   </sap:WorkflowViewStateService.ViewState>
-                  <ui:InterruptibleDoWhile CurrentIndex="{x:Null}" Condition="[String.IsNullOrWhiteSpace(in_Procapita_Table(TempCurrentItem)(&quot;Namn&quot;).ToString)]" DisplayName="Do While empty" sap:VirtualizedContainerService.HintSize="532,358" sap2010:WorkflowViewState.IdRef="InterruptibleDoWhile_4">
+                  <ui:InterruptibleDoWhile CurrentIndex="{x:Null}" Condition="[String.IsNullOrWhiteSpace(in_LifeCare_Table(TempCurrentItem)(&quot;Namn&quot;).ToString)]" DisplayName="Do While empty" sap:VirtualizedContainerService.HintSize="532,358" sap2010:WorkflowViewState.IdRef="InterruptibleDoWhile_4">
                     <ui:InterruptibleDoWhile.Body>
                       <Sequence DisplayName="New temprow" sap:VirtualizedContainerService.HintSize="496,192" sap2010:WorkflowViewState.IdRef="Sequence_389">
                         <Sequence.Variables>
@@ -216,15 +225,15 @@
                 </Sequence>
               </If.Else>
             </If>
-            <Assign DisplayName="Assign RowIndexExcel" sap:VirtualizedContainerService.HintSize="1640,81" sap2010:WorkflowViewState.IdRef="Assign_206">
+            <Assign DisplayName="Assign RowIndexExcel" sap:VirtualizedContainerService.HintSize="560,179" sap2010:WorkflowViewState.IdRef="Assign_206">
               <Assign.To>
-                <OutArgument x:TypeArguments="x:Int32">[RowIndexProcapita]</OutArgument>
+                <OutArgument x:TypeArguments="x:Int32">[RowIndexLifeCare]</OutArgument>
               </Assign.To>
               <Assign.Value>
                 <InArgument x:TypeArguments="x:Int32">[CInt(currentItem.ToString)]</InArgument>
               </Assign.Value>
             </Assign>
-            <If Condition="[in_Procapita_Table(TempCurrentItem)(&quot;Namn&quot;).ToString.ToLower.Contains(io_LastNameCareRecipient.ToLower) AndAlso in_Procapita_Table(TempCurrentItem)(&quot;Namn&quot;).ToString.ToLower.Contains(io_FirstNameCareRecipient.ToLower)]" DisplayName="Private: Check For Correct CareRecipient" sap:VirtualizedContainerService.HintSize="1640,2822" sap2010:WorkflowViewState.IdRef="If_64">
+            <If Condition="[in_LifeCare_Table(TempCurrentItem)(&quot;Namn&quot;).ToString.ToLower.Contains(io_LastNameCareRecipient.ToLower) AndAlso in_LifeCare_Table(TempCurrentItem)(&quot;Namn&quot;).ToString.ToLower.Contains(io_FirstNameCareRecipient.ToLower)]" DisplayName="Private: Check For Correct CareRecipient" sap:VirtualizedContainerService.HintSize="560,3990" sap2010:WorkflowViewState.IdRef="If_64">
               <sap:WorkflowViewStateService.ViewState>
                 <scg:Dictionary x:TypeArguments="x:String, x:Object">
                   <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -232,13 +241,13 @@
                 </scg:Dictionary>
               </sap:WorkflowViewStateService.ViewState>
               <If.Then>
-                <Sequence DisplayName="Perfect Match on name" sap:VirtualizedContainerService.HintSize="482,357" sap2010:WorkflowViewState.IdRef="Sequence_197">
+                <Sequence DisplayName="Perfect Match on name" sap:VirtualizedContainerService.HintSize="558,474" sap2010:WorkflowViewState.IdRef="Sequence_197">
                   <sap:WorkflowViewStateService.ViewState>
                     <scg:Dictionary x:TypeArguments="x:String, x:Object">
                       <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                     </scg:Dictionary>
                   </sap:WorkflowViewStateService.ViewState>
-                  <Assign DisplayName="Assign CareRecipientFound" sap:VirtualizedContainerService.HintSize="434,82" sap2010:WorkflowViewState.IdRef="Assign_143">
+                  <Assign DisplayName="Assign CareRecipientFound" sap:VirtualizedContainerService.HintSize="524,179" sap2010:WorkflowViewState.IdRef="Assign_143">
                     <Assign.To>
                       <OutArgument x:TypeArguments="x:Boolean">[CareRecipientFound]</OutArgument>
                     </Assign.To>
@@ -246,32 +255,32 @@
                       <InArgument x:TypeArguments="x:Boolean">True</InArgument>
                     </Assign.Value>
                   </Assign>
-                  <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="434,92" sap2010:WorkflowViewState.IdRef="LogMessage_22" Level="Info" Message="[&quot;Full träff på brukarens namn från uppdragstagaren.&quot;]" />
-                  <ui:Break sap:VirtualizedContainerService.HintSize="434,25" sap2010:WorkflowViewState.IdRef="Break_7" />
+                  <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="524,179" sap2010:WorkflowViewState.IdRef="LogMessage_22" Level="Info" Message="[&quot;Full träff på brukarens namn från uppdragstagaren.&quot;]" />
+                  <ui:Break sap:VirtualizedContainerService.HintSize="524,52" sap2010:WorkflowViewState.IdRef="Break_7" />
                 </Sequence>
               </If.Then>
               <If.Else>
-                <Sequence DisplayName="Sequence Check if Approved Threshold When Not Perfect Match" sap:VirtualizedContainerService.HintSize="1085,2662" sap2010:WorkflowViewState.IdRef="Sequence_192">
+                <Sequence DisplayName="Sequence Check if Approved Threshold When Not Perfect Match" sap:VirtualizedContainerService.HintSize="558,3382" sap2010:WorkflowViewState.IdRef="Sequence_192">
                   <Sequence.Variables>
                     <Variable x:TypeArguments="x:Double" Name="PercentFirstName" />
                     <Variable x:TypeArguments="x:Double" Name="PercentLastName" />
-                    <Variable x:TypeArguments="scg:List(x:String)" Name="LastNameListProcapita" />
+                    <Variable x:TypeArguments="scg:List(x:String)" Name="LastNameListLifeCare" />
                     <Variable x:TypeArguments="scg:List(x:String)" Name="LastNameListInskickad" />
-                    <Variable x:TypeArguments="x:Double" Name="PercentLastNameProcapia" />
+                    <Variable x:TypeArguments="x:Double" Name="PercentLastNameLifeCare" />
                   </Sequence.Variables>
                   <sap:WorkflowViewStateService.ViewState>
                     <scg:Dictionary x:TypeArguments="x:String, x:Object">
                       <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                     </scg:Dictionary>
                   </sap:WorkflowViewStateService.ViewState>
-                  <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Private: Get jaro winkler distance First Name" sap:VirtualizedContainerService.HintSize="1037,113" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_1" UnSafe="False" WorkflowFileName="Functions\Get jaro winkler distance.xaml">
+                  <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Private: Get jaro winkler distance First Name" sap:VirtualizedContainerService.HintSize="524,186" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_1" UnSafe="False" WorkflowFileName="Functions\Get jaro winkler distance.xaml">
                     <ui:InvokeWorkflowFile.Arguments>
-                      <InArgument x:TypeArguments="x:String" x:Key="in_String1">[in_Procapita_Table(TempCurrentItem)("Namn").ToString.ToLower.Trim.Split(","c)(1).Trim]</InArgument>
+                      <InArgument x:TypeArguments="x:String" x:Key="in_String1">[in_LifeCare_Table(TempCurrentItem)("Namn").ToString.ToLower.Trim.Split(","c)(1).Trim]</InArgument>
                       <InArgument x:TypeArguments="x:String" x:Key="in_String2">[io_FirstNameCareRecipient.ToLower.Trim]</InArgument>
                       <OutArgument x:TypeArguments="x:Double" x:Key="out_Score">[PercentFirstName]</OutArgument>
                     </ui:InvokeWorkflowFile.Arguments>
                   </ui:InvokeWorkflowFile>
-                  <Assign DisplayName="Assign LastNameListInskickad" sap:VirtualizedContainerService.HintSize="1037,82" sap2010:WorkflowViewState.IdRef="Assign_297">
+                  <Assign DisplayName="Assign LastNameListInskickad" sap:VirtualizedContainerService.HintSize="524,179" sap2010:WorkflowViewState.IdRef="Assign_297">
                     <Assign.To>
                       <OutArgument x:TypeArguments="scg:List(x:String)">[LastNameListInskickad]</OutArgument>
                     </Assign.To>
@@ -279,12 +288,12 @@
                       <InArgument x:TypeArguments="scg:List(x:String)">[io_LastNameCareRecipient.Split(" "c).ToList]</InArgument>
                     </Assign.Value>
                   </Assign>
-                  <Assign DisplayName="Assign LastNameListProcapita" sap:VirtualizedContainerService.HintSize="1037,82" sap2010:WorkflowViewState.IdRef="Assign_299">
+                  <Assign DisplayName="Assign LastNameListLifeCare" sap:VirtualizedContainerService.HintSize="524,179" sap2010:WorkflowViewState.IdRef="Assign_299">
                     <Assign.To>
-                      <OutArgument x:TypeArguments="scg:List(x:String)">[LastNameListProcapita]</OutArgument>
+                      <OutArgument x:TypeArguments="scg:List(x:String)">[LastNameListLifeCare]</OutArgument>
                     </Assign.To>
                     <Assign.Value>
-                      <InArgument x:TypeArguments="scg:List(x:String)">[in_Procapita_Table(TempCurrentItem)("Namn").ToString.ToLower.Trim.Split(","c)(0).Split(" "c).ToList]</InArgument>
+                      <InArgument x:TypeArguments="scg:List(x:String)">[in_LifeCare_Table(TempCurrentItem)("Namn").ToString.ToLower.Trim.Split(","c)(0).Split(" "c).ToList]</InArgument>
                     </Assign.Value>
                     <sap:WorkflowViewStateService.ViewState>
                       <scg:Dictionary x:TypeArguments="x:String, x:Object">
@@ -293,33 +302,33 @@
                       </scg:Dictionary>
                     </sap:WorkflowViewStateService.ViewState>
                   </Assign>
-                  <ui:ForEach x:TypeArguments="x:String" CurrentIndex="{x:Null}" DisplayName="For Each LastNameListInskickad" sap:VirtualizedContainerService.HintSize="1037,1260" sap2010:WorkflowViewState.IdRef="ForEach`1_9" Values="[LastNameListInskickad]">
+                  <ui:ForEach x:TypeArguments="x:String" CurrentIndex="{x:Null}" DisplayName="For Each LastNameListInskickad" sap:VirtualizedContainerService.HintSize="524,1395" sap2010:WorkflowViewState.IdRef="ForEach`1_9" Values="[LastNameListInskickad]">
                     <ui:ForEach.Body>
                       <ActivityAction x:TypeArguments="x:String">
                         <ActivityAction.Argument>
                           <DelegateInArgument x:TypeArguments="x:String" Name="currentItem" />
                         </ActivityAction.Argument>
-                        <Sequence DisplayName="Check last name" sap:VirtualizedContainerService.HintSize="678,1134" sap2010:WorkflowViewState.IdRef="Sequence_396">
+                        <Sequence DisplayName="Check last name" sap:VirtualizedContainerService.HintSize="522,1260" sap2010:WorkflowViewState.IdRef="Sequence_396">
                           <sap:WorkflowViewStateService.ViewState>
                             <scg:Dictionary x:TypeArguments="x:String, x:Object">
                               <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                             </scg:Dictionary>
                           </sap:WorkflowViewStateService.ViewState>
-                          <Assign DisplayName="Assign PercentLastName + temp" sap:VirtualizedContainerService.HintSize="630,82" sap2010:WorkflowViewState.IdRef="Assign_302">
+                          <Assign DisplayName="Assign PercentLastName + temp" sap:VirtualizedContainerService.HintSize="488,179" sap2010:WorkflowViewState.IdRef="Assign_302">
                             <Assign.To>
-                              <OutArgument x:TypeArguments="x:Double">[PercentLastNameProcapia]</OutArgument>
+                              <OutArgument x:TypeArguments="x:Double">[PercentLastNameLifeCare]</OutArgument>
                             </Assign.To>
                             <Assign.Value>
                               <InArgument x:TypeArguments="x:Double">0</InArgument>
                             </Assign.Value>
                           </Assign>
-                          <ui:ForEach x:TypeArguments="x:String" CurrentIndex="{x:Null}" DisplayName="For Each LastNameList" sap:VirtualizedContainerService.HintSize="630,813" sap2010:WorkflowViewState.IdRef="ForEach`1_7" Values="[LastNameListProcapita]">
+                          <ui:ForEach x:TypeArguments="x:String" CurrentIndex="{x:Null}" DisplayName="For Each LastNameList" sap:VirtualizedContainerService.HintSize="488,847" sap2010:WorkflowViewState.IdRef="ForEach`1_7" Values="[LastNameListLifeCare]">
                             <ui:ForEach.Body>
                               <ActivityAction x:TypeArguments="x:String">
                                 <ActivityAction.Argument>
                                   <DelegateInArgument x:TypeArguments="x:String" Name="currentItem2" />
                                 </ActivityAction.Argument>
-                                <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="566,604" sap2010:WorkflowViewState.IdRef="Sequence_393">
+                                <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="486,712" sap2010:WorkflowViewState.IdRef="Sequence_393">
                                   <Sequence.Variables>
                                     <Variable x:TypeArguments="x:Double" Name="PercentLastNameTemp" />
                                   </Sequence.Variables>
@@ -328,24 +337,24 @@
                                       <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                                     </scg:Dictionary>
                                   </sap:WorkflowViewStateService.ViewState>
-                                  <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Functions\Get jaro winkler distance.xaml - Invoke Workflow File" sap:VirtualizedContainerService.HintSize="518,113" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_2" UnSafe="False" WorkflowFileName="Functions\Get jaro winkler distance.xaml">
+                                  <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Functions\Get jaro winkler distance.xaml - Invoke Workflow File" sap:VirtualizedContainerService.HintSize="452,186" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_2" UnSafe="False" WorkflowFileName="Functions\Get jaro winkler distance.xaml">
                                     <ui:InvokeWorkflowFile.Arguments>
                                       <InArgument x:TypeArguments="x:String" x:Key="in_String1">[currentItem.ToLower.Trim]</InArgument>
                                       <InArgument x:TypeArguments="x:String" x:Key="in_String2">[currentItem2.ToLower.Trim]</InArgument>
                                       <OutArgument x:TypeArguments="x:Double" x:Key="out_Score">[PercentLastNameTemp]</OutArgument>
                                     </ui:InvokeWorkflowFile.Arguments>
                                   </ui:InvokeWorkflowFile>
-                                  <If Condition="[PercentLastNameTemp &gt;PercentLastNameProcapia]" DisplayName="If Better Match" sap:VirtualizedContainerService.HintSize="518,365" sap2010:WorkflowViewState.IdRef="If_111">
+                                  <If Condition="[PercentLastNameTemp &gt;PercentLastNameLifeCare]" DisplayName="If Better Match" sap:VirtualizedContainerService.HintSize="452,462" sap2010:WorkflowViewState.IdRef="If_111">
                                     <If.Then>
-                                      <Sequence sap:VirtualizedContainerService.HintSize="482,176" sap2010:WorkflowViewState.IdRef="Sequence_399">
+                                      <Sequence DisplayName="Then" sap:VirtualizedContainerService.HintSize="450,234" sap2010:WorkflowViewState.IdRef="Sequence_399">
                                         <sap:WorkflowViewStateService.ViewState>
                                           <scg:Dictionary x:TypeArguments="x:String, x:Object">
                                             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                                           </scg:Dictionary>
                                         </sap:WorkflowViewStateService.ViewState>
-                                        <Assign DisplayName="Assign PercentLastName + temp" sap:VirtualizedContainerService.HintSize="434,82" sap2010:WorkflowViewState.IdRef="Assign_298">
+                                        <Assign DisplayName="Assign PercentLastName + temp" sap:VirtualizedContainerService.HintSize="416,170" sap2010:WorkflowViewState.IdRef="Assign_298">
                                           <Assign.To>
-                                            <OutArgument x:TypeArguments="x:Double">[PercentLastNameProcapia]</OutArgument>
+                                            <OutArgument x:TypeArguments="x:Double">[PercentLastNameLifeCare]</OutArgument>
                                           </Assign.To>
                                           <Assign.Value>
                                             <InArgument x:TypeArguments="x:Double">[PercentLastNameTemp]</InArgument>
@@ -354,7 +363,7 @@
                                       </Sequence>
                                     </If.Then>
                                     <If.Else>
-                                      <Sequence sap2010:WorkflowViewState.IdRef="Sequence_400">
+                                      <Sequence DisplayName="Else" sap:VirtualizedContainerService.HintSize="450,94" sap2010:WorkflowViewState.IdRef="Sequence_400">
                                         <sap:WorkflowViewStateService.ViewState>
                                           <scg:Dictionary x:TypeArguments="x:String, x:Object">
                                             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -373,12 +382,12 @@
                               </scg:Dictionary>
                             </sap:WorkflowViewStateService.ViewState>
                           </ui:ForEach>
-                          <Assign DisplayName="Assign PercentLastName + temp" sap:VirtualizedContainerService.HintSize="630,81" sap2010:WorkflowViewState.IdRef="Assign_304">
+                          <Assign DisplayName="Assign PercentLastName + temp" sap:VirtualizedContainerService.HintSize="488,170" sap2010:WorkflowViewState.IdRef="Assign_304">
                             <Assign.To>
                               <OutArgument x:TypeArguments="x:Double">[PercentLastName]</OutArgument>
                             </Assign.To>
                             <Assign.Value>
-                              <InArgument x:TypeArguments="x:Double">[PercentLastName + PercentLastNameProcapia/(LastNameListInskickad.Count)]</InArgument>
+                              <InArgument x:TypeArguments="x:Double">[PercentLastName + PercentLastNameLifeCare/(LastNameListInskickad.Count)]</InArgument>
                             </Assign.Value>
                             <sap:WorkflowViewStateService.ViewState>
                               <scg:Dictionary x:TypeArguments="x:String, x:Object">
@@ -397,8 +406,8 @@
                       </scg:Dictionary>
                     </sap:WorkflowViewStateService.ViewState>
                   </ui:ForEach>
-                  <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="1037,92" sap2010:WorkflowViewState.IdRef="LogMessage_24" Level="Info" Message="[&quot;Totalt &quot;+ ((PercentFirstName+PercentLastName)/2).ToString + &quot;% träff på brukarens namn från uppdragstagaren.&quot;]" />
-                  <If Condition="[PercentFirstName &gt;= in_PercentOk AndAlso PercentLastName &gt;= in_PercentOk]" DisplayName="If not approved threshold value" sap:VirtualizedContainerService.HintSize="1037,779" sap2010:WorkflowViewState.IdRef="If_63">
+                  <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="524,179" sap2010:WorkflowViewState.IdRef="LogMessage_24" Level="Info" Message="[&quot;Totalt &quot;+ ((PercentFirstName+PercentLastName)/2).ToString + &quot;% träff på brukarens namn från uppdragstagaren.&quot;]" />
+                  <If Condition="[PercentFirstName &gt;= in_PercentOk AndAlso PercentLastName &gt;= in_PercentOk]" DisplayName="If not approved threshold value" sap:VirtualizedContainerService.HintSize="524,1200" sap2010:WorkflowViewState.IdRef="If_63">
                     <sap:WorkflowViewStateService.ViewState>
                       <scg:Dictionary x:TypeArguments="x:String, x:Object">
                         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -406,7 +415,7 @@
                       </scg:Dictionary>
                     </sap:WorkflowViewStateService.ViewState>
                     <If.Then>
-                      <Sequence DisplayName="Sequence Approved Threshold" sap:VirtualizedContainerService.HintSize="496,620" sap2010:WorkflowViewState.IdRef="Sequence_391">
+                      <Sequence DisplayName="Sequence Approved Threshold" sap:VirtualizedContainerService.HintSize="450,832" sap2010:WorkflowViewState.IdRef="Sequence_391">
                         <Sequence.Variables>
                           <Variable x:TypeArguments="x:String" Name="FullName" />
                         </Sequence.Variables>
@@ -416,12 +425,12 @@
                             <x:Boolean x:Key="IsPinned">False</x:Boolean>
                           </scg:Dictionary>
                         </sap:WorkflowViewStateService.ViewState>
-                        <Assign DisplayName="Assign FullName From Procapita" sap:VirtualizedContainerService.HintSize="434,81" sap2010:WorkflowViewState.IdRef="Assign_145">
+                        <Assign DisplayName="Assign FullName From LifeCare" sap:VirtualizedContainerService.HintSize="416,179" sap2010:WorkflowViewState.IdRef="Assign_145">
                           <Assign.To>
                             <OutArgument x:TypeArguments="x:String">[FullName]</OutArgument>
                           </Assign.To>
                           <Assign.Value>
-                            <InArgument x:TypeArguments="x:String">[in_Procapita_Table(TempCurrentItem)("Namn").ToString.Trim]</InArgument>
+                            <InArgument x:TypeArguments="x:String">[in_LifeCare_Table(TempCurrentItem)("Namn").ToString.Trim]</InArgument>
                           </Assign.Value>
                           <sap:WorkflowViewStateService.ViewState>
                             <scg:Dictionary x:TypeArguments="x:String, x:Object">
@@ -430,7 +439,7 @@
                             </scg:Dictionary>
                           </sap:WorkflowViewStateService.ViewState>
                         </Assign>
-                        <Assign DisplayName="Assign LastNameCareRecipient From Procapita" sap:VirtualizedContainerService.HintSize="434,81" sap2010:WorkflowViewState.IdRef="Assign_146">
+                        <Assign DisplayName="Assign io_LastNameCareRecipient From LifeCare" sap:VirtualizedContainerService.HintSize="416,179" sap2010:WorkflowViewState.IdRef="Assign_146">
                           <Assign.To>
                             <OutArgument x:TypeArguments="x:String">[io_LastNameCareRecipient]</OutArgument>
                           </Assign.To>
@@ -444,7 +453,7 @@
                             </scg:Dictionary>
                           </sap:WorkflowViewStateService.ViewState>
                         </Assign>
-                        <Assign DisplayName="Assign FirstNameCareRecipient From Procapita" sap:VirtualizedContainerService.HintSize="434,81" sap2010:WorkflowViewState.IdRef="Assign_147">
+                        <Assign DisplayName="Assign FirstNameCareRecipient From LifeCare" sap:VirtualizedContainerService.HintSize="416,179" sap2010:WorkflowViewState.IdRef="Assign_147">
                           <Assign.To>
                             <OutArgument x:TypeArguments="x:String">[io_FirstNameCareRecipient]</OutArgument>
                           </Assign.To>
@@ -458,7 +467,7 @@
                             </scg:Dictionary>
                           </sap:WorkflowViewStateService.ViewState>
                         </Assign>
-                        <Assign DisplayName="Assign CareRecipientFound Not 100%" sap:VirtualizedContainerService.HintSize="434,81" sap2010:WorkflowViewState.IdRef="Assign_148">
+                        <Assign DisplayName="Assign CareRecipientFound Not 100%" sap:VirtualizedContainerService.HintSize="416,179" sap2010:WorkflowViewState.IdRef="Assign_148">
                           <Assign.To>
                             <OutArgument x:TypeArguments="x:Boolean">[CareRecipientFound]</OutArgument>
                           </Assign.To>
@@ -466,20 +475,20 @@
                             <InArgument x:TypeArguments="x:Boolean">True</InArgument>
                           </Assign.Value>
                         </Assign>
-                        <ui:Break sap:VirtualizedContainerService.HintSize="434,25" sap2010:WorkflowViewState.IdRef="Break_8" />
+                        <ui:Break sap:VirtualizedContainerService.HintSize="416,52" sap2010:WorkflowViewState.IdRef="Break_8" />
                       </Sequence>
                     </If.Then>
                     <If.Else>
-                      <Sequence DisplayName="Sequence Not Approved Threshold" sap:VirtualizedContainerService.HintSize="496,192" sap2010:WorkflowViewState.IdRef="Sequence_193">
+                      <Sequence DisplayName="Sequence Not Approved Threshold" sap:VirtualizedContainerService.HintSize="450,234" sap2010:WorkflowViewState.IdRef="Sequence_193">
                         <Sequence.Variables>
-                          <Variable x:TypeArguments="x:String" Name="DecidedQuantityFromProcapita" />
+                          <Variable x:TypeArguments="x:String" Name="DecidedQuantityFromLifeCare" />
                         </Sequence.Variables>
                         <sap:WorkflowViewStateService.ViewState>
                           <scg:Dictionary x:TypeArguments="x:String, x:Object">
                             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                           </scg:Dictionary>
                         </sap:WorkflowViewStateService.ViewState>
-                        <Assign DisplayName="Assign CareRecipientFound False" sap:VirtualizedContainerService.HintSize="434,81" sap2010:WorkflowViewState.IdRef="Assign_144">
+                        <Assign DisplayName="Assign CareRecipientFound False" sap:VirtualizedContainerService.HintSize="416,170" sap2010:WorkflowViewState.IdRef="Assign_144">
                           <Assign.To>
                             <OutArgument x:TypeArguments="x:Boolean">[CareRecipientFound]</OutArgument>
                           </Assign.To>
@@ -504,7 +513,7 @@
         </scg:Dictionary>
       </sap:WorkflowViewStateService.ViewState>
     </ui:ForEach>
-    <If Condition="[Not CareRecipientFound]" DisplayName="If Not CareRecipientFound" sap:VirtualizedContainerService.HintSize="1738,52" sap2010:WorkflowViewState.IdRef="If_65">
+    <If Condition="[Not CareRecipientFound]" DisplayName="If Not CareRecipientFound" sap:VirtualizedContainerService.HintSize="596,57" sap2010:WorkflowViewState.IdRef="If_65">
       <sap:WorkflowViewStateService.ViewState>
         <scg:Dictionary x:TypeArguments="x:String, x:Object">
           <x:Boolean x:Key="IsExpanded">False</x:Boolean>
@@ -531,12 +540,12 @@
         </Sequence>
       </If.Else>
     </If>
-    <Assign DisplayName="Private: Assign DecidedQuantityFromProcapita Avlösarservice LSS" sap:VirtualizedContainerService.HintSize="1738,81" sap2010:WorkflowViewState.IdRef="Assign_239">
+    <Assign DisplayName="Private: Assign out_DecidedQuantityFromLifeCare Avlösarservice LSS" sap:VirtualizedContainerService.HintSize="596,175" sap2010:WorkflowViewState.IdRef="Assign_239">
       <Assign.To>
-        <OutArgument x:TypeArguments="x:String">[out_DecidedQuantityFromProcapita]</OutArgument>
+        <OutArgument x:TypeArguments="x:String">[out_DecidedQuantityFromLifeCare]</OutArgument>
       </Assign.To>
       <Assign.Value>
-        <InArgument x:TypeArguments="x:String">[in_Procapita_Table(RowIndexProcapita)("Kvantitet").ToString]</InArgument>
+        <InArgument x:TypeArguments="x:String">[in_LifeCare_Table(RowIndexLifeCare)("Kvantitet").ToString]</InArgument>
       </Assign.Value>
       <sap:WorkflowViewStateService.ViewState>
         <scg:Dictionary x:TypeArguments="x:String, x:Object">
@@ -545,12 +554,12 @@
         </scg:Dictionary>
       </sap:WorkflowViewStateService.ViewState>
     </Assign>
-    <Assign sap2010:Annotation.AnnotationText="" DisplayName="Private: Assign ValidityPeriod" sap:VirtualizedContainerService.HintSize="1738,112" sap2010:WorkflowViewState.IdRef="Assign_295">
+    <Assign sap2010:Annotation.AnnotationText="" DisplayName="Private: Assign ValidityPeriod" sap:VirtualizedContainerService.HintSize="596,206" sap2010:WorkflowViewState.IdRef="Assign_295">
       <Assign.To>
         <OutArgument x:TypeArguments="x:String">[out_ValidityPeriod]</OutArgument>
       </Assign.To>
       <Assign.Value>
-        <InArgument x:TypeArguments="x:String">[in_Procapita_Table(RowIndexProcapita)("Gil.period").ToString]</InArgument>
+        <InArgument x:TypeArguments="x:String">[in_LifeCare_Table(RowIndexLifeCare)("Gil.period").ToString]</InArgument>
       </Assign.Value>
       <sap:WorkflowViewStateService.ViewState>
         <scg:Dictionary x:TypeArguments="x:String, x:Object">
@@ -560,14 +569,14 @@
         </scg:Dictionary>
       </sap:WorkflowViewStateService.ViewState>
     </Assign>
-    <Switch x:TypeArguments="x:String" sap2010:Annotation.AnnotationText="defult = månad, flesta ska vara månad" DisplayName="Switch calculate DecidedHoursFromProcapita" Expression="[out_DecidedQuantityFromProcapita.Split(&quot;/&quot;c)(1)]" sap:VirtualizedContainerService.HintSize="1738,339" sap2010:WorkflowViewState.IdRef="Switch`1_7">
+    <Switch x:TypeArguments="x:String" sap2010:Annotation.AnnotationText="defult = månad, flesta ska vara månad" DisplayName="Switch calculate out_DecidedQuantityFromLifeCare" Expression="[out_DecidedQuantityFromLifeCare.Split(&quot;/&quot;c)(1)]" sap:VirtualizedContainerService.HintSize="596,1228" sap2010:WorkflowViewState.IdRef="Switch`1_7">
       <Switch.Default>
-        <Assign DisplayName="Assign DecidedHoursFromProcapita Sequence 100%" sap:VirtualizedContainerService.HintSize="434,81" sap2010:WorkflowViewState.IdRef="Assign_154">
+        <Assign DisplayName="Assign out_DecidedHoursFromLifeCare Sequence 100%" sap:VirtualizedContainerService.HintSize="450,143" sap2010:WorkflowViewState.IdRef="Assign_154">
           <Assign.To>
-            <OutArgument x:TypeArguments="x:Double">[out_DecidedHoursFromProcapita]</OutArgument>
+            <OutArgument x:TypeArguments="x:Double">[out_DecidedHoursFromLifeCare]</OutArgument>
           </Assign.To>
           <Assign.Value>
-            <InArgument x:TypeArguments="x:Double">[CDbl(System.Text.RegularExpressions.Regex.Match(out_DecidedQuantityFromProcapita, "\d+").Value)]</InArgument>
+            <InArgument x:TypeArguments="x:Double">[CDbl(System.Text.RegularExpressions.Regex.Match(out_DecidedQuantityFromLifeCare, "\d+").Value)]</InArgument>
           </Assign.Value>
           <sap:WorkflowViewStateService.ViewState>
             <scg:Dictionary x:TypeArguments="x:String, x:Object">
@@ -584,18 +593,18 @@
           <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
         </scg:Dictionary>
       </sap:WorkflowViewStateService.ViewState>
-      <Sequence x:Key="år" DisplayName="Set Year" sap:VirtualizedContainerService.HintSize="496,311" sap2010:WorkflowViewState.IdRef="Sequence_392">
+      <Sequence x:Key="år" DisplayName="Set Year" sap:VirtualizedContainerService.HintSize="450,458" sap2010:WorkflowViewState.IdRef="Sequence_392">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
-        <Assign sap2010:Annotation.AnnotationText="Behåller per år för att det är den som kommer att jämföras med den totala rapporterade." DisplayName="Assign DecidedHoursFromProcapita Sequence 100% Year" sap:VirtualizedContainerService.HintSize="434,123" sap2010:WorkflowViewState.IdRef="Assign_151">
+        <Assign sap2010:Annotation.AnnotationText="Behåller per år för att det är den som kommer att jämföras med den totala rapporterade." DisplayName="Assign out_DecidedHoursFromLifeCare Sequence 100% Year" sap:VirtualizedContainerService.HintSize="416,224" sap2010:WorkflowViewState.IdRef="Assign_151">
           <Assign.To>
-            <OutArgument x:TypeArguments="x:Double">[out_DecidedHoursFromProcapita]</OutArgument>
+            <OutArgument x:TypeArguments="x:Double">[out_DecidedHoursFromLifeCare]</OutArgument>
           </Assign.To>
           <Assign.Value>
-            <InArgument x:TypeArguments="x:Double">[CDbl(System.Text.RegularExpressions.Regex.Match(out_DecidedQuantityFromProcapita, "\d+").Value)]</InArgument>
+            <InArgument x:TypeArguments="x:Double">[CDbl(System.Text.RegularExpressions.Regex.Match(out_DecidedQuantityFromLifeCare, "\d+").Value)]</InArgument>
           </Assign.Value>
           <sap:WorkflowViewStateService.ViewState>
             <scg:Dictionary x:TypeArguments="x:String, x:Object">
@@ -605,7 +614,7 @@
             </scg:Dictionary>
           </sap:WorkflowViewStateService.ViewState>
         </Assign>
-        <Assign DisplayName="Assign out_CalculateTotalYear" sap:VirtualizedContainerService.HintSize="434,82" sap2010:WorkflowViewState.IdRef="Assign_296">
+        <Assign DisplayName="Assign out_CalculateTotalYear" sap:VirtualizedContainerService.HintSize="416,170" sap2010:WorkflowViewState.IdRef="Assign_296">
           <Assign.To>
             <OutArgument x:TypeArguments="x:Boolean">[out_CalculateTotalYear]</OutArgument>
           </Assign.To>
@@ -620,12 +629,12 @@
           </sap:WorkflowViewStateService.ViewState>
         </Assign>
       </Sequence>
-      <Assign x:Key="dag" DisplayName="Assign DecidedHoursFromProcapita Sequence 100% Day" sap:VirtualizedContainerService.HintSize="434,81" sap2010:WorkflowViewState.IdRef="Assign_152">
+      <Assign x:Key="dag" DisplayName="Assign out_DecidedHoursFromLifeCare Sequence 100% Day" sap:VirtualizedContainerService.HintSize="450,143" sap2010:WorkflowViewState.IdRef="Assign_152">
         <Assign.To>
-          <OutArgument x:TypeArguments="x:Double">[out_DecidedHoursFromProcapita]</OutArgument>
+          <OutArgument x:TypeArguments="x:Double">[out_DecidedHoursFromLifeCare]</OutArgument>
         </Assign.To>
         <Assign.Value>
-          <InArgument x:TypeArguments="x:Double">[CDbl(System.Text.RegularExpressions.Regex.Match(out_DecidedQuantityFromProcapita, "\d+").Value)*30]</InArgument>
+          <InArgument x:TypeArguments="x:Double">[CDbl(System.Text.RegularExpressions.Regex.Match(out_DecidedQuantityFromLifeCare, "\d+").Value)*30]</InArgument>
         </Assign.Value>
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
@@ -634,12 +643,12 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </Assign>
-      <Assign x:Key="vecka" DisplayName="Assign DecidedHoursFromProcapita Sequence 100% Week" sap:VirtualizedContainerService.HintSize="434,81" sap2010:WorkflowViewState.IdRef="Assign_153">
+      <Assign x:Key="vecka" DisplayName="Assign out_DecidedHoursFromLifeCare Sequence 100% Week" sap:VirtualizedContainerService.HintSize="450,143" sap2010:WorkflowViewState.IdRef="Assign_153">
         <Assign.To>
-          <OutArgument x:TypeArguments="x:Double">[out_DecidedHoursFromProcapita]</OutArgument>
+          <OutArgument x:TypeArguments="x:Double">[out_DecidedHoursFromLifeCare]</OutArgument>
         </Assign.To>
         <Assign.Value>
-          <InArgument x:TypeArguments="x:Double">[CDbl(System.Text.RegularExpressions.Regex.Match(out_DecidedQuantityFromProcapita, "\d+").Value)*4]</InArgument>
+          <InArgument x:TypeArguments="x:Double">[CDbl(System.Text.RegularExpressions.Regex.Match(out_DecidedQuantityFromLifeCare, "\d+").Value)*4]</InArgument>
         </Assign.Value>
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
