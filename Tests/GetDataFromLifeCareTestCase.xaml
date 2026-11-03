@@ -1,0 +1,184 @@
+<Activity mc:Ignorable="sap sap2010" x:Class="GetDataFromLifeCareTestCase" VisualBasic.Settings="{x:Null}" sap2010:WorkflowViewState.IdRef="ActivityBuilder_1" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Private.CoreLib" xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=System.Private.CoreLib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data.Common" xmlns:ss="clr-namespace:System.Security;assembly=System.Private.CoreLib" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:uta="clr-namespace:UiPath.Testing.Activities;assembly=UiPath.Testing.Activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <TextExpression.NamespacesForImplementation>
+    <sco:Collection x:TypeArguments="x:String">
+      <x:String>System</x:String>
+      <x:String>System.Collections</x:String>
+      <x:String>System.Collections.Generic</x:String>
+      <x:String>System.Collections.ObjectModel</x:String>
+      <x:String>System.Data</x:String>
+      <x:String>System.Linq</x:String>
+      <x:String>System.Security</x:String>
+      <x:String>UiPath.Core</x:String>
+      <x:String>UiPath.Core.Activities</x:String>
+      <x:String>UiPath.Testing</x:String>
+      <x:String>UiPath.Testing.Activities</x:String>
+      <x:String>Microsoft.VisualBasic</x:String>
+      <x:String>GlobalVariablesNamespace</x:String>
+      <x:String>GlobalConstantsNamespace</x:String>
+      <x:String>System.Activities</x:String>
+      <x:String>System.Reflection</x:String>
+      <x:String>System.Linq.Expressions</x:String>
+      <x:String>System.Runtime.Serialization</x:String>
+      <x:String>System.ComponentModel</x:String>
+      <x:String>System.Xml.Serialization</x:String>
+      <x:String>UiPath.Excel</x:String>
+      <x:String>UiPath.Platform.ResourceHandling</x:String>
+      <x:String>UiPath.Excel.Activities</x:String>
+    </sco:Collection>
+  </TextExpression.NamespacesForImplementation>
+  <TextExpression.ReferencesForImplementation>
+    <sco:Collection x:TypeArguments="AssemblyReference">
+      <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
+      <AssemblyReference>mscorlib</AssemblyReference>
+      <AssemblyReference>System.Collections</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.TypeConverter</AssemblyReference>
+      <AssemblyReference>System.Data.Common</AssemblyReference>
+      <AssemblyReference>System.Linq</AssemblyReference>
+      <AssemblyReference>System.ObjectModel</AssemblyReference>
+      <AssemblyReference>System.Private.CoreLib</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.Testing.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.UiAutomation.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.Studio.Constants</AssemblyReference>
+      <AssemblyReference>System.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.Workflow</AssemblyReference>
+      <AssemblyReference>System.Reflection.DispatchProxy</AssemblyReference>
+      <AssemblyReference>System.Reflection.TypeExtensions</AssemblyReference>
+      <AssemblyReference>System.Reflection.Metadata</AssemblyReference>
+      <AssemblyReference>UiPath.Excel.Activities.Design</AssemblyReference>
+      <AssemblyReference>System.Console</AssemblyReference>
+      <AssemblyReference>System.Security.Permissions</AssemblyReference>
+      <AssemblyReference>System.Configuration.ConfigurationManager</AssemblyReference>
+      <AssemblyReference>System.ComponentModel</AssemblyReference>
+      <AssemblyReference>System.Memory</AssemblyReference>
+      <AssemblyReference>System.Private.Uri</AssemblyReference>
+      <AssemblyReference>System.Private.ServiceModel</AssemblyReference>
+      <AssemblyReference>NPOI.Core</AssemblyReference>
+      <AssemblyReference>System.Collections.NonGeneric</AssemblyReference>
+      <AssemblyReference>System.Linq.Expressions</AssemblyReference>
+      <AssemblyReference>System.Private.DataContractSerialization</AssemblyReference>
+      <AssemblyReference>System.Runtime.Serialization.Formatters</AssemblyReference>
+      <AssemblyReference>System.Runtime.Serialization.Primitives</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.EventBasedAsync</AssemblyReference>
+      <AssemblyReference>PresentationFramework</AssemblyReference>
+      <AssemblyReference>WindowsBase</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.Primitives</AssemblyReference>
+      <AssemblyReference>System.Private.Xml</AssemblyReference>
+      <AssemblyReference>UiPath.Excel.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.Excel</AssemblyReference>
+      <AssemblyReference>UiPath.Platform</AssemblyReference>
+      <AssemblyReference>System.Data.SqlClient</AssemblyReference>
+    </sco:Collection>
+  </TextExpression.ReferencesForImplementation>
+  <Sequence sap2010:Annotation.AnnotationText="Testfall för GetDataFromLifeCare.xaml (Arvoderade Uppdrag). Läser domän/nyckel ur Orchestrator-asset, anropar workflowen för en månad och verifierar att en DataTable byggs med rätt kolumner. Läsande testfall - skapar och ändrar ingenting.&#xA;&#xA;Assets:&#xA;  LifeCareECDomainUrl   https://lifecare-test.sundsvall.se&#xA;  LifeCareECDomainId    domän-ID hos Tieto&#xA;  Cred_NA_LifeCareECApiKeyUtförarAktörExtern   API-nyckeln (lösenordsfältet)&#xA;&#xA;OBS: I en tom testmiljö blir radantalet 0 - det är förväntat. Testet verifierar mekaniken (anrop + kolumner), inte affärsdata. Byt ReportType för att testa andra insatser." DisplayName="GetDataFromLifeCareTestCase" sap:VirtualizedContainerService.HintSize="1138,2613" sap2010:WorkflowViewState.IdRef="Sequence_1">
+    <Sequence.Variables>
+      <Variable x:TypeArguments="x:String" Name="DomainUrl" />
+      <Variable x:TypeArguments="x:String" Name="DomainId" />
+      <Variable x:TypeArguments="ss:SecureString" Name="ApiKey" />
+      <Variable x:TypeArguments="scg:Dictionary(x:String, sd:DataTable)" Name="DictOfTables" />
+      <Variable x:TypeArguments="sd:DataTable" Name="ResultTable" />
+      <Variable x:TypeArguments="x:String" Name="DictionaryKey" />
+      <Variable x:TypeArguments="x:String" Name="ReportType" />
+      <Variable x:TypeArguments="x:String" Name="DateFrom" />
+      <Variable x:TypeArguments="x:String" Name="DateTo" />
+      <Variable x:TypeArguments="x:String" Default="Kontaktperson LSS" Name="Typ" />
+    </Sequence.Variables>
+    <sap:WorkflowViewStateService.ViewState>
+      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+      </scg:Dictionary>
+    </sap:WorkflowViewStateService.ViewState>
+    <ui:Comment DisplayName="Testdata" sap:VirtualizedContainerService.HintSize="450,147" sap2010:WorkflowViewState.IdRef="Comment_1" Text="Byt ReportType för att testa en annan insats (Avlösarservice LSS / Korttidsvistelse hos stödfamilj LSS / Ledsagarservice LSS). DictionaryKey = samma som i Process.xaml." />
+    <Assign sap2010:Annotation.AnnotationText="&quot;Kontaktperson LSS&quot;&#xA;&quot;LSS Avlösarservice&quot;&#xA;&quot;Stödfamilj&quot;&#xA;&quot;Ledsagare&quot;" DisplayName="Assign DictionaryKey" sap:VirtualizedContainerService.HintSize="450,252" sap2010:WorkflowViewState.IdRef="Assign_1">
+      <Assign.To>
+        <OutArgument x:TypeArguments="x:String">[DictionaryKey]</OutArgument>
+      </Assign.To>
+      <Assign.Value>
+        <InArgument x:TypeArguments="x:String">[Typ]</InArgument>
+      </Assign.Value>
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+    </Assign>
+    <Assign DisplayName="Assign ReportType" sap:VirtualizedContainerService.HintSize="450,175" sap2010:WorkflowViewState.IdRef="Assign_2">
+      <Assign.To>
+        <OutArgument x:TypeArguments="x:String">[ReportType]</OutArgument>
+      </Assign.To>
+      <Assign.Value>
+        <InArgument x:TypeArguments="x:String">[Typ]</InArgument>
+      </Assign.Value>
+    </Assign>
+    <Assign DisplayName="Assign DateFrom (månadens första dag)" sap:VirtualizedContainerService.HintSize="450,175" sap2010:WorkflowViewState.IdRef="Assign_3">
+      <Assign.To>
+        <OutArgument x:TypeArguments="x:String">[DateFrom]</OutArgument>
+      </Assign.To>
+      <Assign.Value>
+        <InArgument x:TypeArguments="x:String">[New DateTime(Now.Year, Now.Month, 1).ToString("yyyy-MM-dd")]</InArgument>
+      </Assign.Value>
+    </Assign>
+    <Assign DisplayName="Assign DateTo (månadens sista dag)" sap:VirtualizedContainerService.HintSize="450,175" sap2010:WorkflowViewState.IdRef="Assign_4">
+      <Assign.To>
+        <OutArgument x:TypeArguments="x:String">[DateTo]</OutArgument>
+      </Assign.To>
+      <Assign.Value>
+        <InArgument x:TypeArguments="x:String">[New DateTime(Now.Year, Now.Month, DateTime.DaysInMonth(Now.Year, Now.Month)).ToString("yyyy-MM-dd")]</InArgument>
+      </Assign.Value>
+    </Assign>
+    <Assign DisplayName="Init DictOfTables" sap:VirtualizedContainerService.HintSize="450,175" sap2010:WorkflowViewState.IdRef="Assign_5">
+      <Assign.To>
+        <OutArgument x:TypeArguments="scg:Dictionary(x:String, sd:DataTable)">[DictOfTables]</OutArgument>
+      </Assign.To>
+      <Assign.Value>
+        <InArgument x:TypeArguments="scg:Dictionary(x:String, sd:DataTable)">[New Dictionary(Of String, DataTable)]</InArgument>
+      </Assign.Value>
+    </Assign>
+    <ui:GetRobotAsset TimeoutMS="{x:Null}" AssetName="LifeCareECDomainUrl" CacheStrategy="None" DisplayName="Get Asset Domain Url" sap:VirtualizedContainerService.HintSize="450,181" sap2010:WorkflowViewState.IdRef="GetRobotAsset_1">
+      <ui:GetRobotAsset.Value>
+        <OutArgument x:TypeArguments="x:String">[DomainUrl]</OutArgument>
+      </ui:GetRobotAsset.Value>
+    </ui:GetRobotAsset>
+    <ui:GetRobotAsset TimeoutMS="{x:Null}" AssetName="LifeCareECDomainId" CacheStrategy="None" DisplayName="Get Asset Domain Id" sap:VirtualizedContainerService.HintSize="450,181" sap2010:WorkflowViewState.IdRef="GetRobotAsset_2">
+      <ui:GetRobotAsset.Value>
+        <OutArgument x:TypeArguments="x:String">[DomainId]</OutArgument>
+      </ui:GetRobotAsset.Value>
+    </ui:GetRobotAsset>
+    <ui:GetRobotCredential TimeoutMS="{x:Null}" Username="{x:Null}" AssetName="Cred_NA_LifeCareECApiKey" CacheStrategy="None" DisplayName="Get Credential ApiKey" sap:VirtualizedContainerService.HintSize="450,181" sap2010:WorkflowViewState.IdRef="GetRobotCredential_1" Password="[ApiKey]" />
+    <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Invoke GetDataFromLifeCare" sap:VirtualizedContainerService.HintSize="450,182" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_1" UnSafe="False" WorkflowFileName="LifeCare\GetDataFromLifeCare.xaml">
+      <ui:InvokeWorkflowFile.Arguments>
+        <InArgument x:TypeArguments="x:String" x:Key="in_DictionaryKey">[DictionaryKey]</InArgument>
+        <InArgument x:TypeArguments="x:String" x:Key="in_ReportType">[ReportType]</InArgument>
+        <InArgument x:TypeArguments="x:String" x:Key="in_DateFrom">[DateFrom]</InArgument>
+        <InArgument x:TypeArguments="x:String" x:Key="in_DateTo">[DateTo]</InArgument>
+        <InArgument x:TypeArguments="x:String" x:Key="in_DomainUrl">[DomainUrl]</InArgument>
+        <InArgument x:TypeArguments="x:String" x:Key="in_DomainId">[DomainId]</InArgument>
+        <InArgument x:TypeArguments="ss:SecureString" x:Key="in_ApiKey">[ApiKey]</InArgument>
+        <InOutArgument x:TypeArguments="scg:Dictionary(x:String, sd:DataTable)" x:Key="io_DictLifeCareTables">[DictOfTables]</InOutArgument>
+      </ui:InvokeWorkflowFile.Arguments>
+    </ui:InvokeWorkflowFile>
+    <Assign DisplayName="Hämta ut ResultTable" sap:VirtualizedContainerService.HintSize="450,175" sap2010:WorkflowViewState.IdRef="Assign_6">
+      <Assign.To>
+        <OutArgument x:TypeArguments="sd:DataTable">[ResultTable]</OutArgument>
+      </Assign.To>
+      <Assign.Value>
+        <InArgument x:TypeArguments="sd:DataTable">[If(DictOfTables.ContainsKey(DictionaryKey), DictOfTables(DictionaryKey), Nothing)]</InArgument>
+      </Assign.Value>
+    </Assign>
+    <ui:WriteRange StartingCell="{x:Null}" WorkbookPathResource="{x:Null}" sap2010:Annotation.AnnotationText="lägg till sökväg ifall man vill se tabell" DataTable="[ResultTable]" DisplayName="Write Range Workbook" sap:VirtualizedContainerService.HintSize="450,179" sap2010:WorkflowViewState.IdRef="WriteRange_1" SheetName="ResultTable">
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+      <ui:WriteRange.WorkbookPath>
+        <InArgument x:TypeArguments="x:String">
+          <Literal x:TypeArguments="x:String" Value="" />
+        </InArgument>
+      </ui:WriteRange.WorkbookPath>
+    </ui:WriteRange>
+    <uta:VerifyExpression AlternativeVerificationTitle="{x:Null}" KeepScreenshots="{x:Null}" OutputMessageFormat="{x:Null}" Result="{x:Null}" ScreenshotsPath="{x:Null}" ContinueOnFailure="True" DisplayName="Verify: tabell finns i dictionaryn" Expression="[DictOfTables.ContainsKey(DictionaryKey) AndAlso DictOfTables(DictionaryKey) IsNot Nothing]" sap:VirtualizedContainerService.HintSize="450,123" sap2010:WorkflowViewState.IdRef="VerifyExpression_1" TakeScreenshotInCaseOfFailingAssertion="False" TakeScreenshotInCaseOfSucceedingAssertion="False" />
+    <uta:VerifyExpression AlternativeVerificationTitle="{x:Null}" KeepScreenshots="{x:Null}" OutputMessageFormat="{x:Null}" Result="{x:Null}" ScreenshotsPath="{x:Null}" ContinueOnFailure="True" DisplayName="Verify: rätt kolumner" Expression="[ResultTable IsNot Nothing AndAlso ResultTable.Columns.Contains(&quot;Resurs&quot;) AndAlso ResultTable.Columns.Contains(&quot;Namn&quot;) AndAlso ResultTable.Columns.Contains(&quot;Kvantitet&quot;) AndAlso ResultTable.Columns.Contains(&quot;Gil.period&quot;)]" sap:VirtualizedContainerService.HintSize="450,123" sap2010:WorkflowViewState.IdRef="VerifyExpression_2" TakeScreenshotInCaseOfFailingAssertion="False" TakeScreenshotInCaseOfSucceedingAssertion="False" />
+    <ui:LogMessage DisplayName="Logga radantal" sap:VirtualizedContainerService.HintSize="450,166" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Info" Message="[&quot;GetDataFromLifeCare [&quot; &amp; ReportType &amp; &quot;] -&gt; antal rader: &quot; &amp; If(ResultTable IsNot Nothing, ResultTable.Rows.Count.ToString, &quot;tabell saknas&quot;)]" />
+  </Sequence>
+</Activity>
