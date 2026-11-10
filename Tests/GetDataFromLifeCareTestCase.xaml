@@ -165,17 +165,12 @@
         <InArgument x:TypeArguments="sd:DataTable">[If(DictOfTables.ContainsKey(DictionaryKey), DictOfTables(DictionaryKey), Nothing)]</InArgument>
       </Assign.Value>
     </Assign>
-    <ui:WriteRange StartingCell="{x:Null}" WorkbookPathResource="{x:Null}" sap2010:Annotation.AnnotationText="lägg till sökväg ifall man vill se tabell" DataTable="[ResultTable]" DisplayName="Write Range Workbook" sap:VirtualizedContainerService.HintSize="450,179" sap2010:WorkflowViewState.IdRef="WriteRange_1" SheetName="ResultTable">
+    <ui:WriteRange StartingCell="{x:Null}" WorkbookPathResource="{x:Null}" sap2010:Annotation.AnnotationText="lägg till sökväg ifall man vill se tabell" DataTable="[ResultTable]" DisplayName="Write Range Workbook" sap:VirtualizedContainerService.HintSize="450,179" sap2010:WorkflowViewState.IdRef="WriteRange_1" SheetName="ResultTable" WorkbookPath="C:\Users\the12lun\Desktop\New Microsoft Excel Worksheet (2).xlsx">
       <sap:WorkflowViewStateService.ViewState>
         <scg:Dictionary x:TypeArguments="x:String, x:Object">
           <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
         </scg:Dictionary>
       </sap:WorkflowViewStateService.ViewState>
-      <ui:WriteRange.WorkbookPath>
-        <InArgument x:TypeArguments="x:String">
-          <Literal x:TypeArguments="x:String" Value="" />
-        </InArgument>
-      </ui:WriteRange.WorkbookPath>
     </ui:WriteRange>
     <uta:VerifyExpression AlternativeVerificationTitle="{x:Null}" KeepScreenshots="{x:Null}" OutputMessageFormat="{x:Null}" Result="{x:Null}" ScreenshotsPath="{x:Null}" ContinueOnFailure="True" DisplayName="Verify: tabell finns i dictionaryn" Expression="[DictOfTables.ContainsKey(DictionaryKey) AndAlso DictOfTables(DictionaryKey) IsNot Nothing]" sap:VirtualizedContainerService.HintSize="450,123" sap2010:WorkflowViewState.IdRef="VerifyExpression_1" TakeScreenshotInCaseOfFailingAssertion="False" TakeScreenshotInCaseOfSucceedingAssertion="False" />
     <uta:VerifyExpression AlternativeVerificationTitle="{x:Null}" KeepScreenshots="{x:Null}" OutputMessageFormat="{x:Null}" Result="{x:Null}" ScreenshotsPath="{x:Null}" ContinueOnFailure="True" DisplayName="Verify: rätt kolumner" Expression="[ResultTable IsNot Nothing AndAlso ResultTable.Columns.Contains(&quot;Resurs&quot;) AndAlso ResultTable.Columns.Contains(&quot;Namn&quot;) AndAlso ResultTable.Columns.Contains(&quot;Kvantitet&quot;) AndAlso ResultTable.Columns.Contains(&quot;Gil.period&quot;)]" sap:VirtualizedContainerService.HintSize="450,123" sap2010:WorkflowViewState.IdRef="VerifyExpression_2" TakeScreenshotInCaseOfFailingAssertion="False" TakeScreenshotInCaseOfSucceedingAssertion="False" />

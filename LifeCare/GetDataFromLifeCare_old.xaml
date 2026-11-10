@@ -1,0 +1,264 @@
+<Activity mc:Ignorable="sap sap2010" x:Class="GetDataFromLifeCare" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:lc="clr-namespace:LifeCareEC_API.Clients;assembly=LifeCareEC-API" xmlns:ld="clr-namespace:LifeCareEC_API.Decisions;assembly=LifeCareEC-API" xmlns:lo="clr-namespace:LifeCareEC_API.Orders;assembly=LifeCareEC-API" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:njl="clr-namespace:Newtonsoft.Json.Linq;assembly=Newtonsoft.Json" xmlns:s="clr-namespace:System;assembly=System.Private.CoreLib" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Private.CoreLib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data.Common" xmlns:ss="clr-namespace:System.Security;assembly=System.Private.CoreLib" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <x:Members>
+    <x:Property Name="in_DictionaryKey" Type="InArgument(x:String)" />
+    <x:Property Name="in_ReportType" Type="InArgument(x:String)" />
+    <x:Property Name="in_DateFrom" Type="InArgument(x:String)" />
+    <x:Property Name="in_DateTo" Type="InArgument(x:String)" />
+    <x:Property Name="in_DomainUrl" Type="InArgument(x:String)" />
+    <x:Property Name="in_DomainId" Type="InArgument(x:String)" />
+    <x:Property Name="in_ApiKey" Type="InArgument(ss:SecureString)" />
+    <x:Property Name="io_DictLifeCareTables" Type="InOutArgument(scg:Dictionary(x:String, sd:DataTable))" />
+  </x:Members>
+  <sap2010:WorkflowViewState.IdRef>ActivityBuilder_1</sap2010:WorkflowViewState.IdRef>
+  <TextExpression.NamespacesForImplementation>
+    <scg:List x:TypeArguments="x:String" Capacity="20">
+      <x:String>GlobalConstantsNamespace</x:String>
+      <x:String>GlobalVariablesNamespace</x:String>
+      <x:String>LifeCareEC_API.Clients</x:String>
+      <x:String>LifeCareEC_API.Decisions</x:String>
+      <x:String>LifeCareEC_API.Orders</x:String>
+      <x:String>Newtonsoft.Json</x:String>
+      <x:String>Newtonsoft.Json.Linq</x:String>
+      <x:String>System</x:String>
+      <x:String>System.Collections.Generic</x:String>
+      <x:String>System.Data</x:String>
+      <x:String>System.Linq</x:String>
+      <x:String>System.Security</x:String>
+      <x:String>UiPath.Core</x:String>
+      <x:String>UiPath.Core.Activities</x:String>
+      <x:String>System.Collections.ObjectModel</x:String>
+    </scg:List>
+  </TextExpression.NamespacesForImplementation>
+  <TextExpression.ReferencesForImplementation>
+    <scg:List x:TypeArguments="AssemblyReference" Capacity="24">
+      <AssemblyReference>LifeCareEC-API</AssemblyReference>
+      <AssemblyReference>Newtonsoft.Json</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.TypeConverter</AssemblyReference>
+      <AssemblyReference>System.Data.Common</AssemblyReference>
+      <AssemblyReference>System.Linq</AssemblyReference>
+      <AssemblyReference>System.ObjectModel</AssemblyReference>
+      <AssemblyReference>System.Private.CoreLib</AssemblyReference>
+      <AssemblyReference>System.Private.Xml</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.UiAutomation.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.Studio.Constants</AssemblyReference>
+      <AssemblyReference>NPOI.Core</AssemblyReference>
+      <AssemblyReference>System.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.Workflow</AssemblyReference>
+      <AssemblyReference>System.Collections.NonGeneric</AssemblyReference>
+      <AssemblyReference>System.Collections</AssemblyReference>
+    </scg:List>
+  </TextExpression.ReferencesForImplementation>
+  <sap:WorkflowViewStateService.ViewState>
+    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+      <x:Boolean x:Key="ShouldCollapseAll">True</x:Boolean>
+    </scg:Dictionary>
+  </sap:WorkflowViewStateService.ViewState>
+  <Sequence DisplayName="GetDataFromLifeCare" sap:VirtualizedContainerService.HintSize="1138,2032" sap2010:WorkflowViewState.IdRef="Sequence_6">
+    <Sequence.Variables>
+      <Variable x:TypeArguments="njl:JArray" Name="LssDecisionsJson" />
+      <Variable x:TypeArguments="sd:DataTable" Name="LifeCare_Table" />
+      <Variable x:TypeArguments="x:Int32" Name="TargetCategoryCode" />
+    </Sequence.Variables>
+    <sap:WorkflowViewStateService.ViewState>
+      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+      </scg:Dictionary>
+    </sap:WorkflowViewStateService.ViewState>
+    <ui:Comment DisplayName="Info" sap:VirtualizedContainerService.HintSize="524,245" sap2010:WorkflowViewState.IdRef="Comment_1" Text="GetDataFromLifeCare: ersätter GetDataFromProcapita.xaml. Fyller io_DictLifeCareTables(in_DictionaryKey) med en DataTable (Resurs, Namn, Kvantitet, Gil.period). ATT GÖRA: (1) sätt riktiga ServiceCategory.Code i Assign nedan (Kontaktperson = 32 ifyllt); (2) verifiera kvantitetsfält/enhet och Order.Provider.Id mot aktiv data." />
+    <ui:Comment DisplayName="ATT GÖRA: ServiceCategory.Code" sap:VirtualizedContainerService.HintSize="524,147" sap2010:WorkflowViewState.IdRef="Comment_2" Text="Kontaktperson = 32 ifylld. Läs av de tre övriga mot aktiv data (ServiceCategory.Code). Tips: ServiceCategory.Text = Procapitas insatskategori-sträng." />
+    <Assign DisplayName="Assign TargetCategoryCode (per insats)" sap:VirtualizedContainerService.HintSize="524,57" sap2010:WorkflowViewState.IdRef="Assign_1">
+      <Assign.To>
+        <OutArgument x:TypeArguments="x:Int32">[TargetCategoryCode]</OutArgument>
+      </Assign.To>
+      <Assign.Value>
+        <InArgument x:TypeArguments="x:Int32">[If(in_ReportType.Contains("Kontaktperson"), 32, If(in_ReportType.Contains("Avlös"), 0, If(in_ReportType.Contains("Korttid") OrElse in_ReportType.Contains("stödfamilj"), 0, If(in_ReportType.Contains("Ledsag"), 0, -1))))]</InArgument>
+      </Assign.Value>
+    </Assign>
+    <ld:Find_LSS_Decisions ClientCertPassword="{x:Null}" ClientCertPath="{x:Null}" ClientCertSecurePassword="{x:Null}" Limit="{x:Null}" MaxPages="{x:Null}" ModifiedAfter="{x:Null}" ModifiedBefore="{x:Null}" Offset="{x:Null}" PagesFetched="{x:Null}" PersonId="{x:Null}" ResponseCode="{x:Null}" TimeoutMs="{x:Null}" ValuesToMaskInLog="{x:Null}" ApiKey="[in_ApiKey]" BasePath="/WE.EC.Integration.Host" DisplayName="Find LSS Decisions" DomainId="[in_DomainId]" DomainUrl="[in_DomainUrl]" FetchAll="[True]" sap:VirtualizedContainerService.HintSize="524,57" sap2010:WorkflowViewState.IdRef="Find_LSS_Decisions_1" Items="[LssDecisionsJson]" Query="[&quot;FromDate&lt;='&quot; &amp; in_DateTo &amp; &quot;'&quot;]" SendQueryInHeader="True">
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+    </ld:Find_LSS_Decisions>
+    <ui:InvokeCode ContinueOnError="{x:Null}" Code="Dim dt As New System.Data.DataTable()&#xA;dt.Columns.Add(&quot;Resurs&quot;, GetType(String))&#xA;dt.Columns.Add(&quot;Namn&quot;, GetType(String))&#xA;dt.Columns.Add(&quot;Kvantitet&quot;, GetType(String))&#xA;dt.Columns.Add(&quot;Gil.period&quot;, GetType(String))&#xA;dt.Columns.Add(&quot;PersonId&quot;, GetType(String))&#xA;dt.Columns.Add(&quot;OrderId&quot;, GetType(String))&#xA;dt.Columns.Add(&quot;ResursNamn&quot;, GetType(String))&#xA;&#xA;Dim fromD As DateTime = DateTime.Parse(in_DateFrom)&#xA;Dim toD As DateTime = DateTime.Parse(in_DateTo)&#xA;&#xA;If in_Items IsNot Nothing Then&#xA;  For Each tok As JToken In in_Items&#xA;    Dim o As JObject = TryCast(tok, JObject)&#xA;    If o Is Nothing Then Continue For&#xA;&#xA;    ' Hoppa över borttagna beslut&#xA;    If o.Value(Of Boolean?)(&quot;Deleted&quot;).GetValueOrDefault(False) Then Continue For&#xA;&#xA;    ' Fel insatstyp? (ServiceCategory.Code)&#xA;    Dim catCode As Integer = -1&#xA;    Dim catTok As JToken = o(&quot;ServiceCategory&quot;)&#xA;    If catTok IsNot Nothing AndAlso catTok.Type = JTokenType.Object Then&#xA;      Dim cc As Integer? = CType(catTok, JObject).Value(Of Integer?)(&quot;Code&quot;)&#xA;      If cc.HasValue Then catCode = cc.Value&#xA;    End If&#xA;    If catCode &lt;&gt; in_TargetCategoryCode Then Continue For&#xA;&#xA;    ' Periodöverlapp: FromDate &lt;= periodslut OCH (ToDate tomt ELLER ToDate &gt;= periodstart)&#xA;    Dim fromStr As String = o.Value(Of String)(&quot;FromDate&quot;)&#xA;    Dim toStr As String = o.Value(Of String)(&quot;ToDate&quot;)&#xA;    Dim decFrom As DateTime = DateTime.MinValue&#xA;    If Not String.IsNullOrEmpty(fromStr) Then decFrom = DateTime.Parse(fromStr)&#xA;    Dim decToHasValue As Boolean = Not String.IsNullOrEmpty(toStr)&#xA;    Dim decTo As DateTime = DateTime.MaxValue&#xA;    If decToHasValue Then decTo = DateTime.Parse(toStr)&#xA;    If Not (decFrom &lt;= toD AndAlso ((Not decToHasValue) OrElse decTo &gt;= fromD)) Then Continue For&#xA;&#xA;    ' Kvantitet: första fyllda fältet av Hour/Day/Quantity/Visit + dess enhetstext&#xA;    Dim qtyVal As Double = 0&#xA;    Dim unitText As String = &quot;&quot;&#xA;    If o.Value(Of Double?)(&quot;Hour&quot;).GetValueOrDefault(0) &lt;&gt; 0 Then&#xA;      qtyVal = o.Value(Of Double)(&quot;Hour&quot;)&#xA;      If o(&quot;HourType&quot;) IsNot Nothing AndAlso o(&quot;HourType&quot;).Type = JTokenType.Object Then unitText = CType(o(&quot;HourType&quot;), JObject).Value(Of String)(&quot;Text&quot;)&#xA;    ElseIf o.Value(Of Double?)(&quot;Day&quot;).GetValueOrDefault(0) &lt;&gt; 0 Then&#xA;      qtyVal = o.Value(Of Double)(&quot;Day&quot;)&#xA;      If o(&quot;DayType&quot;) IsNot Nothing AndAlso o(&quot;DayType&quot;).Type = JTokenType.Object Then unitText = CType(o(&quot;DayType&quot;), JObject).Value(Of String)(&quot;Text&quot;)&#xA;    ElseIf o.Value(Of Double?)(&quot;Quantity&quot;).GetValueOrDefault(0) &lt;&gt; 0 Then&#xA;      qtyVal = o.Value(Of Double)(&quot;Quantity&quot;)&#xA;      If o(&quot;QuantityType&quot;) IsNot Nothing AndAlso o(&quot;QuantityType&quot;).Type = JTokenType.Object Then unitText = CType(o(&quot;QuantityType&quot;), JObject).Value(Of String)(&quot;Text&quot;)&#xA;    ElseIf o.Value(Of Double?)(&quot;Visit&quot;).GetValueOrDefault(0) &lt;&gt; 0 Then&#xA;      qtyVal = o.Value(Of Double)(&quot;Visit&quot;)&#xA;      If o(&quot;VisitType&quot;) IsNot Nothing AndAlso o(&quot;VisitType&quot;).Type = JTokenType.Object Then unitText = CType(o(&quot;VisitType&quot;), JObject).Value(Of String)(&quot;Text&quot;)&#xA;    End If&#xA;    If unitText Is Nothing Then unitText = &quot;&quot;&#xA;&#xA;    ' Mappa enhet till dag/vecka/månad/år så befintlig parser (Split(&quot;/&quot;)(1)) fungerar&#xA;    Dim unit As String = &quot;månad&quot;&#xA;    Dim ul As String = unitText.ToLower()&#xA;    If ul.Contains(&quot;vecka&quot;) Then&#xA;      unit = &quot;vecka&quot;&#xA;    ElseIf ul.Contains(&quot;dag&quot;) OrElse ul.Contains(&quot;dygn&quot;) Then&#xA;      unit = &quot;dag&quot;&#xA;    ElseIf ul.Contains(&quot;år&quot;) Then&#xA;      unit = &quot;år&quot;&#xA;    End If&#xA;    Dim kvantitet As String = qtyVal.ToString() &amp; &quot;/&quot; &amp; unit&#xA;&#xA;    ' Giltighetsperiod som sträng&#xA;    Dim gilPeriod As String = fromStr&#xA;    If decToHasValue Then gilPeriod = fromStr &amp; &quot; - &quot; &amp; toStr&#xA;&#xA;    ' OrderId (första) för att sedan hämta uppdragstagaren via Read Order&#xA;    Dim orderId As String = &quot;&quot;&#xA;    Dim oids As JToken = o(&quot;OrderIds&quot;)&#xA;    If oids IsNot Nothing AndAlso oids.Type = JTokenType.Array AndAlso oids.HasValues Then orderId = oids(0).ToString()&#xA;&#xA;    Dim personId As String = o.Value(Of String)(&quot;PersonId&quot;)&#xA;&#xA;    dt.Rows.Add(New Object() {&quot;&quot;, &quot;&quot;, kvantitet, gilPeriod, personId, orderId, &quot;&quot;})&#xA;  Next&#xA;End If&#xA;&#xA;out_Table = dt" DisplayName="Bygg LifeCare_Table (filtrera + kvantitet + period)" sap:VirtualizedContainerService.HintSize="524,197" sap2010:WorkflowViewState.IdRef="InvokeCode_1">
+      <ui:InvokeCode.Arguments>
+        <InArgument x:TypeArguments="njl:JArray" x:Key="in_Items">[LssDecisionsJson]</InArgument>
+        <InArgument x:TypeArguments="x:String" x:Key="in_DateFrom">[in_DateFrom]</InArgument>
+        <InArgument x:TypeArguments="x:String" x:Key="in_DateTo">[in_DateTo]</InArgument>
+        <InArgument x:TypeArguments="x:Int32" x:Key="in_TargetCategoryCode">[TargetCategoryCode]</InArgument>
+        <OutArgument x:TypeArguments="sd:DataTable" x:Key="out_Table">[LifeCare_Table]</OutArgument>
+      </ui:InvokeCode.Arguments>
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsPinned">True</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+    </ui:InvokeCode>
+    <ui:ForEachRow ColumnNames="{x:Null}" CurrentIndex="{x:Null}" DataTable="[LifeCare_Table]" DisplayName="För varje rad - berika Resurs och Namn" sap:VirtualizedContainerService.HintSize="524,1201" sap2010:WorkflowViewState.IdRef="ForEachRow_1">
+      <ui:ForEachRow.Body>
+        <ActivityAction x:TypeArguments="sd:DataRow">
+          <ActivityAction.Argument>
+            <DelegateInArgument x:TypeArguments="sd:DataRow" Name="CurrentRow" />
+          </ActivityAction.Argument>
+          <Sequence DisplayName="Berika rad" sap:VirtualizedContainerService.HintSize="522,1019" sap2010:WorkflowViewState.IdRef="Sequence_5">
+            <Sequence.Variables>
+              <Variable x:TypeArguments="njl:JObject" Name="OrderItem" />
+              <Variable x:TypeArguments="njl:JObject" Name="ClientItem" />
+            </Sequence.Variables>
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                <x:Boolean x:Key="IsPinned">True</x:Boolean>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+            <ui:Comment DisplayName="OBS verifiera Provider.Id" sap:VirtualizedContainerService.HintSize="488,210" sap2010:WorkflowViewState.IdRef="Comment_3" Text="OBS: Resurs sätts från Order.Provider.Id (ett Caseworker-objekt). Verifiera mot aktiv data att det verkligen är uppdragstagarens personnummer. Är det INTE det, hämta i stället provider_contact_personnels (PersonnelPersonId) på brukarens PersonId och använd det som Resurs." />
+            <If Condition="[Not String.IsNullOrEmpty(CurrentRow(&quot;OrderId&quot;).ToString)]" DisplayName="Om OrderId finns -&gt; Read Order" sap:VirtualizedContainerService.HintSize="488,693" sap2010:WorkflowViewState.IdRef="If_1">
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsPinned">True</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+              <If.Then>
+                <Sequence DisplayName="Sequence" sap:VirtualizedContainerService.HintSize="486,525" sap2010:WorkflowViewState.IdRef="Sequence_2">
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                      <x:Boolean x:Key="IsPinned">True</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                  <TryCatch DisplayName="Försök (tål 404)" sap:VirtualizedContainerService.HintSize="452,461" sap2010:WorkflowViewState.IdRef="TryCatch_1">
+                    <sap:WorkflowViewStateService.ViewState>
+                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                        <x:Boolean x:Key="IsPinned">True</x:Boolean>
+                      </scg:Dictionary>
+                    </sap:WorkflowViewStateService.ViewState>
+                    <TryCatch.Try>
+                      <Sequence DisplayName="Sequence" sap:VirtualizedContainerService.HintSize="450,238" sap2010:WorkflowViewState.IdRef="Sequence_1">
+                        <sap:WorkflowViewStateService.ViewState>
+                          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                            <x:Boolean x:Key="IsPinned">True</x:Boolean>
+                          </scg:Dictionary>
+                        </sap:WorkflowViewStateService.ViewState>
+                        <lo:Read_Order ClientCertPassword="{x:Null}" ClientCertPath="{x:Null}" ClientCertSecurePassword="{x:Null}" ResponseCode="{x:Null}" ResponseJToken="{x:Null}" TimeoutMs="{x:Null}" ValuesToMaskInLog="{x:Null}" ApiKey="[in_ApiKey]" BasePath="/WE.EC.Integration.Host" DisplayName="Read Order" DomainId="[in_DomainId]" DomainUrl="[in_DomainUrl]" sap:VirtualizedContainerService.HintSize="416,61" sap2010:WorkflowViewState.IdRef="Read_Order_1" Item="[OrderItem]" OrderId="[CurrentRow(&quot;OrderId&quot;).ToString]">
+                          <sap:WorkflowViewStateService.ViewState>
+                            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                              <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                              <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                            </scg:Dictionary>
+                          </sap:WorkflowViewStateService.ViewState>
+                        </lo:Read_Order>
+                        <Assign DisplayName="Resurs = Order.Provider.Id" sap:VirtualizedContainerService.HintSize="416,61" sap2010:WorkflowViewState.IdRef="Assign_2">
+                          <Assign.To>
+                            <OutArgument x:TypeArguments="x:Object">[CurrentRow("Resurs")]</OutArgument>
+                          </Assign.To>
+                          <Assign.Value>
+                            <InArgument x:TypeArguments="x:Object">[If(OrderItem IsNot Nothing AndAlso OrderItem("Provider") IsNot Nothing AndAlso OrderItem("Provider")("Id") IsNot Nothing, OrderItem("Provider")("Id").ToString, "")]</InArgument>
+                          </Assign.Value>
+                        </Assign>
+                        <Assign DisplayName="ResursNamn = Order.Provider.FullName" sap:VirtualizedContainerService.HintSize="416,52" sap2010:WorkflowViewState.IdRef="Assign_3">
+                          <Assign.To>
+                            <OutArgument x:TypeArguments="x:Object">[CurrentRow("ResursNamn")]</OutArgument>
+                          </Assign.To>
+                          <Assign.Value>
+                            <InArgument x:TypeArguments="x:Object">[If(OrderItem IsNot Nothing AndAlso OrderItem("Provider") IsNot Nothing AndAlso OrderItem("Provider")("FullName") IsNot Nothing, OrderItem("Provider")("FullName").ToString, "")]</InArgument>
+                          </Assign.Value>
+                        </Assign>
+                      </Sequence>
+                    </TryCatch.Try>
+                    <TryCatch.Catches>
+                      <Catch x:TypeArguments="s:Exception" sap2010:WorkflowViewState.IdRef="Catch`1_1">
+                        <ActivityAction x:TypeArguments="s:Exception">
+                          <ActivityAction.Argument>
+                            <DelegateInArgument x:TypeArguments="s:Exception" Name="exRead" />
+                          </ActivityAction.Argument>
+                          <ui:LogMessage DisplayName="Logga miss" sap:VirtualizedContainerService.HintSize="450,25" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Warn" Message="[&quot;Read Order misslyckades (t.ex. 404) för OrderId &quot; &amp; CurrentRow(&quot;OrderId&quot;).ToString &amp; &quot; - Resurs lämnas tom. &quot; &amp; exRead.Message]" />
+                        </ActivityAction>
+                      </Catch>
+                    </TryCatch.Catches>
+                  </TryCatch>
+                </Sequence>
+              </If.Then>
+            </If>
+            <If Condition="[Not String.IsNullOrEmpty(CurrentRow(&quot;PersonId&quot;).ToString)]" DisplayName="Om PersonId finns -&gt; Read Client" sap:VirtualizedContainerService.HintSize="488,52" sap2010:WorkflowViewState.IdRef="If_2">
+              <If.Then>
+                <Sequence DisplayName="Sequence" sap:VirtualizedContainerService.HintSize="486,1459" sap2010:WorkflowViewState.IdRef="Sequence_4">
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                  <TryCatch DisplayName="Försök (tål 404)" sap:VirtualizedContainerService.HintSize="452,1395" sap2010:WorkflowViewState.IdRef="TryCatch_2">
+                    <TryCatch.Try>
+                      <Sequence DisplayName="Try" sap:VirtualizedContainerService.HintSize="450,985" sap2010:WorkflowViewState.IdRef="Sequence_3">
+                        <sap:WorkflowViewStateService.ViewState>
+                          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                          </scg:Dictionary>
+                        </sap:WorkflowViewStateService.ViewState>
+                        <lc:Read_Client ClientCertPassword="{x:Null}" ClientCertPath="{x:Null}" ClientCertSecurePassword="{x:Null}" ResponseCode="{x:Null}" ResponseJToken="{x:Null}" TimeoutMs="{x:Null}" ValuesToMaskInLog="{x:Null}" ApiKey="[in_ApiKey]" BasePath="/WE.EC.Integration.Host" DisplayName="Read Client" DomainId="[in_DomainId]" DomainUrl="[in_DomainUrl]" sap:VirtualizedContainerService.HintSize="416,751" sap2010:WorkflowViewState.IdRef="Read_Client_1" Item="[ClientItem]" PersonId="[CurrentRow(&quot;PersonId&quot;).ToString]" />
+                        <Assign DisplayName="Namn = Efternamn, Förnamn" sap:VirtualizedContainerService.HintSize="416,170" sap2010:WorkflowViewState.IdRef="Assign_4">
+                          <Assign.To>
+                            <OutArgument x:TypeArguments="x:Object">[CurrentRow("Namn")]</OutArgument>
+                          </Assign.To>
+                          <Assign.Value>
+                            <InArgument x:TypeArguments="x:Object">[If(ClientItem Is Nothing, "", (If(ClientItem("LastName") Is Nothing, "", ClientItem("LastName").ToString)) &amp; ", " &amp; (If(ClientItem("FirstName") Is Nothing, "", ClientItem("FirstName").ToString)))]</InArgument>
+                          </Assign.Value>
+                        </Assign>
+                      </Sequence>
+                    </TryCatch.Try>
+                    <TryCatch.Catches>
+                      <Catch x:TypeArguments="s:Exception" sap2010:WorkflowViewState.IdRef="Catch`1_2">
+                        <ActivityAction x:TypeArguments="s:Exception">
+                          <ActivityAction.Argument>
+                            <DelegateInArgument x:TypeArguments="s:Exception" Name="exRead" />
+                          </ActivityAction.Argument>
+                          <ui:LogMessage DisplayName="Logga miss" sap:VirtualizedContainerService.HintSize="450,143" sap2010:WorkflowViewState.IdRef="LogMessage_2" Level="Warn" Message="[&quot;Read Client misslyckades (t.ex. 404) för PersonId &quot; &amp; CurrentRow(&quot;PersonId&quot;).ToString &amp; &quot; - Namn lämnas tomt. &quot; &amp; exRead.Message]" />
+                        </ActivityAction>
+                      </Catch>
+                    </TryCatch.Catches>
+                    <TryCatch.Finally>
+                      <Sequence DisplayName="Finally" sap:VirtualizedContainerService.HintSize="450,94" sap2010:WorkflowViewState.IdRef="Sequence_7">
+                        <sap:WorkflowViewStateService.ViewState>
+                          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                          </scg:Dictionary>
+                        </sap:WorkflowViewStateService.ViewState>
+                      </Sequence>
+                    </TryCatch.Finally>
+                  </TryCatch>
+                </Sequence>
+              </If.Then>
+            </If>
+          </Sequence>
+        </ActivityAction>
+      </ui:ForEachRow.Body>
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          <x:Boolean x:Key="IsPinned">True</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+    </ui:ForEachRow>
+    <Assign DisplayName="Init dictionary om tom" sap:VirtualizedContainerService.HintSize="524,57" sap2010:WorkflowViewState.IdRef="Assign_5">
+      <Assign.To>
+        <OutArgument x:TypeArguments="scg:Dictionary(x:String, sd:DataTable)">[io_DictLifeCareTables]</OutArgument>
+      </Assign.To>
+      <Assign.Value>
+        <InArgument x:TypeArguments="scg:Dictionary(x:String, sd:DataTable)">[If(io_DictLifeCareTables IsNot Nothing, io_DictLifeCareTables, New Dictionary(Of String, DataTable))]</InArgument>
+      </Assign.Value>
+    </Assign>
+    <Assign DisplayName="Lägg tabellen i dictionaryn" sap:VirtualizedContainerService.HintSize="524,48" sap2010:WorkflowViewState.IdRef="Assign_6">
+      <Assign.To>
+        <OutArgument x:TypeArguments="sd:DataTable">[io_DictLifeCareTables(in_DictionaryKey)]</OutArgument>
+      </Assign.To>
+      <Assign.Value>
+        <InArgument x:TypeArguments="sd:DataTable">[LifeCare_Table]</InArgument>
+      </Assign.Value>
+    </Assign>
+  </Sequence>
+</Activity>
