@@ -4,7 +4,7 @@
   "description": "Robotic Enterprise Framework (Windows)",
   "main": "Main.xaml",
   "dependencies": {
-    "Lifecare": "[0.0.1-alpha.13]",
+    "Lifecare": "[0.0.1-alpha.15]",
     "LifeCareEC-API": "[0.0.2-alpha]",
     "OpenEplatform.API_Windows": "[1.0.14]",
     "OpenEplatform.External": "[4.0.0-alpha]",

@@ -1,5 +1,7 @@
-<Activity mc:Ignorable="sap sap2010" x:Class="GetDataFromLifeCare" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:ld="clr-namespace:LifeCareEC_API.Decisions;assembly=LifeCareEC-API" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:njl="clr-namespace:Newtonsoft.Json.Linq;assembly=Newtonsoft.Json" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Private.CoreLib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data.Common" xmlns:ss="clr-namespace:System.Security;assembly=System.Private.CoreLib" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+<Activity mc:Ignorable="sap sap2010" x:Class="GetDataFromLifeCare" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:ld="clr-namespace:LifeCareEC_API.Decisions;assembly=LifeCareEC-API" xmlns:lei="clr-namespace:Lifecare.Elderly_Care.Internal_API;assembly=Lifecare" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:njl="clr-namespace:Newtonsoft.Json.Linq;assembly=Newtonsoft.Json" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Private.CoreLib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data.Common" xmlns:ss="clr-namespace:System.Security;assembly=System.Private.CoreLib" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <x:Members>
+    <x:Property Name="in_CpDomainUrl" Type="InArgument(x:String)" />
+    <x:Property Name="in_cookie" Type="InArgument(x:String)" />
     <x:Property Name="in_DictionaryKey" Type="InArgument(x:String)" />
     <x:Property Name="in_ReportType" Type="InArgument(x:String)" />
     <x:Property Name="in_DateFrom" Type="InArgument(x:String)" />
@@ -7,12 +9,11 @@
     <x:Property Name="in_DomainUrl" Type="InArgument(x:String)" />
     <x:Property Name="in_DomainId" Type="InArgument(x:String)" />
     <x:Property Name="in_ApiKey" Type="InArgument(ss:SecureString)" />
-    <x:Property Name="in_ContactPersonsJson" Type="InArgument(njl:JToken)" />
     <x:Property Name="io_DictLifeCareTables" Type="InOutArgument(scg:Dictionary(x:String, sd:DataTable))" />
   </x:Members>
   <sap2010:WorkflowViewState.IdRef>ActivityBuilder_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
-    <scg:List x:TypeArguments="x:String" Capacity="18">
+    <scg:List x:TypeArguments="x:String" Capacity="44">
       <x:String>GlobalConstantsNamespace</x:String>
       <x:String>GlobalVariablesNamespace</x:String>
       <x:String>LifeCareEC_API.Decisions</x:String>
@@ -22,15 +23,43 @@
       <x:String>System.Collections.Generic</x:String>
       <x:String>System.Collections.ObjectModel</x:String>
       <x:String>System.Data</x:String>
+      <x:String>System.Globalization</x:String>
       <x:String>System.Linq</x:String>
       <x:String>System.Security</x:String>
       <x:String>System.Text.RegularExpressions</x:String>
       <x:String>UiPath.Core</x:String>
       <x:String>UiPath.Core.Activities</x:String>
+      <x:String>System.Activities</x:String>
+      <x:String>System.Collections</x:String>
+      <x:String>System.Dynamic</x:String>
+      <x:String>Lifecare.Elderly_Care.Internal_API</x:String>
+      <x:String>System.Activities.Statements</x:String>
+      <x:String>System.Activities.Expressions</x:String>
+      <x:String>System.Activities.Validation</x:String>
+      <x:String>System.Activities.XamlIntegration</x:String>
+      <x:String>Microsoft.VisualBasic</x:String>
+      <x:String>Microsoft.VisualBasic.Activities</x:String>
+      <x:String>System.Collections.ObjectModel</x:String>
+      <x:String>System.Diagnostics</x:String>
+      <x:String>System.Drawing</x:String>
+      <x:String>System.IO</x:String>
+      <x:String>System.Net.Mail</x:String>
+      <x:String>System.Xml</x:String>
+      <x:String>System.Xml.Linq</x:String>
+      <x:String>UiPath.Core</x:String>
+      <x:String>UiPath.Core.Activities</x:String>
+      <x:String>System.Windows.Markup</x:String>
+      <x:String>System.Runtime.Serialization</x:String>
+      <x:String>System.Reflection</x:String>
+      <x:String>System.Linq.Expressions</x:String>
+      <x:String>UiPath.Web.Activities.Http.Models</x:String>
+      <x:String>UiPath.Web.Activities.Http</x:String>
+      <x:String>System.ComponentModel</x:String>
+      <x:String>System.Collections.Specialized</x:String>
     </scg:List>
   </TextExpression.NamespacesForImplementation>
   <TextExpression.ReferencesForImplementation>
-    <scg:List x:TypeArguments="AssemblyReference" Capacity="14">
+    <scg:List x:TypeArguments="AssemblyReference" Capacity="64">
       <AssemblyReference>LifeCareEC-API</AssemblyReference>
       <AssemblyReference>Newtonsoft.Json</AssemblyReference>
       <AssemblyReference>System.ComponentModel.TypeConverter</AssemblyReference>
@@ -42,21 +71,73 @@
       <AssemblyReference>System.Text.RegularExpressions</AssemblyReference>
       <AssemblyReference>UiPath.System.Activities</AssemblyReference>
       <AssemblyReference>UiPath.UiAutomation.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.Studio.Constants</AssemblyReference>
+      <AssemblyReference>System.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.Workflow</AssemblyReference>
+      <AssemblyReference>System.Collections.NonGeneric</AssemblyReference>
+      <AssemblyReference>System.Collections</AssemblyReference>
+      <AssemblyReference>System.Linq.Expressions</AssemblyReference>
+      <AssemblyReference>Lifecare</AssemblyReference>
+      <AssemblyReference>System.CodeDom</AssemblyReference>
+      <AssemblyReference>Microsoft.VisualBasic.Forms</AssemblyReference>
+      <AssemblyReference>Microsoft.VisualBasic.Core</AssemblyReference>
+      <AssemblyReference>NPOI.Core</AssemblyReference>
+      <AssemblyReference>Microsoft.PowerShell.Commands.Diagnostics</AssemblyReference>
+      <AssemblyReference>System.Diagnostics.FileVersionInfo</AssemblyReference>
+      <AssemblyReference>System.Security.Permissions</AssemblyReference>
+      <AssemblyReference>System.Diagnostics.Process</AssemblyReference>
+      <AssemblyReference>System.Diagnostics.DiagnosticSource</AssemblyReference>
+      <AssemblyReference>System.Diagnostics.TraceSource</AssemblyReference>
+      <AssemblyReference>System.Configuration.ConfigurationManager</AssemblyReference>
+      <AssemblyReference>System.Diagnostics.EventLog</AssemblyReference>
+      <AssemblyReference>System.Diagnostics.PerformanceCounter</AssemblyReference>
+      <AssemblyReference>WindowsBase</AssemblyReference>
+      <AssemblyReference>System.Diagnostics.TextWriterTraceListener</AssemblyReference>
+      <AssemblyReference>System.Drawing.Primitives</AssemblyReference>
+      <AssemblyReference>System.Drawing.Common</AssemblyReference>
+      <AssemblyReference>System.IO.FileSystem.Watcher</AssemblyReference>
+      <AssemblyReference>System.IO.Packaging</AssemblyReference>
+      <AssemblyReference>System.IO.FileSystem.AccessControl</AssemblyReference>
+      <AssemblyReference>System.IO.FileSystem.DriveInfo</AssemblyReference>
+      <AssemblyReference>System.Net.Mail</AssemblyReference>
+      <AssemblyReference>System.Private.DataContractSerialization</AssemblyReference>
+      <AssemblyReference>System.Private.Xml.Linq</AssemblyReference>
+      <AssemblyReference>UiPath.Web.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.UIAutomationNext</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities.Design</AssemblyReference>
+      <AssemblyReference>PresentationFramework</AssemblyReference>
+      <AssemblyReference>PresentationCore</AssemblyReference>
+      <AssemblyReference>System.Xaml</AssemblyReference>
+      <AssemblyReference>System.Private.ServiceModel</AssemblyReference>
+      <AssemblyReference>System.Runtime.Serialization.Formatters</AssemblyReference>
+      <AssemblyReference>System.Runtime.Serialization.Primitives</AssemblyReference>
+      <AssemblyReference>System.Reflection.DispatchProxy</AssemblyReference>
+      <AssemblyReference>System.Reflection.TypeExtensions</AssemblyReference>
+      <AssemblyReference>System.Reflection.Metadata</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.EventBasedAsync</AssemblyReference>
+      <AssemblyReference>System.ComponentModel</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.Primitives</AssemblyReference>
+      <AssemblyReference>System.Collections.Specialized</AssemblyReference>
+      <AssemblyReference>UiPath.Excel.Activities.Design</AssemblyReference>
+      <AssemblyReference>System.Console</AssemblyReference>
+      <AssemblyReference>System.Memory</AssemblyReference>
+      <AssemblyReference>System.Private.Uri</AssemblyReference>
     </scg:List>
   </TextExpression.ReferencesForImplementation>
-  <Sequence DisplayName="GetDataFromLifeCare" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence DisplayName="GetDataFromLifeCare" sap:VirtualizedContainerService.HintSize="1138,2755" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <Sequence.Variables>
       <Variable x:TypeArguments="njl:JArray" Name="LssDecisionsJson" />
       <Variable x:TypeArguments="sd:DataTable" Name="LifeCare_Table" />
       <Variable x:TypeArguments="x:Int32" Name="TargetCategoryCode" />
+      <Variable x:TypeArguments="x:String" Name="DebugLog" />
+      <Variable x:TypeArguments="njl:JToken" Name="ContactPersonsJson" />
     </Sequence.Variables>
     <sap:WorkflowViewStateService.ViewState>
       <scg:Dictionary x:TypeArguments="x:String, x:Object">
         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
-    <ui:Comment DisplayName="Info" sap2010:WorkflowViewState.IdRef="Comment_1" Text="GetDataFromLifeCare (Arvoderade Uppdrag). Källor: lss_decisions (Kvantitet/period/insats/brukarens PersonId) + GetContactPersons (brukarens namn + uppdragstagare). GetContactPersons anropas EN gång av anroparen (Process) och skickas in som in_ContactPersonsJson. Matchning sker på brukarens personnummer (client.personId). Kontaktperson = ServiceCategory.Code 32 (övriga: Avlös 28, Korttid/stödfamilj 34, Ledsag 35)." />
-    <Assign DisplayName="Assign TargetCategoryCode (per insats)" sap2010:WorkflowViewState.IdRef="Assign_1">
+    <Assign DisplayName="Assign TargetCategoryCode (per insats)" sap:VirtualizedContainerService.HintSize="450,175" sap2010:WorkflowViewState.IdRef="Assign_1">
       <Assign.To>
         <OutArgument x:TypeArguments="x:Int32">[TargetCategoryCode]</OutArgument>
       </Assign.To>
@@ -68,18 +149,44 @@ If(in_ReportType.Contains("Ledsag"), 35,
 -1))))]</InArgument>
       </Assign.Value>
     </Assign>
-    <ld:Find_LSS_Decisions ClientCertPassword="{x:Null}" ClientCertPath="{x:Null}" ClientCertSecurePassword="{x:Null}" Limit="{x:Null}" MaxPages="{x:Null}" ModifiedAfter="{x:Null}" ModifiedBefore="{x:Null}" Offset="{x:Null}" PagesFetched="{x:Null}" PersonId="{x:Null}" ResponseCode="{x:Null}" TimeoutMs="{x:Null}" ValuesToMaskInLog="{x:Null}" ApiKey="[in_ApiKey]" BasePath="/WE.EC.Integration.Host" DisplayName="Find LSS Decisions" DomainId="[in_DomainId]" DomainUrl="[in_DomainUrl]" FetchAll="[True]" sap2010:WorkflowViewState.IdRef="Find_LSS_Decisions_1" Items="[LssDecisionsJson]" Query="[&quot;FromDate&lt;='&quot; &amp; in_DateTo &amp; &quot;'&quot;]" SendQueryInHeader="True" />
-    <ui:InvokeCode ContinueOnError="{x:Null}" Code="Dim dt As New System.Data.DataTable()&#xA;dt.Columns.Add(&quot;Resurs&quot;, GetType(String))&#xA;dt.Columns.Add(&quot;Namn&quot;, GetType(String))&#xA;dt.Columns.Add(&quot;Kvantitet&quot;, GetType(String))&#xA;dt.Columns.Add(&quot;Gil.period&quot;, GetType(String))&#xA;dt.Columns.Add(&quot;ResursNamn&quot;, GetType(String))&#xA;dt.Columns.Add(&quot;PersonId&quot;, GetType(String))&#xA;&#xA;Dim fromD As DateTime = DateTime.Parse(in_DateFrom)&#xA;Dim toD As DateTime = DateTime.Parse(in_DateTo)&#xA;&#xA;' Normalisera personnummer (bara siffror/bokstäver) för jämförelse&#xA;Dim norm = Function(p As String) If(String.IsNullOrEmpty(p), &quot;&quot;, System.Text.RegularExpressions.Regex.Replace(p, &quot;[^0-9A-Za-z]&quot;, &quot;&quot;))&#xA;&#xA;' Samla kontaktperson-svaret som en array (tål både array och enstaka objekt)&#xA;Dim contactsArr As JArray = New JArray()&#xA;If in_Contacts IsNot Nothing Then&#xA;  If in_Contacts.Type = JTokenType.Array Then&#xA;    contactsArr = CType(in_Contacts, JArray)&#xA;  ElseIf in_Contacts.Type = JTokenType.Object Then&#xA;    contactsArr.Add(in_Contacts)&#xA;  End If&#xA;End If&#xA;&#xA;If in_Items IsNot Nothing Then&#xA;  For Each tok As JToken In in_Items&#xA;    Dim o As JObject = TryCast(tok, JObject)&#xA;    If o Is Nothing Then Continue For&#xA;    If o.Value(Of Boolean?)(&quot;Deleted&quot;).GetValueOrDefault(False) Then Continue For&#xA;&#xA;    ' Insats (ServiceCategory.Code)&#xA;    Dim catCode As Integer = -1&#xA;    Dim catTok As JToken = o(&quot;ServiceCategory&quot;)&#xA;    If catTok IsNot Nothing AndAlso catTok.Type = JTokenType.Object Then&#xA;      Dim cc As Integer? = CType(catTok, JObject).Value(Of Integer?)(&quot;Code&quot;)&#xA;      If cc.HasValue Then catCode = cc.Value&#xA;    End If&#xA;    If catCode &lt;&gt; in_TargetCategoryCode Then Continue For&#xA;&#xA;    ' Periodöverlapp&#xA;    Dim fromStr As String = o.Value(Of String)(&quot;FromDate&quot;)&#xA;    Dim toStr As String = o.Value(Of String)(&quot;ToDate&quot;)&#xA;    Dim decFrom As DateTime = DateTime.MinValue&#xA;    If Not String.IsNullOrEmpty(fromStr) Then decFrom = DateTime.Parse(fromStr)&#xA;    Dim decToHasValue As Boolean = Not String.IsNullOrEmpty(toStr)&#xA;    Dim decTo As DateTime = DateTime.MaxValue&#xA;    If decToHasValue Then decTo = DateTime.Parse(toStr)&#xA;    If Not (decFrom &lt;= toD AndAlso ((Not decToHasValue) OrElse decTo &gt;= fromD)) Then Continue For&#xA;&#xA;    ' Kvantitet (ur lss_decisions): första fyllda av Hour/Day/Quantity/Visit + enhet&#xA;    Dim qtyVal As Double = 0&#xA;    Dim unitText As String = &quot;&quot;&#xA;    If o.Value(Of Double?)(&quot;Hour&quot;).GetValueOrDefault(0) &lt;&gt; 0 Then&#xA;      qtyVal = o.Value(Of Double)(&quot;Hour&quot;)&#xA;      If o(&quot;HourType&quot;) IsNot Nothing AndAlso o(&quot;HourType&quot;).Type = JTokenType.Object Then unitText = CType(o(&quot;HourType&quot;), JObject).Value(Of String)(&quot;Text&quot;)&#xA;    ElseIf o.Value(Of Double?)(&quot;Day&quot;).GetValueOrDefault(0) &lt;&gt; 0 Then&#xA;      qtyVal = o.Value(Of Double)(&quot;Day&quot;)&#xA;      If o(&quot;DayType&quot;) IsNot Nothing AndAlso o(&quot;DayType&quot;).Type = JTokenType.Object Then unitText = CType(o(&quot;DayType&quot;), JObject).Value(Of String)(&quot;Text&quot;)&#xA;    ElseIf o.Value(Of Double?)(&quot;Quantity&quot;).GetValueOrDefault(0) &lt;&gt; 0 Then&#xA;      qtyVal = o.Value(Of Double)(&quot;Quantity&quot;)&#xA;      If o(&quot;QuantityType&quot;) IsNot Nothing AndAlso o(&quot;QuantityType&quot;).Type = JTokenType.Object Then unitText = CType(o(&quot;QuantityType&quot;), JObject).Value(Of String)(&quot;Text&quot;)&#xA;    ElseIf o.Value(Of Double?)(&quot;Visit&quot;).GetValueOrDefault(0) &lt;&gt; 0 Then&#xA;      qtyVal = o.Value(Of Double)(&quot;Visit&quot;)&#xA;      If o(&quot;VisitType&quot;) IsNot Nothing AndAlso o(&quot;VisitType&quot;).Type = JTokenType.Object Then unitText = CType(o(&quot;VisitType&quot;), JObject).Value(Of String)(&quot;Text&quot;)&#xA;    End If&#xA;    If unitText Is Nothing Then unitText = &quot;&quot;&#xA;    Dim unit As String = &quot;månad&quot;&#xA;    Dim ul As String = unitText.ToLower()&#xA;    If ul.Contains(&quot;vecka&quot;) Then&#xA;      unit = &quot;vecka&quot;&#xA;    ElseIf ul.Contains(&quot;dag&quot;) OrElse ul.Contains(&quot;dygn&quot;) Then&#xA;      unit = &quot;dag&quot;&#xA;    ElseIf ul.Contains(&quot;år&quot;) Then&#xA;      unit = &quot;år&quot;&#xA;    End If&#xA;    Dim kvantitet As String = qtyVal.ToString() &amp; &quot;/&quot; &amp; unit&#xA;&#xA;    Dim gilPeriod As String = fromStr&#xA;    If decToHasValue Then gilPeriod = fromStr &amp; &quot; - &quot; &amp; toStr&#xA;&#xA;    Dim personId As String = o.Value(Of String)(&quot;PersonId&quot;)&#xA;    Dim pidN As String = norm(personId)&#xA;&#xA;    ' Matcha mot GetContactPersons på brukarens personnummer (client.personId)&#xA;    Dim matched As Boolean = False&#xA;    If pidN &lt;&gt; &quot;&quot; Then&#xA;      For Each cTok As JToken In contactsArr&#xA;        Dim cObj As JObject = TryCast(cTok, JObject)&#xA;        If cObj Is Nothing Then Continue For&#xA;        Dim clientTok As JToken = cObj(&quot;client&quot;)&#xA;        If clientTok Is Nothing OrElse clientTok.Type &lt;&gt; JTokenType.Object Then Continue For&#xA;        Dim clientObj As JObject = CType(clientTok, JObject)&#xA;        If norm(clientObj.Value(Of String)(&quot;personId&quot;)) &lt;&gt; pidN Then Continue For&#xA;        matched = True&#xA;        Dim clientNamn As String = If(clientObj.Value(Of String)(&quot;lastName&quot;), &quot;&quot;) &amp; &quot;, &quot; &amp; If(clientObj.Value(Of String)(&quot;firstName&quot;), &quot;&quot;)&#xA;        Dim bookings As JToken = cObj(&quot;bookings&quot;)&#xA;        If bookings IsNot Nothing AndAlso bookings.Type = JTokenType.Array Then&#xA;          For Each b As JToken In bookings&#xA;            Dim cp As JToken = b(&quot;contactPerson&quot;)&#xA;            If cp Is Nothing OrElse cp.Type &lt;&gt; JTokenType.Object Then Continue For&#xA;            Dim cpObj As JObject = CType(cp, JObject)&#xA;            Dim resurs As String = If(cpObj.Value(Of String)(&quot;personId&quot;), &quot;&quot;)&#xA;            Dim resursNamn As String = If(cpObj.Value(Of String)(&quot;lastName&quot;), &quot;&quot;) &amp; &quot;, &quot; &amp; If(cpObj.Value(Of String)(&quot;firstName&quot;), &quot;&quot;)&#xA;            dt.Rows.Add(New Object() {resurs, clientNamn, kvantitet, gilPeriod, resursNamn, personId})&#xA;          Next&#xA;        End If&#xA;      Next&#xA;    End If&#xA;&#xA;    ' Ingen kontaktperson hittad -&gt; lägg ändå en rad så beslutet syns (Resurs/Namn tom)&#xA;    If Not matched Then&#xA;      dt.Rows.Add(New Object() {&quot;&quot;, &quot;&quot;, kvantitet, gilPeriod, &quot;&quot;, personId})&#xA;    End If&#xA;  Next&#xA;End If&#xA;&#xA;out_Table = dt" DisplayName="Bygg LifeCare_Table (lss_decisions + GetContactPersons)" sap2010:WorkflowViewState.IdRef="InvokeCode_1">
+    <ui:LogMessage DisplayName="Log start" sap:VirtualizedContainerService.HintSize="450,175" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Info" Message="[&quot;GetDataFromLifeCare start | ReportType=&quot; &amp; in_ReportType &amp; &quot; | ServiceCategory.Code=&quot; &amp; TargetCategoryCode.ToString &amp; &quot; | period &quot; &amp; in_DateFrom &amp; &quot; .. &quot; &amp; in_DateTo]" />
+    <lei:Get_Contact_Persons ResponseCode="{x:Null}" ResponseText="{x:Null}" Cookie="[in_cookie]" DisplayName="Get Contact Persons (biblioteksaktivitet)" DomainUrl="[in_CpDomainUrl]" sap:VirtualizedContainerService.HintSize="450,331" sap2010:WorkflowViewState.IdRef="Get_Contact_Persons_1" ResponseJToken="[ContactPersonsJson]">
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          <x:Boolean x:Key="IsPinned">False</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+    </lei:Get_Contact_Persons>
+    <ld:Find_LSS_Decisions ClientCertPassword="{x:Null}" ClientCertPath="{x:Null}" ClientCertSecurePassword="{x:Null}" Limit="{x:Null}" MaxPages="{x:Null}" ModifiedAfter="{x:Null}" ModifiedBefore="{x:Null}" Offset="{x:Null}" PagesFetched="{x:Null}" PersonId="{x:Null}" ResponseCode="{x:Null}" TimeoutMs="{x:Null}" ValuesToMaskInLog="{x:Null}" ApiKey="[in_ApiKey]" BasePath="/WE.EC.Integration.Host" DisplayName="Find LSS Decisions" DomainId="[in_DomainId]" DomainUrl="[in_DomainUrl]" FetchAll="[True]" sap:VirtualizedContainerService.HintSize="450,1163" sap2010:WorkflowViewState.IdRef="Find_LSS_Decisions_1" Items="[LssDecisionsJson]" Query="[&quot;FromDate&lt;='&quot; &amp; in_DateTo &amp; &quot;' AND ServiceCategory.Code=&quot; &amp; TargetCategoryCode.ToString]" SendQueryInHeader="True" />
+    <ui:LogMessage DisplayName="Log antal beslut" sap:VirtualizedContainerService.HintSize="450,175" sap2010:WorkflowViewState.IdRef="LogMessage_2" Level="Info" Message="[&quot;Find LSS Decisions svarade: &quot; &amp; If(LssDecisionsJson IsNot Nothing, LssDecisionsJson.Count.ToString, &quot;0&quot;) &amp; &quot; beslut (fore filtrering)&quot;]" />
+    <ui:InvokeCode ContinueOnError="{x:Null}" Code="Dim dt As New System.Data.DataTable()&#xA;dt.Columns.Add(&quot;Resurs&quot;, GetType(String))&#xA;dt.Columns.Add(&quot;Namn&quot;, GetType(String))&#xA;dt.Columns.Add(&quot;Kvantitet&quot;, GetType(String))&#xA;dt.Columns.Add(&quot;Gil.period&quot;, GetType(String))&#xA;dt.Columns.Add(&quot;ResursNamn&quot;, GetType(String))&#xA;dt.Columns.Add(&quot;PersonId&quot;, GetType(String))&#xA;&#xA;Dim aRing As String = Char.ConvertFromUtf32(229)&#xA;Dim unitManad As String = &quot;m&quot; &amp; aRing &amp; &quot;nad&quot;&#xA;Dim unitAr As String = aRing &amp; &quot;r&quot;&#xA;Dim inv As System.Globalization.CultureInfo = System.Globalization.CultureInfo.InvariantCulture&#xA;&#xA;Dim dateFrom As DateTime = DateTime.Parse(in_DateFrom)&#xA;Dim dateTo As DateTime = DateTime.Parse(in_DateTo)&#xA;&#xA;Dim contactsArr As New JArray()&#xA;If in_Contacts IsNot Nothing Then&#xA;  If in_Contacts.Type = JTokenType.Array Then&#xA;    contactsArr = DirectCast(in_Contacts, JArray)&#xA;  ElseIf in_Contacts.Type = JTokenType.Object Then&#xA;    contactsArr.Add(in_Contacts)&#xA;  End If&#xA;End If&#xA;&#xA;Dim nonAlnum As New System.Text.RegularExpressions.Regex(&quot;[^0-9A-Za-z]&quot;)&#xA;&#xA;Dim nTotal As Integer = 0&#xA;Dim nDeleted As Integer = 0&#xA;Dim nWrongCat As Integer = 0&#xA;Dim nWrongPeriod As Integer = 0&#xA;Dim nMedResurs As Integer = 0&#xA;Dim nUtanResurs As Integer = 0&#xA;&#xA;If in_Items IsNot Nothing Then&#xA;  For Each decTok As JToken In in_Items&#xA;    Dim decObj As JObject = TryCast(decTok, JObject)&#xA;    If decObj Is Nothing Then Continue For&#xA;    nTotal = nTotal + 1&#xA;&#xA;    Dim delTok As JToken = decObj(&quot;Deleted&quot;)&#xA;    If delTok IsNot Nothing AndAlso String.Equals(delTok.ToString(), &quot;True&quot;, StringComparison.OrdinalIgnoreCase) Then&#xA;      nDeleted = nDeleted + 1&#xA;      Continue For&#xA;    End If&#xA;&#xA;    Dim catCode As Integer = -1&#xA;    Dim catObj As JObject = TryCast(decObj(&quot;ServiceCategory&quot;), JObject)&#xA;    If catObj IsNot Nothing AndAlso catObj(&quot;Code&quot;) IsNot Nothing Then&#xA;      If Not Integer.TryParse(catObj(&quot;Code&quot;).ToString(), catCode) Then catCode = -1&#xA;    End If&#xA;    If catCode &lt;&gt; in_TargetCategoryCode Then&#xA;      nWrongCat = nWrongCat + 1&#xA;      Continue For&#xA;    End If&#xA;&#xA;    Dim fromStr As String = decObj.Value(Of String)(&quot;FromDate&quot;)&#xA;    Dim toStr As String = decObj.Value(Of String)(&quot;ToDate&quot;)&#xA;    If fromStr Is Nothing Then fromStr = &quot;&quot;&#xA;    If toStr Is Nothing Then toStr = &quot;&quot;&#xA;    Dim decFrom As DateTime = DateTime.MinValue&#xA;    If fromStr &lt;&gt; &quot;&quot; Then decFrom = DateTime.Parse(fromStr)&#xA;    Dim decToHasValue As Boolean = (toStr &lt;&gt; &quot;&quot;)&#xA;    Dim decTo As DateTime = DateTime.MaxValue&#xA;    If decToHasValue Then decTo = DateTime.Parse(toStr)&#xA;    If Not (decFrom &lt;= dateTo AndAlso ((Not decToHasValue) OrElse decTo &gt;= dateFrom)) Then&#xA;      nWrongPeriod = nWrongPeriod + 1&#xA;      Continue For&#xA;    End If&#xA;&#xA;    Dim qtyVal As Double = 0&#xA;    Dim unitText As String = &quot;&quot;&#xA;    For Each qKey As String In New String() {&quot;Hour&quot;, &quot;Day&quot;, &quot;Quantity&quot;, &quot;Visit&quot;}&#xA;      Dim numJv As JValue = TryCast(decObj(qKey), JValue)&#xA;      Dim num As Double = 0&#xA;      If numJv IsNot Nothing AndAlso numJv.Value IsNot Nothing Then&#xA;        Try&#xA;          num = Convert.ToDouble(numJv.Value, inv)&#xA;        Catch&#xA;          num = 0&#xA;        End Try&#xA;      End If&#xA;      If num &lt;&gt; 0 Then&#xA;        qtyVal = num&#xA;        Dim typeObj As JObject = TryCast(decObj(qKey &amp; &quot;Type&quot;), JObject)&#xA;        If typeObj IsNot Nothing Then unitText = typeObj.Value(Of String)(&quot;Text&quot;)&#xA;        Exit For&#xA;      End If&#xA;    Next&#xA;    If unitText Is Nothing Then unitText = &quot;&quot;&#xA;&#xA;    Dim unitName As String = unitManad&#xA;    Dim unitLower As String = unitText.ToLower()&#xA;    If unitLower.Contains(&quot;vecka&quot;) Then&#xA;      unitName = &quot;vecka&quot;&#xA;    ElseIf unitLower.Contains(&quot;dag&quot;) OrElse unitLower.Contains(&quot;dygn&quot;) Then&#xA;      unitName = &quot;dag&quot;&#xA;    ElseIf unitLower.Contains(unitAr) Then&#xA;      unitName = unitAr&#xA;    End If&#xA;    Dim kvantitet As String = qtyVal.ToString() &amp; &quot;/&quot; &amp; unitName&#xA;&#xA;    Dim gilPeriod As String = fromStr&#xA;    If decToHasValue Then gilPeriod = fromStr &amp; &quot; - &quot; &amp; toStr&#xA;&#xA;    Dim personId As String = decObj.Value(Of String)(&quot;PersonId&quot;)&#xA;    If personId Is Nothing Then personId = &quot;&quot;&#xA;    Dim pidN As String = nonAlnum.Replace(personId, &quot;&quot;)&#xA;&#xA;    Dim namn As String = &quot;&quot;&#xA;    Dim resursList As New System.Collections.Generic.List(Of String)&#xA;    Dim resursNamnList As New System.Collections.Generic.List(Of String)&#xA;    Dim seen As New System.Collections.Generic.HashSet(Of String)&#xA;    If pidN &lt;&gt; &quot;&quot; Then&#xA;      For Each contactTok As JToken In contactsArr&#xA;        Dim contactObj As JObject = TryCast(contactTok, JObject)&#xA;        If contactObj Is Nothing Then Continue For&#xA;        Dim clientObj As JObject = TryCast(contactObj(&quot;client&quot;), JObject)&#xA;        If clientObj Is Nothing Then Continue For&#xA;        Dim clientPid As String = clientObj.Value(Of String)(&quot;personId&quot;)&#xA;        If clientPid Is Nothing Then clientPid = &quot;&quot;&#xA;        If nonAlnum.Replace(clientPid, &quot;&quot;) &lt;&gt; pidN Then Continue For&#xA;&#xA;        If namn = &quot;&quot; Then&#xA;          Dim cFirst As String = clientObj.Value(Of String)(&quot;firstName&quot;)&#xA;          Dim cLast As String = clientObj.Value(Of String)(&quot;lastName&quot;)&#xA;          If cFirst Is Nothing Then cFirst = &quot;&quot;&#xA;          If cLast Is Nothing Then cLast = &quot;&quot;&#xA;          namn = cLast &amp; &quot;, &quot; &amp; cFirst&#xA;        End If&#xA;&#xA;        Dim bookingsArr As JArray = TryCast(contactObj(&quot;bookings&quot;), JArray)&#xA;        If bookingsArr IsNot Nothing Then&#xA;          For Each bookingTok As JToken In bookingsArr&#xA;            Dim bookingObj As JObject = TryCast(bookingTok, JObject)&#xA;            If bookingObj Is Nothing Then Continue For&#xA;            Dim cpObj As JObject = TryCast(bookingObj(&quot;contactPerson&quot;), JObject)&#xA;            If cpObj Is Nothing Then Continue For&#xA;            Dim resurs As String = cpObj.Value(Of String)(&quot;personId&quot;)&#xA;            Dim rFirst As String = cpObj.Value(Of String)(&quot;firstName&quot;)&#xA;            Dim rLast As String = cpObj.Value(Of String)(&quot;lastName&quot;)&#xA;            If resurs Is Nothing Then resurs = &quot;&quot;&#xA;            If rFirst Is Nothing Then rFirst = &quot;&quot;&#xA;            If rLast Is Nothing Then rLast = &quot;&quot;&#xA;            Dim rkey As String = nonAlnum.Replace(resurs, &quot;&quot;)&#xA;            If seen.Contains(rkey) Then Continue For&#xA;            seen.Add(rkey)&#xA;            resursList.Add(resurs)&#xA;            resursNamnList.Add(rLast &amp; &quot;, &quot; &amp; rFirst)&#xA;          Next&#xA;        End If&#xA;      Next&#xA;    End If&#xA;&#xA;    Dim resursStr As String = String.Join(&quot;; &quot;, resursList)&#xA;    Dim resursNamnStr As String = String.Join(&quot;; &quot;, resursNamnList)&#xA;    If resursList.Count &gt; 0 Then&#xA;      nMedResurs = nMedResurs + 1&#xA;    Else&#xA;      nUtanResurs = nUtanResurs + 1&#xA;    End If&#xA;&#xA;    dt.Rows.Add(New Object() {resursStr, namn, kvantitet, gilPeriod, resursNamnStr, personId})&#xA;  Next&#xA;End If&#xA;&#xA;out_Log = &quot;Beslut in: &quot; &amp; nTotal.ToString() &amp; &quot; | Deleted: &quot; &amp; nDeleted.ToString() &amp; &quot; | fel insats: &quot; &amp; nWrongCat.ToString() &amp; &quot; | utanfor period: &quot; &amp; nWrongPeriod.ToString() &amp; &quot; | med resurs: &quot; &amp; nMedResurs.ToString() &amp; &quot; | utan resurs: &quot; &amp; nUtanResurs.ToString() &amp; &quot; | kontaktposter in: &quot; &amp; contactsArr.Count.ToString() &amp; &quot; | rader ut: &quot; &amp; dt.Rows.Count.ToString()&#xA;&#xA;out_Table = dt" DisplayName="Bygg LifeCare_Table (lss_decisions + GetContactPersons)" sap:VirtualizedContainerService.HintSize="337,165" sap2010:WorkflowViewState.IdRef="InvokeCode_1">
       <ui:InvokeCode.Arguments>
-        <InArgument x:TypeArguments="njl:JArray" x:Key="in_Items">[LssDecisionsJson]</InArgument>
-        <InArgument x:TypeArguments="njl:JToken" x:Key="in_Contacts">[in_ContactPersonsJson]</InArgument>
-        <InArgument x:TypeArguments="x:String" x:Key="in_DateFrom">[in_DateFrom]</InArgument>
-        <InArgument x:TypeArguments="x:String" x:Key="in_DateTo">[in_DateTo]</InArgument>
-        <InArgument x:TypeArguments="x:Int32" x:Key="in_TargetCategoryCode">[TargetCategoryCode]</InArgument>
-        <OutArgument x:TypeArguments="sd:DataTable" x:Key="out_Table">[LifeCare_Table]</OutArgument>
+        <InArgument x:TypeArguments="njl:JArray" x:Key="in_Items">
+          <VisualBasicValue x:TypeArguments="njl:JArray" ExpressionText="LssDecisionsJson" />
+        </InArgument>
+        <InArgument x:TypeArguments="njl:JToken" x:Key="in_Contacts">
+          <VisualBasicValue x:TypeArguments="njl:JToken" ExpressionText="ContactPersonsJson" />
+        </InArgument>
+        <InArgument x:TypeArguments="x:String" x:Key="in_DateFrom">
+          <VisualBasicValue x:TypeArguments="x:String" ExpressionText="in_DateFrom" />
+        </InArgument>
+        <InArgument x:TypeArguments="x:String" x:Key="in_DateTo">
+          <VisualBasicValue x:TypeArguments="x:String" ExpressionText="in_DateTo" />
+        </InArgument>
+        <InArgument x:TypeArguments="x:Int32" x:Key="in_TargetCategoryCode">
+          <VisualBasicValue x:TypeArguments="x:Int32" ExpressionText="TargetCategoryCode" />
+        </InArgument>
+        <OutArgument x:TypeArguments="sd:DataTable" x:Key="out_Table">
+          <VisualBasicReference x:TypeArguments="sd:DataTable" ExpressionText="LifeCare_Table" />
+        </OutArgument>
+        <OutArgument x:TypeArguments="x:String" x:Key="out_Log">
+          <VisualBasicReference x:TypeArguments="x:String" ExpressionText="DebugLog" />
+        </OutArgument>
       </ui:InvokeCode.Arguments>
     </ui:InvokeCode>
-    <Assign DisplayName="Init dictionary om tom" sap2010:WorkflowViewState.IdRef="Assign_2">
+    <ui:LogMessage DisplayName="Log resultat" sap:VirtualizedContainerService.HintSize="450,175" sap2010:WorkflowViewState.IdRef="LogMessage_3" Level="Info" Message="[&quot;GetDataFromLifeCare klar | &quot; &amp; DebugLog]" />
+    <Assign DisplayName="Init dictionary om tom" sap:VirtualizedContainerService.HintSize="450,175" sap2010:WorkflowViewState.IdRef="Assign_2">
       <Assign.To>
         <OutArgument x:TypeArguments="scg:Dictionary(x:String, sd:DataTable)">[io_DictLifeCareTables]</OutArgument>
       </Assign.To>
@@ -87,7 +194,7 @@ If(in_ReportType.Contains("Ledsag"), 35,
         <InArgument x:TypeArguments="scg:Dictionary(x:String, sd:DataTable)">[If(io_DictLifeCareTables IsNot Nothing, io_DictLifeCareTables, New Dictionary(Of String, DataTable))]</InArgument>
       </Assign.Value>
     </Assign>
-    <Assign DisplayName="Lägg tabellen i dictionaryn" sap2010:WorkflowViewState.IdRef="Assign_3">
+    <Assign DisplayName="Lägg tabellen i dictionaryn" sap:VirtualizedContainerService.HintSize="450,166" sap2010:WorkflowViewState.IdRef="Assign_3">
       <Assign.To>
         <OutArgument x:TypeArguments="sd:DataTable">[io_DictLifeCareTables(in_DictionaryKey)]</OutArgument>
       </Assign.To>
