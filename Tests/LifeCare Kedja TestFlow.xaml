@@ -1,0 +1,534 @@
+<Activity mc:Ignorable="sap sap2010" x:Class="LifeCare_Kedja_TestFlow" VisualBasic.Settings="{x:Null}" sap2010:Annotation.AnnotationText="Testflöde för hela kedjan: e-tjänst -&gt; Resursmodulen -&gt; lss_decisions. Läsande, skriver ingenting. Lägg in biblioteksaktiviteterna där det står LÄGG IN." sap2010:WorkflowViewState.IdRef="LifeCare_Kedja_TestFlow_1" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:ld="clr-namespace:LifeCareEC_API.Decisions;assembly=LifeCareEC-API" xmlns:lei="clr-namespace:Lifecare.Elderly_Care.Internal_API;assembly=Lifecare" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:njl="clr-namespace:Newtonsoft.Json.Linq;assembly=Newtonsoft.Json" xmlns:s="clr-namespace:System;assembly=System.Private.CoreLib" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Private.CoreLib" xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=System.Private.CoreLib" xmlns:ss="clr-namespace:System.Security;assembly=System.Private.CoreLib" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <TextExpression.NamespacesForImplementation>
+    <sco:Collection x:TypeArguments="x:String">
+      <x:String>GlobalConstantsNamespace</x:String>
+      <x:String>GlobalVariablesNamespace</x:String>
+      <x:String>Microsoft.VisualBasic</x:String>
+      <x:String>Newtonsoft.Json</x:String>
+      <x:String>Newtonsoft.Json.Linq</x:String>
+      <x:String>System</x:String>
+      <x:String>System.Activities</x:String>
+      <x:String>System.Activities.Statements</x:String>
+      <x:String>System.Collections.Generic</x:String>
+      <x:String>System.Collections.ObjectModel</x:String>
+      <x:String>System.Data</x:String>
+      <x:String>System.Linq</x:String>
+      <x:String>UiPath.Core</x:String>
+      <x:String>UiPath.Core.Activities</x:String>
+      <x:String>System.Linq.Expressions</x:String>
+      <x:String>System.Runtime.Serialization</x:String>
+      <x:String>System.Collections</x:String>
+      <x:String>System.Dynamic</x:String>
+      <x:String>Lifecare.Elderly_Care.Internal_API</x:String>
+      <x:String>System.Activities.Expressions</x:String>
+      <x:String>System.Activities.Validation</x:String>
+      <x:String>System.Activities.XamlIntegration</x:String>
+      <x:String>Microsoft.VisualBasic.Activities</x:String>
+      <x:String>System.Diagnostics</x:String>
+      <x:String>System.Drawing</x:String>
+      <x:String>System.IO</x:String>
+      <x:String>System.Net.Mail</x:String>
+      <x:String>System.Xml</x:String>
+      <x:String>System.Xml.Linq</x:String>
+      <x:String>System.Windows.Markup</x:String>
+      <x:String>System.Reflection</x:String>
+      <x:String>UiPath.Web.Activities.Http.Models</x:String>
+      <x:String>UiPath.Web.Activities.Http</x:String>
+      <x:String>System.ComponentModel</x:String>
+      <x:String>System.Collections.Specialized</x:String>
+      <x:String>System.Numerics</x:String>
+      <x:String>System.Security</x:String>
+      <x:String>LifeCareEC_API.Decisions</x:String>
+      <x:String>System.Net</x:String>
+      <x:String>UiPath.Platform.ResourceHandling</x:String>
+      <x:String>UiPath.Web.Activities</x:String>
+    </sco:Collection>
+  </TextExpression.NamespacesForImplementation>
+  <TextExpression.ReferencesForImplementation>
+    <sco:Collection x:TypeArguments="AssemblyReference">
+      <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
+      <AssemblyReference>mscorlib</AssemblyReference>
+      <AssemblyReference>Newtonsoft.Json</AssemblyReference>
+      <AssemblyReference>System</AssemblyReference>
+      <AssemblyReference>System.Activities</AssemblyReference>
+      <AssemblyReference>System.Collections</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.TypeConverter</AssemblyReference>
+      <AssemblyReference>System.Core</AssemblyReference>
+      <AssemblyReference>System.Linq</AssemblyReference>
+      <AssemblyReference>System.ObjectModel</AssemblyReference>
+      <AssemblyReference>System.Private.CoreLib</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.Workflow</AssemblyReference>
+      <AssemblyReference>UiPath.UiAutomation.Activities</AssemblyReference>
+      <AssemblyReference>System.Console</AssemblyReference>
+      <AssemblyReference>System.Security.Permissions</AssemblyReference>
+      <AssemblyReference>System.Configuration.ConfigurationManager</AssemblyReference>
+      <AssemblyReference>System.ComponentModel</AssemblyReference>
+      <AssemblyReference>System.Memory</AssemblyReference>
+      <AssemblyReference>System.Private.Uri</AssemblyReference>
+      <AssemblyReference>System.Linq.Expressions</AssemblyReference>
+      <AssemblyReference>System.Private.ServiceModel</AssemblyReference>
+      <AssemblyReference>System.Private.DataContractSerialization</AssemblyReference>
+      <AssemblyReference>System.Runtime.Serialization.Formatters</AssemblyReference>
+      <AssemblyReference>System.Runtime.Serialization.Primitives</AssemblyReference>
+      <AssemblyReference>UiPath.Studio.Constants</AssemblyReference>
+      <AssemblyReference>System.Collections.NonGeneric</AssemblyReference>
+      <AssemblyReference>Lifecare</AssemblyReference>
+      <AssemblyReference>Microsoft.PowerShell.Commands.Diagnostics</AssemblyReference>
+      <AssemblyReference>System.Diagnostics.FileVersionInfo</AssemblyReference>
+      <AssemblyReference>System.Diagnostics.Process</AssemblyReference>
+      <AssemblyReference>System.Diagnostics.DiagnosticSource</AssemblyReference>
+      <AssemblyReference>System.Diagnostics.TraceSource</AssemblyReference>
+      <AssemblyReference>System.Diagnostics.EventLog</AssemblyReference>
+      <AssemblyReference>System.Diagnostics.PerformanceCounter</AssemblyReference>
+      <AssemblyReference>WindowsBase</AssemblyReference>
+      <AssemblyReference>System.Diagnostics.TextWriterTraceListener</AssemblyReference>
+      <AssemblyReference>System.Drawing.Primitives</AssemblyReference>
+      <AssemblyReference>System.Drawing.Common</AssemblyReference>
+      <AssemblyReference>System.IO.FileSystem.Watcher</AssemblyReference>
+      <AssemblyReference>System.IO.Packaging</AssemblyReference>
+      <AssemblyReference>System.IO.FileSystem.AccessControl</AssemblyReference>
+      <AssemblyReference>System.IO.FileSystem.DriveInfo</AssemblyReference>
+      <AssemblyReference>System.Net.Mail</AssemblyReference>
+      <AssemblyReference>System.Data.Common</AssemblyReference>
+      <AssemblyReference>System.Private.Xml</AssemblyReference>
+      <AssemblyReference>System.Private.Xml.Linq</AssemblyReference>
+      <AssemblyReference>PresentationFramework</AssemblyReference>
+      <AssemblyReference>PresentationCore</AssemblyReference>
+      <AssemblyReference>System.Xaml</AssemblyReference>
+      <AssemblyReference>System.Reflection.DispatchProxy</AssemblyReference>
+      <AssemblyReference>System.Reflection.TypeExtensions</AssemblyReference>
+      <AssemblyReference>System.Reflection.Metadata</AssemblyReference>
+      <AssemblyReference>System.Reflection.MetadataLoadContext</AssemblyReference>
+      <AssemblyReference>UiPath.Web.Activities</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.EventBasedAsync</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.Primitives</AssemblyReference>
+      <AssemblyReference>System.Collections.Specialized</AssemblyReference>
+      <AssemblyReference>System.Runtime.Numerics</AssemblyReference>
+      <AssemblyReference>System.Runtime.InteropServices</AssemblyReference>
+      <AssemblyReference>LifeCareEC-API</AssemblyReference>
+      <AssemblyReference>System.Net.Primitives</AssemblyReference>
+      <AssemblyReference>System.Net.HttpListener</AssemblyReference>
+      <AssemblyReference>System.Net.WebProxy</AssemblyReference>
+      <AssemblyReference>System.Net.NameResolution</AssemblyReference>
+      <AssemblyReference>System.Net.WebHeaderCollection</AssemblyReference>
+      <AssemblyReference>System.Net.WebClient</AssemblyReference>
+      <AssemblyReference>System.Net.Requests</AssemblyReference>
+      <AssemblyReference>System.Net.ServicePoint</AssemblyReference>
+      <AssemblyReference>UiPath.Platform</AssemblyReference>
+    </sco:Collection>
+  </TextExpression.ReferencesForImplementation>
+  <Sequence DisplayName="LifeCare kedja - testflöde" sap:VirtualizedContainerService.HintSize="1900,11089" sap2010:WorkflowViewState.IdRef="Sequence_0">
+    <Sequence.Variables>
+      <Variable x:TypeArguments="x:String" Name="Url" />
+      <Variable x:TypeArguments="x:String" Name="Cookie" />
+      <Variable x:TypeArguments="x:String" Name="SSN" />
+      <Variable x:TypeArguments="x:String" Name="BrukareFornamn" />
+      <Variable x:TypeArguments="x:String" Name="BrukareEfternamn" />
+      <Variable x:TypeArguments="x:Int32" Name="InsatsTypeCode" />
+      <Variable x:TypeArguments="x:Int32" Name="ServiceCategoryCode" />
+      <Variable x:TypeArguments="s:DateTime" Name="RapporteradManad" />
+      <Variable x:TypeArguments="s:DateTime" Name="PeriodStart" />
+      <Variable x:TypeArguments="s:DateTime" Name="PeriodSlut" />
+      <Variable x:TypeArguments="njl:JToken" Name="ContactPersonsJToken" />
+      <Variable x:TypeArguments="scg:List(x:Int32)" Name="ResourceIds" />
+      <Variable x:TypeArguments="scg:List(njl:JToken)" Name="AktivaBokningar" />
+      <Variable x:TypeArguments="scg:List(njl:JToken)" Name="MatchadeBokningar" />
+      <Variable x:TypeArguments="x:String" Name="DecisionNo" />
+      <Variable x:TypeArguments="x:String" Name="BrukarePersonnr" />
+      <Variable x:TypeArguments="njl:JObject" Name="Beslut" />
+      <Variable x:TypeArguments="x:String" Name="OmfattningFalt" />
+      <Variable x:TypeArguments="x:Double" Name="Omfattning" />
+      <Variable x:TypeArguments="x:String" Name="PerPeriod" />
+      <Variable x:TypeArguments="ss:SecureString" Name="ApiKey" />
+      <Variable x:TypeArguments="x:String" Name="ResponseCode" />
+      <Variable x:TypeArguments="x:String" Name="ResponseText" />
+      <Variable x:TypeArguments="x:String" Name="ResponseTextBookings" />
+      <Variable x:TypeArguments="njl:JToken" Name="ResponseJtokenBookings" />
+      <Variable x:TypeArguments="x:String" Name="ResponseCodeBookings" />
+      <Variable x:TypeArguments="njl:JToken" Name="ResponseJToken" />
+      <Variable x:TypeArguments="njl:JToken" Name="BokningarJToken" />
+      <Variable x:TypeArguments="x:String" Name="BeslutResponseCode" />
+      <Variable x:TypeArguments="x:String" Name="EcDomainUrl" />
+      <Variable x:TypeArguments="x:String" Name="EcDomainId" />
+    </Sequence.Variables>
+    <sap:WorkflowViewStateService.ViewState>
+      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+      </scg:Dictionary>
+    </sap:WorkflowViewStateService.ViewState>
+    <Sequence DisplayName="1. Given - testdata" sap:VirtualizedContainerService.HintSize="522,1483" sap2010:WorkflowViewState.IdRef="Sequence_9">
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+      <Assign DisplayName="Assign Url" sap:VirtualizedContainerService.HintSize="416,175" sap2010:WorkflowViewState.IdRef="Assign_1">
+        <Assign.To>
+          <OutArgument x:TypeArguments="x:String">[Url]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="x:String">["https://lifecare-test.sundsvall.se/"]</InArgument>
+        </Assign.Value>
+      </Assign>
+      <Assign sap2010:Annotation.AnnotationText="Klistra in cookien här när du testar. Committa den ALDRIG. I roboten kommer den från inloggningen." DisplayName="Assign Cookie" sap:VirtualizedContainerService.HintSize="416,175" sap2010:WorkflowViewState.IdRef="Assign_2">
+        <Assign.To>
+          <OutArgument x:TypeArguments="x:String">[Cookie]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="x:String">[".AspNetCore.Cookies=CfDJ8JmCq1Y5HsxLlAQ8E6t8DOZSez5QthNp8HxLKPrWufi71IukKwYWYFZ9EbIY1vFE2XP3fXDdErpjXn_TA1xh6OA9sCmJPnFTeijGUq7QIJ3KMAhRMcnmCnjDHWtg_q2NmYHFhrBI7RHvgQjmcXb2Oym04ff-26vtIQkpOvhZ7CFf-F-Gh-O0qHHKgeaPi-Zdnbws_U3M_CWZdGzT1YTwUHuf5Q5_zAwVu7dNZaRF0wxHWQq7-Boe3OZMNkEn4WVYmZ_TpngyIXljTyveSGlr9p5kHvE66WH2PSBZXSi3uwe-1HNslZMoEvhRJh7aDvpBmw; metadomain=SundsvallVoO_PLUS; ASP.NET_SessionId=1ie0jyhfpmztsiornn4ziluk; __RequestVerificationToken_L0hDVy5XZWxmYXJlLkNvbW1vbi5JZGVudGl0eVBvcnRhbFdlYg2=3IBDMgv3QSdLhhvyByDhASeblUCPPEazfXqyvmy9oOa5dSnnMQDyP70TU0Mh14ZFRJsttrZkbqrKYd5J2FP28aumhm81; idpmethod=css; actor=Actor_Professional; federationprofile=; IDP=a622a15a-8ebb-477a-9944-8ec08da11529; XSRF-TOKEN=BIk2CEm_uxo3ahCFFXD4TBSoNVxrGAewEmWueJ3mG07JLyWbEHQQAZlieQAEbn_5vImqdgu5Bhdva-pZymHjwA; UICulture=sv-SE"]</InArgument>
+        </Assign.Value>
+      </Assign>
+      <Assign sap2010:Annotation.AnnotationText="Uppdragstagarens personnummer från e-tjänsten, format ÅÅÅÅMMDDXXXX. Testdata: Ubbe." DisplayName="Assign SSN (uppdragstagare)" sap:VirtualizedContainerService.HintSize="416,175" sap2010:WorkflowViewState.IdRef="Assign_3">
+        <Assign.To>
+          <OutArgument x:TypeArguments="x:String">[SSN]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="x:String">["19850101TF03"]</InArgument>
+        </Assign.Value>
+      </Assign>
+      <Assign sap2010:Annotation.AnnotationText="Från e-tjänsten." DisplayName="Assign BrukareFornamn" sap:VirtualizedContainerService.HintSize="416,175" sap2010:WorkflowViewState.IdRef="Assign_4">
+        <Assign.To>
+          <OutArgument x:TypeArguments="x:String">[BrukareFornamn]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="x:String">["Bettan"]</InArgument>
+        </Assign.Value>
+      </Assign>
+      <Assign sap2010:Annotation.AnnotationText="Från e-tjänsten." DisplayName="Assign BrukareEfternamn" sap:VirtualizedContainerService.HintSize="416,175" sap2010:WorkflowViewState.IdRef="Assign_5">
+        <Assign.To>
+          <OutArgument x:TypeArguments="x:String">[BrukareEfternamn]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="x:String">["Testman"]</InArgument>
+        </Assign.Value>
+      </Assign>
+      <Assign sap2010:Annotation.AnnotationText="Resursmodulen typeCode: 1 Kontaktperson, 3 Ledsagare, 4 Avlösare, 5 Stödfamilj." DisplayName="Assign InsatsTypeCode" sap:VirtualizedContainerService.HintSize="416,175" sap2010:WorkflowViewState.IdRef="Assign_6">
+        <Assign.To>
+          <OutArgument x:TypeArguments="x:Int32">[InsatsTypeCode]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="x:Int32">[3]</InArgument>
+        </Assign.Value>
+      </Assign>
+      <Assign sap2010:Annotation.AnnotationText="lss_decisions ServiceCategory.Code: 32 Kontaktperson, 35 Ledsagare, 28 Avlösare, 34 Stödfamilj." DisplayName="Assign ServiceCategoryCode" sap:VirtualizedContainerService.HintSize="416,175" sap2010:WorkflowViewState.IdRef="Assign_7">
+        <Assign.To>
+          <OutArgument x:TypeArguments="x:Int32">[ServiceCategoryCode]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="x:Int32">[35]</InArgument>
+        </Assign.Value>
+      </Assign>
+      <Assign sap2010:Annotation.AnnotationText="Testa gärna både oktober och november." DisplayName="Assign RapporteradManad" sap:VirtualizedContainerService.HintSize="416,166" sap2010:WorkflowViewState.IdRef="Assign_8">
+        <Assign.To>
+          <OutArgument x:TypeArguments="s:DateTime">[RapporteradManad]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="s:DateTime">[New DateTime(2026, 10, 1)]</InArgument>
+        </Assign.Value>
+      </Assign>
+    </Sequence>
+    <Sequence DisplayName="2. Period och 3-månadersgräns" sap:VirtualizedContainerService.HintSize="522,954" sap2010:WorkflowViewState.IdRef="Sequence_15">
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+      <Assign DisplayName="Assign PeriodStart" sap:VirtualizedContainerService.HintSize="452,175" sap2010:WorkflowViewState.IdRef="Assign_10">
+        <Assign.To>
+          <OutArgument x:TypeArguments="s:DateTime">[PeriodStart]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="s:DateTime">[New DateTime(RapporteradManad.Year, RapporteradManad.Month, 1)]</InArgument>
+        </Assign.Value>
+      </Assign>
+      <Assign DisplayName="Assign PeriodSlut" sap:VirtualizedContainerService.HintSize="452,175" sap2010:WorkflowViewState.IdRef="Assign_11">
+        <Assign.To>
+          <OutArgument x:TypeArguments="s:DateTime">[PeriodSlut]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="s:DateTime">[PeriodStart.AddMonths(1).AddDays(-1)]</InArgument>
+        </Assign.Value>
+      </Assign>
+      <If Condition="[PeriodStart &lt; New DateTime(Now.Year, Now.Month, 1).AddMonths(-3) OrElse PeriodStart &gt; Now]" DisplayName="If äldre än 3 månader eller framtida" sap:VirtualizedContainerService.HintSize="452,346" sap2010:WorkflowViewState.IdRef="If_12">
+        <If.Then>
+          <Throw Exception="[New BusinessRuleException(&quot;Rapporterad månad &quot; + PeriodStart.ToString(&quot;yyyy-MM&quot;) + &quot; ligger utanför tillåtet intervall (max 3 månader bakåt). Manuell hantering.&quot;)]" sap:VirtualizedContainerService.HintSize="450,91" sap2010:WorkflowViewState.IdRef="Throw_13" />
+        </If.Then>
+      </If>
+      <ui:LogMessage DisplayName="Log Period" sap:VirtualizedContainerService.HintSize="452,166" sap2010:WorkflowViewState.IdRef="LogMessage_14" Level="Info" Message="[&quot;Period: &quot; + PeriodStart.ToString(&quot;yyyy-MM-dd&quot;) + &quot; - &quot; + PeriodSlut.ToString(&quot;yyyy-MM-dd&quot;)]" />
+    </Sequence>
+    <Sequence DisplayName="3. Hitta uppdragstagaren" sap:VirtualizedContainerService.HintSize="522,1539" sap2010:WorkflowViewState.IdRef="Sequence_23">
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+      <Sequence sap2010:Annotation.AnnotationText="Aktivitet: Get Contact Persons (Elderly Care\Internal API)&#xA;IN:  DomainUrl = Url&#xA;     Cookie = Cookie&#xA;UT:  ResponseJToken = ContactPersonsJToken&#xA;&#xA;Ta bort den här tomma sekvensen när aktiviteten ligger här." DisplayName="▶ LÄGG IN: Get Contact Persons" sap:VirtualizedContainerService.HintSize="452,414" sap2010:WorkflowViewState.IdRef="Sequence_16">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+        <lei:Get_Contact_Persons Cookie="[Cookie]" DisplayName="Get Contact Persons_1" DomainUrl="[Url]" sap:VirtualizedContainerService.HintSize="416,322" sap2010:WorkflowViewState.IdRef="Get_Contact_Persons_1" ResponseCode="[ResponseCode]" ResponseJToken="[ContactPersonsJToken]" ResponseText="[ResponseText]" />
+      </Sequence>
+      <If Condition="[ContactPersonsJToken Is Nothing]" DisplayName="If inget svar" sap:VirtualizedContainerService.HintSize="452,346" sap2010:WorkflowViewState.IdRef="If_17">
+        <If.Then>
+          <Throw Exception="[New BusinessRuleException(&quot;Get Contact Persons gav ingen JSON. Troligen har sessionen gått ut - logga in igen.&quot;)]" sap:VirtualizedContainerService.HintSize="450,91" sap2010:WorkflowViewState.IdRef="Throw_18" />
+        </If.Then>
+      </If>
+      <Assign sap2010:Annotation.AnnotationText="Kontaktpersonens id = resourceId. Kan bli flera (samma personnummer på två kontaktpersoner)." DisplayName="Assign ResourceIds" sap:VirtualizedContainerService.HintSize="452,175" sap2010:WorkflowViewState.IdRef="Assign_19">
+        <Assign.To>
+          <OutArgument x:TypeArguments="scg:List(x:Int32)">[ResourceIds]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="scg:List(x:Int32)">[ContactPersonsJToken.Where(Function(cp) cp("personId").ToString = SSN AndAlso cp("typeCode").Value(Of Integer) = InsatsTypeCode).Select(Function(cp) cp("id").Value(Of Integer)).ToList]</InArgument>
+        </Assign.Value>
+      </Assign>
+      <If Condition="[ResourceIds.Count = 0]" DisplayName="If ingen uppdragstagare" sap:VirtualizedContainerService.HintSize="452,346" sap2010:WorkflowViewState.IdRef="If_20">
+        <If.Then>
+          <Throw Exception="[New BusinessRuleException(&quot;Uppdragstagaren finns inte i Resursmodulen för den här insatsen. Manuell hantering.&quot;)]" sap:VirtualizedContainerService.HintSize="450,91" sap2010:WorkflowViewState.IdRef="Throw_21" />
+        </If.Then>
+      </If>
+      <ui:LogMessage DisplayName="Log ResourceIds" sap:VirtualizedContainerService.HintSize="452,166" sap2010:WorkflowViewState.IdRef="LogMessage_22" Level="Info" Message="[&quot;Hittade &quot; + ResourceIds.Count.ToString + &quot; kontaktperson(er): &quot; + String.Join(&quot;, &quot;, ResourceIds)]" />
+    </Sequence>
+    <Sequence DisplayName="4. Hämta aktiva bokningar" sap:VirtualizedContainerService.HintSize="522,2024" sap2010:WorkflowViewState.IdRef="Sequence_34">
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+      <Assign DisplayName="Assign AktivaBokningar tom" sap:VirtualizedContainerService.HintSize="488,175" sap2010:WorkflowViewState.IdRef="Assign_30">
+        <Assign.To>
+          <OutArgument x:TypeArguments="scg:List(njl:JToken)">[AktivaBokningar]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="scg:List(njl:JToken)">[New List(Of JToken)]</InArgument>
+        </Assign.Value>
+      </Assign>
+      <ui:ForEach x:TypeArguments="x:Int32" CurrentIndex="{x:Null}" DisplayName="For Each ResourceId" sap:VirtualizedContainerService.HintSize="488,1245" sap2010:WorkflowViewState.IdRef="ForEach`1_29" Values="[ResourceIds]">
+        <ui:ForEach.Body>
+          <ActivityAction x:TypeArguments="x:Int32">
+            <ActivityAction.Argument>
+              <DelegateInArgument x:TypeArguments="x:Int32" Name="currentResourceId" />
+            </ActivityAction.Argument>
+            <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="486,1114" sap2010:WorkflowViewState.IdRef="Sequence_28">
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+              <Sequence sap2010:Annotation.AnnotationText="Aktivitet: Get Bookings By Resource (Elderly Care\Internal API)&#xA;IN:  DomainUrl = Url&#xA;     Cookie = Cookie&#xA;     ResourceId = currentResourceId&#xA;     ResourceType = 1&#xA;UT:  ResponseJToken = BokningarJToken&#xA;&#xA;Ta bort den här tomma sekvensen när aktiviteten ligger här." DisplayName="▶ LÄGG IN: Get Bookings By Resource" sap:VirtualizedContainerService.HintSize="452,530" sap2010:WorkflowViewState.IdRef="Sequence_24">
+                <sap:WorkflowViewStateService.ViewState>
+                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                    <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                  </scg:Dictionary>
+                </sap:WorkflowViewStateService.ViewState>
+                <lei:Get_Bookings_By_Resource Cookie="[Cookie]" DisplayName="Get Bookings By Resource" DomainUrl="[Url]" sap:VirtualizedContainerService.HintSize="416,430" sap2010:WorkflowViewState.IdRef="Get_Bookings_By_Resource_1" ResourceId="[currentResourceId]" ResourceType="1" ResponseCode="[ResponseCodeBookings]" ResponseJToken="[BokningarJToken]" ResponseText="[ResponseTextBookings]" />
+              </Sequence>
+              <If Condition="[BokningarJToken Is Nothing]" DisplayName="If inget svar" sap:VirtualizedContainerService.HintSize="452,350" sap2010:WorkflowViewState.IdRef="If_25">
+                <If.Then>
+                  <Throw Exception="[New BusinessRuleException(&quot;Get Bookings By Resource gav ingen JSON för resourceId &quot; + currentResourceId.ToString + &quot;.&quot;)]" sap:VirtualizedContainerService.HintSize="450,91" sap2010:WorkflowViewState.IdRef="Throw_26" />
+                </If.Then>
+                <If.Else>
+                  <Sequence DisplayName="Else" sap:VirtualizedContainerService.HintSize="450,94" sap2010:WorkflowViewState.IdRef="Sequence_60">
+                    <sap:WorkflowViewStateService.ViewState>
+                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                      </scg:Dictionary>
+                    </sap:WorkflowViewStateService.ViewState>
+                  </Sequence>
+                </If.Else>
+              </If>
+              <Assign sap2010:Annotation.AnnotationText="Aktiv i perioden: status 2 (aktiv) eller 3 (avslutad), rätt insats, och perioden överlappar rapporterad månad." DisplayName="Assign AktivaBokningar" sap:VirtualizedContainerService.HintSize="452,170" sap2010:WorkflowViewState.IdRef="Assign_27">
+                <Assign.To>
+                  <OutArgument x:TypeArguments="scg:List(njl:JToken)">[AktivaBokningar]</OutArgument>
+                </Assign.To>
+                <Assign.Value>
+                  <InArgument x:TypeArguments="scg:List(njl:JToken)">[AktivaBokningar.Concat(BokningarJToken.Where(Function(b) b("decision").Type &lt;&gt; JTokenType.Null AndAlso b("decision")("typeCode").Value(Of Integer) = InsatsTypeCode AndAlso (b("resourceStatus").Value(Of Integer) = 2 OrElse b("resourceStatus").Value(Of Integer) = 3) AndAlso b("startDate").Value(Of DateTime) &lt;= PeriodSlut AndAlso (b("endDate").Type = JTokenType.Null OrElse b("endDate").Value(Of DateTime) &gt;= PeriodStart))).ToList]</InArgument>
+                </Assign.Value>
+              </Assign>
+            </Sequence>
+          </ActivityAction>
+        </ui:ForEach.Body>
+      </ui:ForEach>
+      <If Condition="[AktivaBokningar.Count = 0]" DisplayName="If inget aktivt uppdrag" sap:VirtualizedContainerService.HintSize="488,346" sap2010:WorkflowViewState.IdRef="If_31">
+        <If.Then>
+          <Throw Exception="[New BusinessRuleException(&quot;Inget aktivt uppdrag för insatsen under &quot; + PeriodStart.ToString(&quot;yyyy-MM&quot;) + &quot;. Manuell hantering.&quot;)]" sap:VirtualizedContainerService.HintSize="450,91" sap2010:WorkflowViewState.IdRef="Throw_32" />
+        </If.Then>
+      </If>
+      <ui:LogMessage DisplayName="Log AktivaBokningar" sap:VirtualizedContainerService.HintSize="488,166" sap2010:WorkflowViewState.IdRef="LogMessage_33" Level="Info" Message="[&quot;Aktiva bokningar i perioden: &quot; + AktivaBokningar.Count.ToString]" />
+    </Sequence>
+    <Sequence DisplayName="5. Välj brukare" sap:VirtualizedContainerService.HintSize="522,1129" sap2010:WorkflowViewState.IdRef="Sequence_41">
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+      <Assign sap2010:Annotation.AnnotationText="Testflödet matchar bara exakt namn. I roboten: exakt först, sedan Jaro-Winkler mot PercentOk som i CheckDataFromLifeCare." DisplayName="Assign MatchadeBokningar (exakt namn)" sap:VirtualizedContainerService.HintSize="452,175" sap2010:WorkflowViewState.IdRef="Assign_35">
+        <Assign.To>
+          <OutArgument x:TypeArguments="scg:List(njl:JToken)">[MatchadeBokningar]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="scg:List(njl:JToken)">[AktivaBokningar.Where(Function(b) b("decision")("client")("firstName").ToString.Trim.ToLower = BrukareFornamn.Trim.ToLower AndAlso b("decision")("client")("lastName").ToString.Trim.ToLower = BrukareEfternamn.Trim.ToLower).ToList]</InArgument>
+        </Assign.Value>
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsAnnotationDocked">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </Assign>
+      <If Condition="[MatchadeBokningar.Count &lt;&gt; 1]" DisplayName="If inte exakt en brukare" sap:VirtualizedContainerService.HintSize="452,346" sap2010:WorkflowViewState.IdRef="If_36">
+        <If.Then>
+          <Throw Exception="[New BusinessRuleException(&quot;Hittade &quot; + MatchadeBokningar.Count.ToString + &quot; bokningar som matchar brukarens namn. Manuell hantering.&quot;)]" sap:VirtualizedContainerService.HintSize="450,91" sap2010:WorkflowViewState.IdRef="Throw_37" />
+        </If.Then>
+      </If>
+      <Assign sap2010:Annotation.AnnotationText="= lss_decisions.Id" DisplayName="Assign DecisionNo" sap:VirtualizedContainerService.HintSize="452,175" sap2010:WorkflowViewState.IdRef="Assign_38">
+        <Assign.To>
+          <OutArgument x:TypeArguments="x:String">[DecisionNo]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="x:String">[MatchadeBokningar(0)("decision")("decisionNo").ToString]</InArgument>
+        </Assign.Value>
+      </Assign>
+      <Assign DisplayName="Assign BrukarePersonnr" sap:VirtualizedContainerService.HintSize="452,175" sap2010:WorkflowViewState.IdRef="Assign_39">
+        <Assign.To>
+          <OutArgument x:TypeArguments="x:String">[BrukarePersonnr]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="x:String">[MatchadeBokningar(0)("decision")("client")("personId").ToString]</InArgument>
+        </Assign.Value>
+      </Assign>
+      <ui:LogMessage DisplayName="Log DecisionNo" sap:VirtualizedContainerService.HintSize="452,166" sap2010:WorkflowViewState.IdRef="LogMessage_40" Level="Info" Message="[&quot;Vald bokning &quot; + MatchadeBokningar(0)(&quot;id&quot;).ToString + &quot;, beslut &quot; + DecisionNo]" />
+    </Sequence>
+    <ui:GetRobotAsset TimeoutMS="{x:Null}" AssetName="LifeCareECDomainUrl" CacheStrategy="None" DisplayName="Get Asset Domain Url" sap:VirtualizedContainerService.HintSize="522,181" sap2010:WorkflowViewState.IdRef="GetRobotAsset_1">
+      <ui:GetRobotAsset.Value>
+        <OutArgument x:TypeArguments="x:String">[EcDomainUrl]</OutArgument>
+      </ui:GetRobotAsset.Value>
+    </ui:GetRobotAsset>
+    <ui:GetRobotAsset TimeoutMS="{x:Null}" AssetName="LifeCareECDomainId" CacheStrategy="None" DisplayName="Get Asset DomainId" sap:VirtualizedContainerService.HintSize="522,181" sap2010:WorkflowViewState.IdRef="GetRobotAsset_2">
+      <ui:GetRobotAsset.Value>
+        <OutArgument x:TypeArguments="x:String">[EcDomainId]</OutArgument>
+      </ui:GetRobotAsset.Value>
+    </ui:GetRobotAsset>
+    <ui:GetRobotCredential TimeoutMS="{x:Null}" Username="{x:Null}" AssetName="Cred_NA_LifeCareECApiKeyLASSEBeslutsstöd" CacheStrategy="None" DisplayName="Get Credential" sap:VirtualizedContainerService.HintSize="522,181" sap2010:WorkflowViewState.IdRef="GetRobotCredential_1" Password="[ApiKey]" />
+    <Sequence DisplayName="6. Läs beslutet" sap:VirtualizedContainerService.HintSize="522,2297" sap2010:WorkflowViewState.IdRef="Sequence_51">
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+      <Sequence sap2010:Annotation.AnnotationText="Aktivitet: Decisions/Read LSS Decision i biblioteket LifeCareEC-API&#xA;IN:  Id = DecisionNo  (+ DomainUrl, DomainId, ApiKey enligt bibliotekets assets)&#xA;UT:  Item = Beslut  (JObject)&#xA;&#xA;Ta bort den här tomma sekvensen när aktiviteten ligger här." DisplayName="▶ LÄGG IN: Read LSS Decision (LifeCareEC-API)" sap:VirtualizedContainerService.HintSize="452,830" sap2010:WorkflowViewState.IdRef="Sequence_42">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsAnnotationDocked">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+        <ld:Read_LSS_Decision ClientCertPassword="{x:Null}" ClientCertPath="{x:Null}" ClientCertSecurePassword="{x:Null}" ResponseJToken="{x:Null}" TimeoutMs="{x:Null}" ValuesToMaskInLog="{x:Null}" ApiKey="[ApiKey]" BasePath="/WE.EC.Integration.Host" DecisionId="[CInt(DecisionNo)]" DisplayName="Read LSS Decision" DomainId="[EcDomainId]" DomainUrl="[EcDomainUrl]" sap:VirtualizedContainerService.HintSize="416,738" sap2010:WorkflowViewState.IdRef="Read_LSS_Decision_1" Item="[Beslut]" ResponseCode="[BeslutResponseCode]" />
+      </Sequence>
+      <If Condition="[Beslut Is Nothing]" DisplayName="If inget beslut" sap:VirtualizedContainerService.HintSize="452,346" sap2010:WorkflowViewState.IdRef="If_43">
+        <If.Then>
+          <Throw Exception="[New BusinessRuleException(&quot;Beslut &quot; + DecisionNo + &quot; kunde inte läsas från lss_decisions.&quot;)]" sap:VirtualizedContainerService.HintSize="450,91" sap2010:WorkflowViewState.IdRef="Throw_44" />
+        </If.Then>
+        <If.Else>
+          <Sequence DisplayName="Else" sap:VirtualizedContainerService.HintSize="450,94" sap2010:WorkflowViewState.IdRef="Sequence_61">
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+          </Sequence>
+        </If.Else>
+      </If>
+      <If Condition="[Beslut(&quot;Deleted&quot;).Value(Of Boolean)]" DisplayName="If beslutet är borttaget" sap:VirtualizedContainerService.HintSize="452,346" sap2010:WorkflowViewState.IdRef="If_45">
+        <If.Then>
+          <Throw Exception="[New BusinessRuleException(&quot;Beslut &quot; + DecisionNo + &quot; är borttaget. Manuell hantering.&quot;)]" sap:VirtualizedContainerService.HintSize="450,91" sap2010:WorkflowViewState.IdRef="Throw_46" />
+        </If.Then>
+        <If.Else>
+          <Sequence DisplayName="Else" sap:VirtualizedContainerService.HintSize="450,94" sap2010:WorkflowViewState.IdRef="Sequence_62">
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+          </Sequence>
+        </If.Else>
+      </If>
+      <If Condition="[Beslut(&quot;ServiceCategory&quot;)(&quot;Code&quot;).Value(Of Integer) &lt;&gt; ServiceCategoryCode]" DisplayName="If fel insats" sap:VirtualizedContainerService.HintSize="452,346" sap2010:WorkflowViewState.IdRef="If_47">
+        <If.Then>
+          <Throw Exception="[New BusinessRuleException(&quot;Beslut &quot; + DecisionNo + &quot; gäller en annan insats än rapporten. Manuell hantering.&quot;)]" sap:VirtualizedContainerService.HintSize="450,91" sap2010:WorkflowViewState.IdRef="Throw_48" />
+        </If.Then>
+        <If.Else>
+          <Sequence DisplayName="Else" sap:VirtualizedContainerService.HintSize="450,94" sap2010:WorkflowViewState.IdRef="Sequence_63">
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+          </Sequence>
+        </If.Else>
+      </If>
+      <If Condition="[Beslut(&quot;FromDate&quot;).Value(Of DateTime) &gt; PeriodSlut OrElse Beslut(&quot;ToDate&quot;).Value(Of DateTime) &lt; PeriodStart]" DisplayName="If beslutet gäller inte perioden" sap:VirtualizedContainerService.HintSize="452,337" sap2010:WorkflowViewState.IdRef="If_49">
+        <If.Then>
+          <Throw Exception="[New BusinessRuleException(&quot;Beslut &quot; + DecisionNo + &quot; gäller inte för &quot; + PeriodStart.ToString(&quot;yyyy-MM&quot;) + &quot;. Manuell hantering.&quot;)]" sap:VirtualizedContainerService.HintSize="450,91" sap2010:WorkflowViewState.IdRef="Throw_50" />
+        </If.Then>
+        <If.Else>
+          <Sequence DisplayName="Else" sap:VirtualizedContainerService.HintSize="450,94" sap2010:WorkflowViewState.IdRef="Sequence_64">
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+          </Sequence>
+        </If.Else>
+      </If>
+    </Sequence>
+    <Sequence DisplayName="7. Läs omfattningen" sap:VirtualizedContainerService.HintSize="522,1097" sap2010:WorkflowViewState.IdRef="Sequence_59">
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+      <Assign sap2010:Annotation.AnnotationText="Det fält som är större än 0. Ledsagare använder Hour." DisplayName="Assign OmfattningFalt" sap:VirtualizedContainerService.HintSize="473,175" sap2010:WorkflowViewState.IdRef="Assign_52">
+        <Assign.To>
+          <OutArgument x:TypeArguments="x:String">[OmfattningFalt]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="x:String">[{"Hour", "Day", "Visit", "Quantity"}.FirstOrDefault(Function(f) Beslut(f) IsNot Nothing AndAlso Beslut(f).Value(Of Double) &gt; 0)]</InArgument>
+        </Assign.Value>
+      </Assign>
+      <If Condition="[String.IsNullOrEmpty(OmfattningFalt)]" DisplayName="If ingen omfattning" sap:VirtualizedContainerService.HintSize="473,201" sap2010:WorkflowViewState.IdRef="If_53">
+        <If.Then>
+          <Throw Exception="[New BusinessRuleException(&quot;Beslut &quot; + DecisionNo + &quot; saknar omfattning. Manuell hantering.&quot;)]" sap2010:WorkflowViewState.IdRef="Throw_54" />
+        </If.Then>
+        <If.Else>
+          <Sequence DisplayName="Else" sap2010:WorkflowViewState.IdRef="Sequence_65" />
+        </If.Else>
+      </If>
+      <Assign DisplayName="Assign Omfattning" sap:VirtualizedContainerService.HintSize="473,175" sap2010:WorkflowViewState.IdRef="Assign_55">
+        <Assign.To>
+          <OutArgument x:TypeArguments="x:Double">[Omfattning]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="x:Double">[Beslut(OmfattningFalt).Value(Of Double)]</InArgument>
+        </Assign.Value>
+      </Assign>
+      <Assign sap2010:Annotation.AnnotationText="Month, Week, Day eller Year." DisplayName="Assign PerPeriod" sap:VirtualizedContainerService.HintSize="473,175" sap2010:WorkflowViewState.IdRef="Assign_56">
+        <Assign.To>
+          <OutArgument x:TypeArguments="x:String">[PerPeriod]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="x:String">[Beslut(OmfattningFalt + "Type")("Text").ToString]</InArgument>
+        </Assign.Value>
+      </Assign>
+      <ui:LogMessage DisplayName="Log Resultat" sap:VirtualizedContainerService.HintSize="473,175" sap2010:WorkflowViewState.IdRef="LogMessage_57" Level="Info" Message="[&quot;Beslut &quot; + DecisionNo + &quot;: &quot; + Omfattning.ToString + &quot; &quot; + OmfattningFalt + &quot;/&quot; + PerPeriod]" />
+      <Sequence sap2010:Annotation.AnnotationText="Kolumner: UppdragstagarePersonnr = SSN, Brukare = efternamn + &quot;, &quot; + förnamn från bokningen, BrukarePersonnr, Omfattning, Enhet (OmfattningFalt), PerPeriod, BeslutFrom, BeslutTom, BeslutId = DecisionNo.&#xA;Görs när testflödet ovan fungerar." DisplayName="▶ NÄSTA: bygg en rad i LifeCare_Table och anropa CheckDataFromLifeCare" sap:VirtualizedContainerService.HintSize="473,113" sap2010:WorkflowViewState.IdRef="Sequence_58">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </Sequence>
+    </Sequence>
+  </Sequence>
+</Activity>
