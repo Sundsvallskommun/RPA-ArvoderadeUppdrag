@@ -86,7 +86,7 @@
       <AssemblyReference>System.Data.SqlClient</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
-  <Sequence DisplayName="Test" sap:VirtualizedContainerService.HintSize="2780,997" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence DisplayName="Test" sap:VirtualizedContainerService.HintSize="1138,997" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <sap:WorkflowViewStateService.ViewState>
       <scg:Dictionary x:TypeArguments="x:String, x:Object">
         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -109,7 +109,7 @@
           <OutArgument x:TypeArguments="x:String">[EcDomainUrl]</OutArgument>
         </ui:GetRobotAsset.Value>
       </ui:GetRobotAsset>
-      <ui:GetRobotAsset TimeoutMS="{x:Null}" AssetName="ApiGatewayDomainUrl" CacheStrategy="None" DisplayName="Get Asset LifeCareECDomainId" sap:VirtualizedContainerService.HintSize="416,181" sap2010:WorkflowViewState.IdRef="GetRobotAsset_2">
+      <ui:GetRobotAsset TimeoutMS="{x:Null}" AssetName="LifeCareECDomainId" CacheStrategy="None" DisplayName="Get Asset LifeCareECDomainId" sap:VirtualizedContainerService.HintSize="416,181" sap2010:WorkflowViewState.IdRef="GetRobotAsset_2">
         <ui:GetRobotAsset.Value>
           <OutArgument x:TypeArguments="x:String">[EcDomainId]</OutArgument>
         </ui:GetRobotAsset.Value>
@@ -118,9 +118,9 @@
       <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="GetDataFromLifeCare - Invoke Workflow File (LifeCare\GetDataFromLifeCare.xaml)" sap:VirtualizedContainerService.HintSize="416,182" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_1" UnSafe="False" WorkflowFileName="LifeCare\GetDataFromLifeCare.xaml">
         <ui:InvokeWorkflowFile.Arguments>
           <InArgument x:TypeArguments="x:String" x:Key="in_CpDomainUrl">https://lifecare-test.sundsvall.se/</InArgument>
-          <InArgument x:TypeArguments="x:String" x:Key="in_cookie">.AspNetCore.Cookies=CfDJ8JmCq1Y5HsxLlAQ8E6t8DOZn4d3uMdDlGLxh6bEvcDeCI9bRS26u40We8wz17wiIwh8TVIHMzIn_n8r7anXOiESxqPvASzc9-bxL6pMoX6DfE82s5Cg_YaagsqjSn5Ve74GqMVl0Ca-IdhrsdUUQQBB3h7pX7u6oj-pXDx-K7AOJrcbqVPaQOTQKM5nFgU4nxfEf396OQLxUf1EPCYhcWHphTdTUYyFV0OZABLr2tfOR68D2gcWyJ-W5d1QnJ8wLij6crCsE9mcGusQ5lwljpSqxQCSyN8ZBvNSx5tqlwdAAVTKse6Yb4FgKclWAxAwJ3Q; metadomain=SundsvallVoO_PLUS; ASP.NET_SessionId=1ie0jyhfpmztsiornn4ziluk; __RequestVerificationToken_L0hDVy5XZWxmYXJlLkNvbW1vbi5JZGVudGl0eVBvcnRhbFdlYg2=3IBDMgv3QSdLhhvyByDhASeblUCPPEazfXqyvmy9oOa5dSnnMQDyP70TU0Mh14ZFRJsttrZkbqrKYd5J2FP28aumhm81; idpmethod=css; actor=Actor_Professional; federationprofile=; XSRF-TOKEN=BIk2CEm_uxo3ahCFFXD4TBSoNVxrGAewEmWueJ3mG07JLyWbEHQQAZlieQAEbn_5vImqdgu5Bhdva-pZymHjwA; UICulture=sv-SE; IDP=d2b8ae18-435a-409f-b180-6473e0b48e7e</InArgument>
-          <InArgument x:TypeArguments="x:String" x:Key="in_DictionaryKey">Ledsagarservice LSS</InArgument>
-          <InArgument x:TypeArguments="x:String" x:Key="in_ReportType">Ledsagarservice LSS</InArgument>
+          <InArgument x:TypeArguments="x:String" x:Key="in_cookie">.AspNetCore.Cookies=CfDJ8JmCq1Y5HsxLlAQ8E6t8DOYsevioafOXCAHis6AwRrBmkAKKlbFJvXKQ45JnIKKFZGiDkZnp_LxRLn2DZfoFC0s9u9gNo4GpZjXMj-nbEGmXbwjMPEV6Zh2u9ReFC6Tiz9aY0WUZaVgNvRnPpPQ9D3xerosCb5m3Fl4CfENKxXS6caJIDO5V3vyceo6e7LlYJRI9QSvZ-ZV7cRDkZRO1kYPvoR4LoZ5IDFVIO-1meuka91pHr8riKXY6PDMnbW_hxIpyGxDWHu881A4yHWbGkF1bUQh_FHeCm6BGAEqt8Ikp0ctUcAuxLqptmWfNo7oVkQ; metadomain=SundsvallVoO_PLUS; ASP.NET_SessionId=ufzsexdotyata4f1vhdyjmvl; __RequestVerificationToken_L0hDVy5XZWxmYXJlLkNvbW1vbi5JZGVudGl0eVBvcnRhbFdlYg2=LpAqrzcNZ2le5Cp9a2G_Znd2pZAXqSzAY6hzb064XUaqHjQFhf6e3oPQyg8aiFoMEEhojL-FdaqqZ7KAQ8gRUZLLRu01; idpmethod=css; actor=Actor_Professional; federationprofile=; IDP=66a77038-d9d2-46e2-bb40-d78638f6984a; XSRF-TOKEN=3aBWYNAlbvgZPfilvR2pDVbLeTGmo5Npp9FsQffMkucqOOglMsYMpmYR3ld6tm7tGs8uVpCuyKTFwV_L7pbSJQ; UICulture=sv-SE</InArgument>
+          <InArgument x:TypeArguments="x:String" x:Key="in_DictionaryKey">Korttidsvistelse hos stödfamilj</InArgument>
+          <InArgument x:TypeArguments="x:String" x:Key="in_ReportType">Korttidsvistelse hos stödfamilj</InArgument>
           <InArgument x:TypeArguments="x:String" x:Key="in_DateFrom">2026-10-01</InArgument>
           <InArgument x:TypeArguments="x:String" x:Key="in_DateTo">2026-10-31</InArgument>
           <InArgument x:TypeArguments="x:String" x:Key="in_DomainUrl">[EcDomainUrl]</InArgument>
