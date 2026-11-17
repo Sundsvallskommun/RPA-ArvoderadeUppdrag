@@ -141,7 +141,7 @@
       <AssemblyReference>System.Runtime.Numerics</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
-  <Sequence DisplayName="Checknig Data From LifeCare" sap:VirtualizedContainerService.HintSize="1138,2477" sap2010:WorkflowViewState.IdRef="Sequence_390">
+  <Sequence DisplayName="Checknig Data From LifeCare" sap:VirtualizedContainerService.HintSize="1778,1932" sap2010:WorkflowViewState.IdRef="Sequence_390">
     <Sequence.Variables>
       <Variable x:TypeArguments="x:Int32" Name="RowIndexLifeCare" />
       <Variable x:TypeArguments="x:Boolean" Name="CareRecipientFound" />
@@ -152,7 +152,7 @@
         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
-    <ui:ForEach x:TypeArguments="x:Int32" CurrentIndex="{x:Null}" sap2010:Annotation.AnnotationText="loopar igenom alla rader för att hitta vilken brukare som uppdragstagaren rapporterar för och sätter radindex till LifeCare" DisplayName="For Each Row found from LifeCare" sap:VirtualizedContainerService.HintSize="497,788" sap2010:WorkflowViewState.IdRef="ForEach`1_5" Values="[in_ListOfRowIndex]">
+    <ui:ForEach x:TypeArguments="x:Int32" CurrentIndex="{x:Null}" sap2010:Annotation.AnnotationText="loopar igenom alla rader för att hitta vilken brukare som uppdragstagaren rapporterar för och sätter radindex till LifeCare" DisplayName="For Each Row found from LifeCare" sap:VirtualizedContainerService.HintSize="486,788" sap2010:WorkflowViewState.IdRef="ForEach`1_5" Values="[in_ListOfRowIndex]">
       <ui:ForEach.Body>
         <ActivityAction x:TypeArguments="x:Int32">
           <ActivityAction.Argument>
@@ -520,7 +520,7 @@
         </scg:Dictionary>
       </sap:WorkflowViewStateService.ViewState>
     </ui:ForEach>
-    <If Condition="[Not CareRecipientFound]" DisplayName="If Not CareRecipientFound" sap:VirtualizedContainerService.HintSize="497,57" sap2010:WorkflowViewState.IdRef="If_65">
+    <If Condition="[Not CareRecipientFound]" DisplayName="If Not CareRecipientFound" sap:VirtualizedContainerService.HintSize="486,57" sap2010:WorkflowViewState.IdRef="If_65">
       <sap:WorkflowViewStateService.ViewState>
         <scg:Dictionary x:TypeArguments="x:String, x:Object">
           <x:Boolean x:Key="IsExpanded">False</x:Boolean>
@@ -547,7 +547,57 @@
         </Sequence>
       </If.Else>
     </If>
-    <Assign DisplayName="Private: Assign out_DecidedQuantityFromLifeCare Avlösarservice LSS" sap:VirtualizedContainerService.HintSize="497,175" sap2010:WorkflowViewState.IdRef="Assign_239">
+    <Sequence DisplayName="Check Shared Decisions" sap:VirtualizedContainerService.HintSize="486,604" sap2010:WorkflowViewState.IdRef="Sequence_401">
+      <Sequence.Variables>
+        <Variable x:TypeArguments="sd:DataRow" Name="ArendetsRad" />
+      </Sequence.Variables>
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          <x:Boolean x:Key="IsPinned">False</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+      <Assign DisplayName="Assign Arendets rad" sap:VirtualizedContainerService.HintSize="452,175" sap2010:WorkflowViewState.IdRef="Assign_305">
+        <Assign.To>
+          <OutArgument x:TypeArguments="sd:DataRow">[ArendetsRad]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="sd:DataRow">[in_LifeCare_Table(RowIndexLifeCare)]</InArgument>
+        </Assign.Value>
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </Assign>
+      <If Condition="[ArendetsRad IsNot Nothing AndAlso ArendetsRad(&quot;ResursPersonnr&quot;).ToString.Split(&quot;;&quot;c).Where(Function(p) Not String.IsNullOrWhiteSpace(p)).Count() &gt; 1]" DisplayName="If Arendet ar delat beslut" sap:VirtualizedContainerService.HintSize="452,337" sap2010:WorkflowViewState.IdRef="If_112">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+        <If.Then>
+          <Throw DisplayName="Throw Delat Beslut" Exception="[New UiPath.Core.BusinessRuleException(&quot;Delat beslut: det här ärendets beslut har flera resurser bokade och måste hanteras manuellt.&quot;)]" sap:VirtualizedContainerService.HintSize="450,91" sap2010:WorkflowViewState.IdRef="Throw_16">
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsPinned">False</x:Boolean>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+          </Throw>
+        </If.Then>
+        <If.Else>
+          <Sequence DisplayName="Else" sap:VirtualizedContainerService.HintSize="450,94" sap2010:WorkflowViewState.IdRef="Sequence_402">
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+          </Sequence>
+        </If.Else>
+      </If>
+    </Sequence>
+    <Assign DisplayName="Private: Assign out_DecidedQuantityFromLifeCare Avlösarservice LSS" sap:VirtualizedContainerService.HintSize="486,175" sap2010:WorkflowViewState.IdRef="Assign_239">
       <Assign.To>
         <OutArgument x:TypeArguments="x:String">[out_DecidedQuantityFromLifeCare]</OutArgument>
       </Assign.To>
@@ -561,7 +611,7 @@
         </scg:Dictionary>
       </sap:WorkflowViewStateService.ViewState>
     </Assign>
-    <Assign sap2010:Annotation.AnnotationText="" DisplayName="Private: Assign ValidityPeriod" sap:VirtualizedContainerService.HintSize="497,206" sap2010:WorkflowViewState.IdRef="Assign_295">
+    <Assign sap2010:Annotation.AnnotationText="" DisplayName="Private: Assign ValidityPeriod" sap:VirtualizedContainerService.HintSize="486,206" sap2010:WorkflowViewState.IdRef="Assign_295">
       <Assign.To>
         <OutArgument x:TypeArguments="x:String">[out_ValidityPeriod]</OutArgument>
       </Assign.To>
@@ -576,7 +626,7 @@
         </scg:Dictionary>
       </sap:WorkflowViewStateService.ViewState>
     </Assign>
-    <Switch x:TypeArguments="x:String" sap2010:Annotation.AnnotationText="defult = månad, flesta ska vara månad" DisplayName="Switch calculate out_DecidedQuantityFromLifeCare" Expression="[out_DecidedQuantityFromLifeCare.Split(&quot;/&quot;c)(1)]" sap:VirtualizedContainerService.HintSize="497,1228" sap2010:WorkflowViewState.IdRef="Switch`1_7">
+    <Switch x:TypeArguments="x:String" sap2010:Annotation.AnnotationText="defult = månad, flesta ska vara månad" DisplayName="Switch calculate out_DecidedQuantityFromLifeCare" Expression="[out_DecidedQuantityFromLifeCare.Split(&quot;/&quot;c)(1)]" sap:VirtualizedContainerService.HintSize="486,79" sap2010:WorkflowViewState.IdRef="Switch`1_7">
       <Switch.Default>
         <Assign DisplayName="Assign out_DecidedHoursFromLifeCare Sequence 100%" sap:VirtualizedContainerService.HintSize="450,143" sap2010:WorkflowViewState.IdRef="Assign_154">
           <Assign.To>
@@ -595,7 +645,7 @@
       </Switch.Default>
       <sap:WorkflowViewStateService.ViewState>
         <scg:Dictionary x:TypeArguments="x:String, x:Object">
-          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          <x:Boolean x:Key="IsExpanded">False</x:Boolean>
           <x:Boolean x:Key="IsPinned">False</x:Boolean>
           <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
         </scg:Dictionary>

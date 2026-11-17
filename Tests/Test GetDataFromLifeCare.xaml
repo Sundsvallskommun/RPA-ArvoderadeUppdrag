@@ -86,7 +86,7 @@
       <AssemblyReference>System.Data.SqlClient</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
-  <Sequence DisplayName="Test" sap:VirtualizedContainerService.HintSize="1138,997" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence DisplayName="Test" sap:VirtualizedContainerService.HintSize="1784,1173.6566666666668" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <sap:WorkflowViewStateService.ViewState>
       <scg:Dictionary x:TypeArguments="x:String, x:Object">
         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -119,8 +119,8 @@
         <ui:InvokeWorkflowFile.Arguments>
           <InArgument x:TypeArguments="x:String" x:Key="in_CpDomainUrl">https://lifecare-test.sundsvall.se/</InArgument>
           <InArgument x:TypeArguments="x:String" x:Key="in_cookie">.AspNetCore.Cookies=CfDJ8JmCq1Y5HsxLlAQ8E6t8DOYsevioafOXCAHis6AwRrBmkAKKlbFJvXKQ45JnIKKFZGiDkZnp_LxRLn2DZfoFC0s9u9gNo4GpZjXMj-nbEGmXbwjMPEV6Zh2u9ReFC6Tiz9aY0WUZaVgNvRnPpPQ9D3xerosCb5m3Fl4CfENKxXS6caJIDO5V3vyceo6e7LlYJRI9QSvZ-ZV7cRDkZRO1kYPvoR4LoZ5IDFVIO-1meuka91pHr8riKXY6PDMnbW_hxIpyGxDWHu881A4yHWbGkF1bUQh_FHeCm6BGAEqt8Ikp0ctUcAuxLqptmWfNo7oVkQ; metadomain=SundsvallVoO_PLUS; ASP.NET_SessionId=ufzsexdotyata4f1vhdyjmvl; __RequestVerificationToken_L0hDVy5XZWxmYXJlLkNvbW1vbi5JZGVudGl0eVBvcnRhbFdlYg2=LpAqrzcNZ2le5Cp9a2G_Znd2pZAXqSzAY6hzb064XUaqHjQFhf6e3oPQyg8aiFoMEEhojL-FdaqqZ7KAQ8gRUZLLRu01; idpmethod=css; actor=Actor_Professional; federationprofile=; IDP=66a77038-d9d2-46e2-bb40-d78638f6984a; XSRF-TOKEN=3aBWYNAlbvgZPfilvR2pDVbLeTGmo5Npp9FsQffMkucqOOglMsYMpmYR3ld6tm7tGs8uVpCuyKTFwV_L7pbSJQ; UICulture=sv-SE</InArgument>
-          <InArgument x:TypeArguments="x:String" x:Key="in_DictionaryKey">Korttidsvistelse hos stödfamilj</InArgument>
-          <InArgument x:TypeArguments="x:String" x:Key="in_ReportType">Korttidsvistelse hos stödfamilj</InArgument>
+          <InArgument x:TypeArguments="x:String" x:Key="in_DictionaryKey">Kontaktperson LSS</InArgument>
+          <InArgument x:TypeArguments="x:String" x:Key="in_ReportType">Kontaktperson LSS</InArgument>
           <InArgument x:TypeArguments="x:String" x:Key="in_DateFrom">2026-10-01</InArgument>
           <InArgument x:TypeArguments="x:String" x:Key="in_DateTo">2026-10-31</InArgument>
           <InArgument x:TypeArguments="x:String" x:Key="in_DomainUrl">[EcDomainUrl]</InArgument>
